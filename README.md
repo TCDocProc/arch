@@ -45,7 +45,7 @@ git clone http://github.com/TCDocProc/arch
 cd arch
 
 ## Install the webapp
-sudo ./install
+sudo ./install_ubuntu
 
 ## Run the webapp
 sudo ./run <port>
