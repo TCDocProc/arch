@@ -1,31 +1,56 @@
-# Django, uWSGI and Nginx in a container
+# arch
+A user-friendly interface for presenting care pathways for a single patient using the PML language.
 
-This Dockerfile allows you to build a Docker container with a fairly standard
-and speedy setup for Django with uWSGI and Nginx.
+##Development Stack
+**Backend**
 
-uWSGI from a number of benchmarks has shown to be the fastest server 
-for python applications and allows lots of flexibility.
+- Django
+- SQLite
 
-Nginx has become the standard for serving up web applications and has the 
-additional benefit that it can talk to uWSGI using the uWSGI protocol, further
-elinimating overhead. 
+**Frontend**
 
-Most of this setup comes from the excellent tutorial on 
-https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html
+- Coffeescript
+- Backbone.js
+- Sass
 
-Feel free to clone this and modify it to your liking. And feel free to 
-contribute patches.
+**Continuous Integration**
 
-### Build and run
-* docker build -t webapp .
-* docker run -d webapp
+- Jenkins
 
-### How to insert your application
+##Deployment
 
-In /app currently a django project is created with startproject. You will
-probably want to replace the content of /app with the root of your django
-project.
+###OS X
+*Prerequisite:* [Boot2Docker](https://github.com/boot2docker/boot2docker), [brew](http://brew.sh)
 
-uWSGI chdirs to /app so in uwsgi.ini you will need to make sure the python path
-to the wsgi.py file is relative to that.
+- `brew docker install`
+- `boot2docker init`
+- `boot2docker up`
+- `docker build -t webapp .`
+- `docker run -d -p 8000:80 webapp`
 
+To run the web app first run `boot2docker ip` and then use http://IP_ADDRESS:8000
+
+###Ubuntu
+
+```
+## Update apt-get
+sudo apt-get update
+
+## Install git
+sudo apt-get install -y git
+
+## Clone repo
+git clone http://github.com/TCDocProc/arch
+
+cd arch
+
+## Install the webapp
+sudo ./install
+
+## Run the webapp
+sudo ./run <port>
+
+```
+
+###Windows
+Coming soon??
