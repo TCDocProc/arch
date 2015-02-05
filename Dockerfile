@@ -27,13 +27,18 @@ run apt-get install -y python python-dev python-setuptools
 run apt-get install -y nginx supervisor
 run easy_install pip
 
+# install SASS
+run apt-get install -y ruby-full
+run apt-get install -y rubygems
+run gem install sass
+
 # install uwsgi now because it takes a little while
 run pip install uwsgi
 
 # install nginx
 run apt-get install -y python-software-properties
 run apt-get update
-RUN add-apt-repository -y ppa:nginx/stable
+run add-apt-repository -y ppa:nginx/stable
 run apt-get install -y sqlite3
 
 # install our code
