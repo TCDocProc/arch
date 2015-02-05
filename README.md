@@ -3,10 +3,11 @@ A user-friendly interface for presenting care pathways for a single patient usin
 ## Development Stack
 ### Backend
 
-| https://www.djangoproject.com | https://www.sqlite.org |
-|------------|------------------|
-| ![django-logo] | ![sqlite-logo] 
+| https://www.docker.com | https://www.djangoproject.com | https://www.sqlite.org |
+|------|------------|------------------|
+|![docker-logo] | ![django-logo] | ![sqlite-logo] 
 
+[docker-logo]:http://core0.staticworld.net/images/idge/imported/article/nww/2013/12/docker-100275159-orig.jpg
 [django-logo]:http://www.fullstackpython.com/theme/img/django-logo-positive.png
 [sqlite-logo]:https://iworkautomation.com/numbers/gfx/sqlite-logo.png
 
@@ -16,7 +17,7 @@ A user-friendly interface for presenting care pathways for a single patient usin
 |---|---|---|
 | ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
 
-[coffeescript-logo]:http://coffeescript.org/documentation/images/logo.png
+[coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
 [backbone-logo]:http://backbonejs.org/docs/images/backbone.png
 [sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
 
