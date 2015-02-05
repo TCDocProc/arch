@@ -40,6 +40,23 @@ INSTALLED_APPS = (
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
 
     'backbone_tastypie',
+    'pipeline',
+)
+
+# Pipeline stuff
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE_COMPILERS = (
+  'pipeline.compilers.coffee.CoffeeScriptCompiler',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +68,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+PIPELINE_JS = {
+    'main': {
+        'source_filenames': (
+            'coffee/app.coffee',
+        ),
+        'output_filename': 'js/main.js',
+    },
+}
 
 ROOT_URLCONF = 'website.urls'
 

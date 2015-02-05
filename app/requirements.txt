@@ -4,3 +4,4 @@ python-dateutil==2.4.0
 python-mimeparse==0.1.4
 six==1.9.0
 https://github.com/PaulUithol/backbone-tastypie/archive/0.2.tar.gz#egg=backbone-tastiepie-latest
+django-pipeline==1.4.3
