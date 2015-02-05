@@ -16,7 +16,7 @@ A user-friendly interface for presenting care pathways for a single patient usin
 |---|---|---|
 | ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
 
-[coffeescript-logo]:http://coffeescript.org/documentation/images/logo.png
+[coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
 [backbone-logo]:http://backbonejs.org/docs/images/backbone.png
 [sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
 
