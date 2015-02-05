@@ -7,9 +7,9 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install docker
 brew install boot2docker
 
-# Build and run web app
-docker build -t webapp .
-
 # Start boot2docker
 boot2docker init
 boot2docker up
+
+# Build and run web app
+docker build -t webapp .

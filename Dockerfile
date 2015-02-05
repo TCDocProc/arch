@@ -30,7 +30,7 @@ run easy_install pip
 # install SASS
 run apt-get install -y ruby-full
 run apt-get install -y rubygems
-run gem install sass
+run gem install sass -V
 
 # install uwsgi now because it takes a little while
 run pip install uwsgi

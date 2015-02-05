@@ -36,6 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party https://github.com/PaulUithol/backbone-tastypie
+
+    'backbone_tastypie',
 )
 
 MIDDLEWARE_CLASSES = (
