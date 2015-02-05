@@ -3,22 +3,30 @@ A user-friendly interface for presenting care pathways for a single patient usin
 ## Development Stack
 ### Backend
 
-| | |
-|--|--|
-|![](http://www.fullstackpython.com/theme/img/django-logo-positive.png)|![](https://iworkautomation.com/numbers/gfx/sqlite-logo.png)|
-|https://www.djangoproject.com|https://www.sqlite.org|
+| https://www.djangoproject.com | https://www.sqlite.org |
+|------------|------------------|
+| ![django-logo] | ![sqlite-logo] 
+
+[django-logo]:http://www.fullstackpython.com/theme/img/django-logo-positive.png
+[sqlite-logo]:https://iworkautomation.com/numbers/gfx/sqlite-logo.png
+
 ### Frontend
 
-| | | |
-|--|--|--|
-|![](http://coffeescript.org/documentation/images/logo.png)|![](http://backbonejs.org/docs/images/backbone.png)|![](http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg)|
-|http://coffeescript.org|http://backbonejs.org|http://sass-lang.com|
+| http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
+|---|---|---|
+| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
+
+[coffeescript-logo]:http://coffeescript.org/documentation/images/logo.png
+[backbone-logo]:http://backbonejs.org/docs/images/backbone.png
+[sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
+
 ### Continuous Integration
 
-| |
-|-|
-|![](https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000)
-|http://jenkins-ci.org|
+| http://jenkins-ci.org |
+|---|
+| ![jenkins-logo]
+
+[jenkins-logo]:https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000
 ##Deployment
 
 ###OS X
