@@ -1,7 +1,6 @@
-from django.template import RequestContext, loader
+from django.template import RequestContext, loader, Context
 from django.http import HttpResponse
 
 
 def index(request):
-    template = loader.get_template('members/templates/index.html')
-    return HttpResponse(template.render())
+    return HttpResponse(loader.get_template('index.html').render(Context({})))

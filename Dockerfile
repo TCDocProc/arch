@@ -27,6 +27,11 @@ run apt-get install -y python python-dev python-setuptools
 run apt-get install -y nginx supervisor
 run easy_install pip
 
+# install yuglify, setting to insecure registry as secure gave issues
+run apt-get install -y nodejs npm && \
+	npm config set registry http://registry.npmjs.org/ && \
+	npm install yuglify
+
 # install coffee-script
 run apt-get install -y coffeescript
 
@@ -52,5 +57,7 @@ run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
 run pip install -r /home/docker/code/app/requirements.txt
 
 expose 80
+
+run python /home/docker/code/app/manage.py collectstatic --noinput
 
 cmd ["supervisord", "-n"]

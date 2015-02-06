@@ -26,6 +26,9 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 # Application definition
 
@@ -43,22 +46,6 @@ INSTALLED_APPS = (
     'pipeline',
 )
 
-# Pipeline stuff
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
-
-PIPELINE_COMPILERS = (
-  'pipeline.compilers.coffee.CoffeeScriptCompiler',
-)
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,15 +55,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-
-PIPELINE_JS = {
-    'main': {
-        'source_filenames': (
-            'coffee/app.coffee',
-        ),
-        'output_filename': 'js/main.js',
-    },
-}
 
 ROOT_URLCONF = 'website.urls'
 
@@ -111,3 +89,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+PIPELINE_COMPILERS = (
+  'pipeline.compilers.coffee.CoffeeScriptCompiler',
+)
+
+PIPELINE_JS = {
+    'main': {
+        'source_filenames': (
+            'coffee/app.coffee',
+        ),
+        'output_filename': 'js/main.js',
+    },
+}
