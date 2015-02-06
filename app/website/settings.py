@@ -26,6 +26,9 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 # Application definition
 
@@ -37,9 +40,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'members',
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
 
     'backbone_tastypie',
+    'pipeline',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,3 +90,30 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = '/home/docker/volatile/static' #os.path.join(BASE_DIR, 'static')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+PIPELINE_COMPILERS = (
+  'pipeline.compilers.coffee.CoffeeScriptCompiler',
+)
+
+PIPELINE_JS = {
+    'members': {
+        'source_filenames': (
+            'members/js/vendor/underscore.js',
+            'members/js/vendor/backbone.js',
+            'js/backbone-tastypie.js',
+            'members/js/vendor/jquery.min.js',
+            'members/js/app.coffee',
+        ),
+        'output_filename': 'members/js/app.js',
+    },
+}

@@ -27,10 +27,13 @@ run apt-get install -y python python-dev python-setuptools
 run apt-get install -y nginx supervisor
 run easy_install pip
 
-# install SASS
-run apt-get install -y ruby-full
-run apt-get install -y rubygems
-run gem install sass -V
+# install yuglify, setting to insecure registry as secure gave issues
+run apt-get install -y nodejs npm && \
+	npm config set registry http://registry.npmjs.org/ && \
+	npm install -g yuglify 
+
+# install coffee-script
+run apt-get install -y coffeescript
 
 # install uwsgi now because it takes a little while
 run pip install uwsgi
@@ -54,5 +57,7 @@ run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
 run pip install -r /home/docker/code/app/requirements.txt
 
 expose 80
+
+run python /home/docker/code/app/manage.py collectstatic --noinput
 
 cmd ["supervisord", "-n"]

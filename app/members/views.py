@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.template import RequestContext, loader, Context
 from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, cruel world.")
+    return HttpResponse(loader.get_template('index.html').render(Context({})))
