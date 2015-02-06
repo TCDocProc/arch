@@ -30,7 +30,7 @@ run easy_install pip
 # install yuglify, setting to insecure registry as secure gave issues
 run apt-get install -y nodejs npm && \
 	npm config set registry http://registry.npmjs.org/ && \
-	npm install yuglify
+	npm install -g yuglify 
 
 # install coffee-script
 run apt-get install -y coffeescript

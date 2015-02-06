@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'members',
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
 
     'backbone_tastypie',
@@ -105,10 +106,14 @@ PIPELINE_COMPILERS = (
 )
 
 PIPELINE_JS = {
-    'main': {
+    'members': {
         'source_filenames': (
-            'coffee/app.coffee',
+            'members/js/vendor/underscore.js',
+            'members/js/vendor/backbone.js',
+            'js/backbone-tastypie.js',
+            'members/js/vendor/jquery.min.js',
+            'members/js/app.coffee',
         ),
-        'output_filename': 'js/main.js',
+        'output_filename': 'members/js/app.js',
     },
 }
