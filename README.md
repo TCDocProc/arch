@@ -1,34 +1,52 @@
-# arch
 A user-friendly interface for presenting care pathways for a single patient using the PML language.
 
-##Development Stack
-**Backend**
+## Development Stack
+### Backend
 
-- Django
-- SQLite
+| https://www.docker.com | https://www.djangoproject.com | https://www.sqlite.org |
+|------|------------|------------------|
+|![docker-logo] | ![django-logo] | ![sqlite-logo] 
 
-**Frontend**
+[docker-logo]:http://core0.staticworld.net/images/idge/imported/article/nww/2013/12/docker-100275159-orig.jpg
+[django-logo]:http://www.fullstackpython.com/theme/img/django-logo-positive.png
+[sqlite-logo]:https://iworkautomation.com/numbers/gfx/sqlite-logo.png
 
-- Coffeescript
-- Backbone.js
-- Sass
+### Frontend
 
-**Continuous Integration**
+| http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
+|---|---|---|
+| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
 
-- Jenkins
+[coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
+[backbone-logo]:http://backbonejs.org/docs/images/backbone.png
+[sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
 
+### Continuous Integration
+
+| http://jenkins-ci.org |
+|---|
+| ![jenkins-logo]
+
+[jenkins-logo]:https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000
 ##Deployment
 
 ###OS X
-*Prerequisite:* [Boot2Docker](https://github.com/boot2docker/boot2docker), [brew](http://brew.sh)
 
-- `brew docker install`
-- `boot2docker init`
-- `boot2docker up`
-- `docker build -t webapp .`
-- `docker run -d -p 8000:80 webapp`
+```
+## Clone repo
+git clone http://github.com/TCDocProc/arch
 
-To run the web app first run `boot2docker ip` and then use http://IP_ADDRESS:8000
+cd arch
+
+## Install the webapp
+./install_osx
+
+## Run the webapp
+./run <port>
+
+```
+
+To run the web app first run `boot2docker ip` and then use `http://IP_ADDRESS:PORT`
 
 ###Ubuntu
 
@@ -52,5 +70,5 @@ sudo ./run <port>
 
 ```
 
-###Windows
+### Windows
 Coming soon??

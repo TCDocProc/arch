@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Install homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# Install docker
+brew install docker
+brew install boot2docker
+
+# Start boot2docker
+boot2docker init
+boot2docker up
+
+# Build and run web app
+docker build -t webapp .
