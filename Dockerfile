@@ -27,10 +27,16 @@ run apt-get install -y python python-dev python-setuptools
 run apt-get install -y nginx supervisor
 run easy_install pip
 
-# install yuglify, setting to insecure registry as secure gave issues
-run apt-get install -y nodejs npm && \
-	npm config set registry http://registry.npmjs.org/ && \
-	npm install -g yuglify
+# install npm
+run apt-get install -y curl
+run curl -sL https://deb.nodesource.com/setup | bash
+run	apt-get install -y nodejs
+
+# install yuglify
+run npm install -g yuglify
+
+# install bower
+run npm install -g bower
 
 # install coffee-script
 run apt-get install -y coffeescript
@@ -43,6 +49,7 @@ run apt-get install -y rubygems && \
 run pip install uwsgi
 
 # install nginx
+run apt-get update
 run apt-get install -y python-software-properties
 run apt-get update
 run add-apt-repository -y ppa:nginx/stable
@@ -62,6 +69,7 @@ run pip install -r /home/docker/code/app/requirements.txt
 
 expose 80
 
+run python /home/docker/code/app/manage.py bower install -- --allow-root
 run python /home/docker/code/app/manage.py collectstatic --noinput
 
 cmd ["supervisord", "-n"]

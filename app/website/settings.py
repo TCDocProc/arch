@@ -45,6 +45,7 @@ INSTALLED_APPS = (
 
     'backbone_tastypie',
     'pipeline',
+    'djangobower',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -97,6 +98,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
+    'djangobower.finders.BowerFinder',
 )
 
 STATICFILES_DIRS = (
@@ -105,10 +107,21 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+BOWER_COMPONENTS_ROOT = BASE_DIR
+
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.sass.SASSCompiler',
 )
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'underscore',
+    'backbone',
+)
+
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
 PIPELINE_CSS = {
     'base': {
@@ -125,10 +138,10 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'members': {
         'source_filenames': (
-            'js/underscore.js',
-            'js/backbone.js',
+            'jquery/jquery.js',
+            'underscore/underscore.js',
+            'backbone/backbone.js',
             'js/backbone-tastypie.js',
-            'js/jquery.min.js',
             'members/js/app.coffee',
         ),
         'output_filename': 'members/js/app.js',
