@@ -1,3 +1,5 @@
+[![Build Status](http://jenkins.kev.sh/job/DjangoMasterUnitTests/badge/icon)](http://jenkins.kev.sh/job/DjangoMasterUnitTests/) 
+
 A user-friendly interface for presenting care pathways for a single patient using the PML language.
 
 ## Development Stack
