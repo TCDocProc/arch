@@ -15,10 +15,11 @@ A user-friendly interface for presenting care pathways for a single patient usin
 
 ### Frontend
 
-| http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
-|---|---|---|
-| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
+| http://bower.io | http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
+|---|---|---|---|
+|![bower-logo]| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
 
+[bower-logo]:https://camo.githubusercontent.com/aad5f0385a2d8524cb366a1bad62bc74e797743a/687474703a2f2f692e696d6775722e636f6d2f516d47485067632e706e67
 [coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
 [backbone-logo]:http://backbonejs.org/docs/images/backbone.png
 [sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
