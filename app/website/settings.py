@@ -99,19 +99,36 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
+  'pipeline.compilers.sass.SASSCompiler',
 )
+
+PIPELINE_CSS = {
+    'base': {
+        'source_filenames': (
+          'css/core.css',
+          'css/colors/*.css',
+          'css/layers.css'
+        ),
+        'output_filename': 'css/colors.css',
+    },
+}
+
 
 PIPELINE_JS = {
     'members': {
         'source_filenames': (
-            'members/js/vendor/underscore.js',
-            'members/js/vendor/backbone.js',
+            'js/underscore.js',
+            'js/backbone.js',
             'js/backbone-tastypie.js',
-            'members/js/vendor/jquery.min.js',
+            'js/jquery.min.js',
             'members/js/app.coffee',
         ),
         'output_filename': 'members/js/app.js',

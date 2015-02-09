@@ -30,10 +30,14 @@ run easy_install pip
 # install yuglify, setting to insecure registry as secure gave issues
 run apt-get install -y nodejs npm && \
 	npm config set registry http://registry.npmjs.org/ && \
-	npm install -g yuglify 
+	npm install -g yuglify
 
 # install coffee-script
 run apt-get install -y coffeescript
+
+# install sass and compass
+run apt-get install -y rubygems && \
+	gem install compass
 
 # install uwsgi now because it takes a little while
 run pip install uwsgi
