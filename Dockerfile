@@ -69,6 +69,9 @@ run pip install -r /home/docker/code/app/requirements.txt
 
 expose 80
 
+# Stop bower using git:// and make it use https:// - for firewalls
+run git config --global url."https://github.com".insteadOf "git://github.com"
+
 run python /home/docker/code/app/manage.py bower install -- --allow-root
 run python /home/docker/code/app/manage.py collectstatic --noinput
 

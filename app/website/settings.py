@@ -114,12 +114,6 @@ PIPELINE_COMPILERS = (
   'pipeline.compilers.sass.SASSCompiler',
 )
 
-BOWER_INSTALLED_APPS = (
-    'jquery',
-    'underscore',
-    'backbone',
-)
-
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
@@ -138,7 +132,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'members': {
         'source_filenames': (
-            'jquery/jquery.js',
+            'jquery/dist/jquery.min.js',
             'underscore/underscore.js',
             'backbone/backbone.js',
             'js/backbone-tastypie.js',
