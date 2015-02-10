@@ -42,8 +42,11 @@ run npm install -g bower
 run apt-get install -y coffeescript
 
 # install sass and compass
-run apt-get install -y rubygems && \
-	gem install compass
+run apt-get install -y rubygems
+run	gem install compass
+
+# needed by scss compiler
+run	gem install json
 
 # install uwsgi now because it takes a little while
 run pip install uwsgi

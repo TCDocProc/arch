@@ -116,7 +116,7 @@ PIPELINE_COMPILERS = (
 )
 
 # This should be better but I don't think it's worth the agro at this time
-PIPELINE_SASS_ARGUMENTS = "--compass -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
+PIPELINE_SASS_ARGUMENTS = "--scss -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
