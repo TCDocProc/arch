@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'members',
+
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
 
     'backbone_tastypie',
@@ -114,17 +115,18 @@ PIPELINE_COMPILERS = (
   'pipeline.compilers.sass.SASSCompiler',
 )
 
+# This should be better but I don't think it's worth the agro at this time
+PIPELINE_SASS_ARGUMENTS = "--compass -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
+
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
 PIPELINE_CSS = {
-    'base': {
+    'members': {
         'source_filenames': (
-          'css/core.css',
-          'css/colors/*.css',
-          'css/layers.css'
+          'members/scss/app.scss',
         ),
-        'output_filename': 'css/colors.css',
+        'output_filename': 'members/css/app.css',
     },
 }
 
@@ -136,7 +138,7 @@ PIPELINE_JS = {
             'underscore/underscore.js',
             'backbone/backbone.js',
             'js/backbone-tastypie.js',
-            'members/js/app.coffee',
+            'members/coffee/app.coffee',
         ),
         'output_filename': 'members/js/app.js',
     },
