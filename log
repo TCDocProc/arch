@@ -1,0 +1,2 @@
+#!/bin/bash
+docker exec -it $1 tail -f /var/log/$2.log

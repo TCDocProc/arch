@@ -49,7 +49,8 @@ run	gem install compass
 run	gem install json
 
 # install uwsgi now because it takes a little while
-run pip install uwsgi
+run apt-get install -y uwsgi
+run apt-get install -y uwsgi-plugin-python
 
 # install nginx
 run apt-get update
@@ -80,10 +81,10 @@ run python /home/docker/code/app/manage.py migrate
 
 expose 80
 
+USER django
+
 # Stop bower using git:// and make it use https:// - for firewalls such as TCD
 run git config --global url."https://github.com".insteadOf "git://github.com"
-
-USER django
 
 run mkdir /home/docker/volatile
 run mkdir /home/docker/volatile/static

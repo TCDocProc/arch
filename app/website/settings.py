@@ -31,14 +31,14 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-#allauth Settings
+# allauth Settings
 TEMPLATE_CONTEXT_PROCESSORS = (
     # Required by allauth template tags
     "django.core.context_processors.request",
     # allauth specific context processors
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
-    "django.contrib.auth.context_processors.auth",  
+    "django.contrib.auth.context_processors.auth",
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -52,12 +52,13 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'Name' 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'Name'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_REDIRECT_URL = '/auth/'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/auth/'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/auth/'
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -71,7 +72,8 @@ INSTALLED_APPS = (
 
     'members',
 
-    # 3rd party https://github.com/PaulUithol/backbone-tastypie
+
+    # 3rd party
     'backbone_tastypie',
     'pipeline',
     'djangobower',
@@ -150,6 +152,7 @@ BOWER_COMPONENTS_ROOT = STATIC_ROOT
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.sass.SASSCompiler',
+
 )
 
 PIPELINE_SASS_ARGUMENTS = "--scss -I "+STATIC_ROOT+"/bower_components/foundation/scss -I "+STATIC_ROOT+"/scss"
@@ -198,3 +201,35 @@ if LOCAL:
             'LOCATION': '/tmp/django_cache',
         }
     }
+
+# 
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'verbose': {
+#             'format': '[%(asctime)s] %(levelname)s %(pathname)s:%(lineno)s %(message)s'
+#         }
+#     },
+#     'handlers': {
+#         'logfile': {
+#             'level':'DEBUG',
+#             'class':'logging.handlers.RotatingFileHandler',
+#             'filename':'/var/log/django.log',
+#             'maxBytes': 50000,
+#             'backupCount': 2,
+#             'formatter': 'verbose',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['logfile'],
+#         'level': 'DEBUG',
+#     },
+#     'loggers': {
+#         '': {
+#             'handlers': ['logfile'],
+#             'level': 'DEBUG',
+#             'propagate': True
+#         },
+#     }
+# }

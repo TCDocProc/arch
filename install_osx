@@ -11,6 +11,9 @@ brew cask install virtualbox
 brew install docker
 brew install boot2docker
 
+# For watch
+brew install entr
+
 # Start boot2docker
 boot2docker init
 boot2docker up
