@@ -1,2 +1,5 @@
 *.pyc
 .sass-cache
+app/collectstatic/
+app/static/admin/
+.idea/

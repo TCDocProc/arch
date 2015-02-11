@@ -62,6 +62,11 @@ run apt-get install -y sqlite3
 # install our code
 add . /home/docker/code/
 
+RUN useradd -ms /bin/bash django
+# copy the nice dotfiles that dockerfile/ubuntu gives us:
+
+RUN chown -R django:django /home/docker
+
 # setup all the configfiles
 run echo "daemon off;" >> /etc/nginx/nginx.conf
 run rm /etc/nginx/sites-enabled/default
@@ -71,16 +76,23 @@ run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
 # run pip install
 run pip install -r /home/docker/code/app/requirements.txt
 
+# sync the database
+run python /home/docker/code/app/manage.py migrate
+
 expose 80
+
+USER django
 
 # Stop bower using git:// and make it use https:// - for firewalls such as TCD
 run git config --global url."https://github.com".insteadOf "git://github.com"
 
-run mkdir -p /home/docker/volatile/static/components/
+run mkdir /home/docker/volatile
+run mkdir /home/docker/volatile/static
 
 run cd /home/docker/code/app && \
- 	python ./manage.py bower install jquery#~2.1.1 -- --allow-root && \
-	python ./manage.py bower install backbone#~1.1.2 -- --allow-root && \
-	python ./manage.py bower install foundation#~5.4.7 -- --allow-root
+ 	python ./manage.py bower install && \
+ 	python ./manage.py collectstatic --noinput
+
+USER root
 
 cmd ["supervisord", "-n"]

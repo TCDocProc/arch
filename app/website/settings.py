@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'm9fubyxz&t$zs*lia=rpkv%re9taj7s%_&k=52a#9#!tg$=s1v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', True)
+LOCAL = os.getenv('LOCAL', False)
 
 TEMPLATE_DEBUG = True
 
@@ -30,42 +31,40 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '[%(asctime)s] %(levelname)s %(pathname)s:%(lineno)s %(message)s'
-        }
-    },
-    'handlers': {
-        'logfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename':'/var/log/django.log',
-            'maxBytes': 50000,
-            'backupCount': 2,
-            'formatter': 'verbose',
-        },
-    },
-    'root': {
-        'handlers': ['logfile'],
-        'level': 'DEBUG',
-    },
-    'loggers': {
-        '': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-    }
-}
+# allauth Settings
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Required by allauth template tags
+    "django.core.context_processors.request",
+    # allauth specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+    "django.contrib.auth.context_processors.auth",
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'Name'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+LOGIN_REDIRECT_URL = '/auth/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/auth/'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/auth/'
 
 # Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -73,11 +72,15 @@ INSTALLED_APPS = (
 
     'members',
 
-    # 3rd Party
 
+    # 3rd party
     'backbone_tastypie',
     'pipeline',
     'djangobower',
+    'debug_toolbar',
+
+    'allauth',
+    'allauth.account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,6 +91,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'website.urls'
@@ -118,13 +122,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/home/docker/volatile/static' #os.path.join(BASE_DIR, 'static')
+if not LOCAL:
+    STATIC_ROOT = '/home/docker/volatile/static'
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
+    INTERNAL_IPS = ('127.0.0.1',)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -135,6 +142,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(STATIC_ROOT, 'bower_components'),
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
@@ -144,12 +152,24 @@ BOWER_COMPONENTS_ROOT = STATIC_ROOT
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.sass.SASSCompiler',
+
 )
 
 PIPELINE_SASS_ARGUMENTS = "--scss -I "+STATIC_ROOT+"/bower_components/foundation/scss -I "+STATIC_ROOT+"/scss"
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+ALLOWED_HOSTS = [
+    'localhost',  # Allow domain and subdomains
+    '.kev.sh.',  # Also allow FQDN and subdomains
+]
+
+BOWER_INSTALLED_APPS = (
+    'jquery#2.1.1',
+    'backbone#1.1.2',
+    'foundation#5.4.7',
+)
 
 PIPELINE_CSS = {
     'members': {
@@ -173,3 +193,43 @@ PIPELINE_JS = {
         'output_filename': 'members/js/app.js',
     },
 }
+
+if LOCAL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': '/tmp/django_cache',
+        }
+    }
+
+# 
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'verbose': {
+#             'format': '[%(asctime)s] %(levelname)s %(pathname)s:%(lineno)s %(message)s'
+#         }
+#     },
+#     'handlers': {
+#         'logfile': {
+#             'level':'DEBUG',
+#             'class':'logging.handlers.RotatingFileHandler',
+#             'filename':'/var/log/django.log',
+#             'maxBytes': 50000,
+#             'backupCount': 2,
+#             'formatter': 'verbose',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['logfile'],
+#         'level': 'DEBUG',
+#     },
+#     'loggers': {
+#         '': {
+#             'handlers': ['logfile'],
+#             'level': 'DEBUG',
+#             'propagate': True
+#         },
+#     }
+# }
