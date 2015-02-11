@@ -76,8 +76,8 @@ run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
 run pip install -r /home/docker/code/app/requirements.txt
 
 # sync the database
-# run python /home/docker/code/app/manage.py syncdb
-# run python /home/docker/code/app/manage.py migrate
+run python /home/docker/code/app/manage.py syncdb
+run python /home/docker/code/app/manage.py migrate
 
 expose 80
 
