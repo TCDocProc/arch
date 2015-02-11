@@ -3,4 +3,5 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, cruel world.")
+    print "hit index."
+    return HttpResponse("Hello, cruel world. YO. nah bro.")
