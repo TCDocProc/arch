@@ -1,1 +1,6 @@
 *.pyc
+.sass-cache
+app/collectstatic/*
+app/static/admin/*
+app/collectstatic
+app/static/admin

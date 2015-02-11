@@ -22,10 +22,15 @@ SECRET_KEY = 'm9fubyxz&t$zs*lia=rpkv%re9taj7s%_&k=52a#9#!tg$=s1v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOCAL = True
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 # Application definition
 
@@ -37,9 +42,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'members',
+
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
 
     'backbone_tastypie',
+    'pipeline',
+    'djangobower',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,3 +94,66 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if not LOCAL:
+    STATIC_ROOT = '/home/docker/volatile/static'
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+if not LOCAL:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+        os.path.join(os.path.dirname(__file__), '..', 'bower_components'),
+    )
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+BOWER_COMPONENTS_ROOT = BASE_DIR
+
+PIPELINE_COMPILERS = (
+  'pipeline.compilers.coffee.CoffeeScriptCompiler',
+  'pipeline.compilers.sass.SASSCompiler',
+)
+
+if not LOCAL:
+    # This should be better but I don't think it's worth the agro at this time
+    PIPELINE_SASS_ARGUMENTS = "--scss -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
+
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+BOWER_INSTALLED_APPS = (
+    'jquery#2.1.1',
+    'backbone#1.1.2',
+    'foundation#5.4.7',
+)
+
+PIPELINE_CSS = {
+    'members': {
+        'source_filenames': (
+          'members/scss/app.scss',
+        ),
+        'output_filename': 'members/css/app.css',
+    },
+}
+
+
+PIPELINE_JS = {
+    'members': {
+        'source_filenames': (
+            'jquery/dist/jquery.min.js',
+            'underscore/underscore.js',
+            'backbone/backbone.js',
+            'js/backbone-tastypie.js',
+            'members/coffee/app.coffee',
+        ),
+        'output_filename': 'members/js/app.js',
+    },
+}

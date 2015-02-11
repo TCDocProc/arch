@@ -3,6 +3,10 @@
 # Install homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+# Install virtualbox
+brew install caskroom/cask/brew-cask
+brew cask install virtualbox
+
 # Install docker
 brew install docker
 brew install boot2docker
