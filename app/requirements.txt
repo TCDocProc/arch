@@ -1,8 +1,12 @@
+https://github.com/PaulUithol/backbone-tastypie/archive/0.2.tar.gz#egg=backbone-tastiepie-latest
 Django==1.7.4
+django-bower==5.0.2
+django-debug-toolbar==1.2.2
+django-pipeline==1.4.3
 django-tastypie==0.12.1
+futures==2.2.0
 python-dateutil==2.4.0
 python-mimeparse==0.1.4
 six==1.9.0
-https://github.com/PaulUithol/backbone-tastypie/archive/0.2.tar.gz#egg=backbone-tastiepie-latest
-django-pipeline==1.4.3
-django-bower==5.0.2
+sqlparse==0.1.14
+wsgiref==0.1.2

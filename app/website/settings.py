@@ -20,9 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'm9fubyxz&t$zs*lia=rpkv%re9taj7s%_&k=52a#9#!tg$=s1v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-LOCAL = True
+DEBUG = os.getenv('DEBUG', True)
+LOCAL = os.getenv('LOCAL', False)
 
 TEMPLATE_DEBUG = True
 
@@ -45,10 +44,10 @@ INSTALLED_APPS = (
     'members',
 
     # 3rd party https://github.com/PaulUithol/backbone-tastypie
-
     'backbone_tastypie',
     'pipeline',
     'djangobower',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'website.urls'
@@ -89,7 +89,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -99,6 +98,7 @@ if not LOCAL:
     STATIC_ROOT = '/home/docker/volatile/static'
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
+    INTERNAL_IPS = ('127.0.0.1',)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -107,27 +107,29 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
-if not LOCAL:
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-        os.path.join(os.path.dirname(__file__), '..', 'bower_components'),
-    )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(STATIC_ROOT, 'bower_components'),
+)
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-BOWER_COMPONENTS_ROOT = BASE_DIR
+BOWER_COMPONENTS_ROOT = STATIC_ROOT
 
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.sass.SASSCompiler',
 )
 
-if not LOCAL:
-    # This should be better but I don't think it's worth the agro at this time
-    PIPELINE_SASS_ARGUMENTS = "--scss -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
+PIPELINE_SASS_ARGUMENTS = "--scss -I "+STATIC_ROOT+"/bower_components/foundation/scss -I "+STATIC_ROOT+"/scss"
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+ALLOWED_HOSTS = [
+    'localhost',  # Allow domain and subdomains
+    '.kev.sh.',  # Also allow FQDN and subdomains
+]
 
 BOWER_INSTALLED_APPS = (
     'jquery#2.1.1',
@@ -157,3 +159,12 @@ PIPELINE_JS = {
         'output_filename': 'members/js/app.js',
     },
 }
+
+if LOCAL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': '/tmp/django_cache',
+        }
+    }
+

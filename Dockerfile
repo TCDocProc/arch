@@ -86,6 +86,9 @@ run git config --global url."https://github.com".insteadOf "git://github.com"
 
 USER django
 
+run mkdir /home/docker/volatile
+run mkdir /home/docker/volatile/static
+
 run cd /home/docker/code/app && \
  	python ./manage.py bower install && \
  	python ./manage.py collectstatic --noinput
