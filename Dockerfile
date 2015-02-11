@@ -75,8 +75,12 @@ expose 80
 # Stop bower using git:// and make it use https:// - for firewalls such as TCD
 run git config --global url."https://github.com".insteadOf "git://github.com"
 
+run mkdir -p /home/docker/volatile/static/components/
+
 run cd /home/docker/code/app && \
- 	python ./manage.py bower install -- --allow-root && \
+ 	python ./manage.py bower install jquery#~2.1.1 -- --allow-root && \
+	python ./manage.py bower install backbone#~1.1.2 -- --allow-root && \
+	python ./manage.py bower install foundation#~5.4.7 -- --allow-root && \
  	python ./manage.py collectstatic --noinput
 
 cmd ["supervisord", "-n"]

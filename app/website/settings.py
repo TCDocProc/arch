@@ -108,15 +108,14 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-BOWER_COMPONENTS_ROOT = BASE_DIR
+BOWER_COMPONENTS_ROOT = STATIC_ROOT
 
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.sass.SASSCompiler',
 )
 
-# This should be better but I don't think it's worth the agro at this time
-PIPELINE_SASS_ARGUMENTS = "--scss -I /home/docker/code/app/bower_components/foundation/scss -I /home/docker/code/app/static/scss"
+PIPELINE_SASS_ARGUMENTS = "--scss -I "+STATIC_ROOT+"/bower_components/foundation/scss -I "+STATIC_ROOT+"/scss"
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
