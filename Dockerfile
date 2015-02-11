@@ -49,7 +49,8 @@ run	gem install compass
 run	gem install json
 
 # install uwsgi now because it takes a little while
-run pip install uwsgi
+run apt-get install -y uwsgi
+run apt-get install -y uwsgi-plugin-python
 
 # install nginx
 run apt-get update
@@ -80,7 +81,6 @@ run mkdir -p /home/docker/volatile/static/components/
 run cd /home/docker/code/app && \
  	python ./manage.py bower install jquery#~2.1.1 -- --allow-root && \
 	python ./manage.py bower install backbone#~1.1.2 -- --allow-root && \
-	python ./manage.py bower install foundation#~5.4.7 -- --allow-root && \
- 	python ./manage.py collectstatic --noinput
+	python ./manage.py bower install foundation#~5.4.7 -- --allow-root
 
 cmd ["supervisord", "-n"]

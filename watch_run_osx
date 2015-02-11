@@ -1,0 +1,9 @@
+#!/bin/bash
+
+PID=$(./run $1)
+
+find . -type f \( -iname '*.coffee' -o -iname '*.scss' -o -iname '*.css' -o -iname '*.js' \) | entr \
+	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput &
+
+find . -type f \( -iname '*.py' \) | entr \
+	./run $1 | read PID

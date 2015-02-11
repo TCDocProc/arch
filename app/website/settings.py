@@ -30,6 +30,37 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s %(pathname)s:%(lineno)s %(message)s'
+        }
+    },
+    'handlers': {
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename':'/var/log/django.log',
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['logfile'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        '': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+    }
+}
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,7 +73,7 @@ INSTALLED_APPS = (
 
     'members',
 
-    # 3rd party https://github.com/PaulUithol/backbone-tastypie
+    # 3rd Party
 
     'backbone_tastypie',
     'pipeline',
