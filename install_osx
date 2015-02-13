@@ -1,22 +1,59 @@
 #!/bin/bash
 
-# Install homebrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+usage()
+{
+cat << EOF
+usage: $0 options
 
-# Install virtualbox
-brew install caskroom/cask/brew-cask
-brew cask install virtualbox
+This script sets up the TCDDocProc arch environment.
 
-# Install docker
-brew install docker
-brew install boot2docker
+OPTIONS:
+   -h      Show this message
+   -s      Skip brew installation
+EOF
+}
 
-# For watch
-brew install entr
+brew_init()
+{
+	# Install homebrew
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Start boot2docker
-boot2docker init
-boot2docker up
+	# Install virtualbox
+	brew install caskroom/cask/brew-cask
+	brew cask install virtualbox
 
-# Build and run web app
-docker build -t webapp .
+	# Install docker
+	brew install docker
+	brew install boot2docker
+
+	# For watch
+	brew install entr
+}
+
+docker_init()
+{
+	# Start boot2docker
+	boot2docker init
+	boot2docker up
+
+	# Build and run web app
+	docker build -t webapp .
+}
+
+NO_INSTALL=
+while getopts “h:s” OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit 1
+             ;;
+         s)
+			 docker_init
+             exit 1
+             ;;
+     esac
+done
+
+brew_init
+docker_init
