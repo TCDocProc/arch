@@ -16,11 +16,6 @@ from ubuntu:12.04
 
 maintainer Dockerfiles
 
-# install PEOS dependencies
-run apt-get install -y tcl
-run apt-get install -y check
-run apt-get install -y libxml2
-
 run apt-get update
 run apt-get install -y build-essential git
 run apt-get install -y python python-dev python-setuptools
