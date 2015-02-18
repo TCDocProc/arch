@@ -3,7 +3,7 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
     # Examples:
- 	url(r'^$', 'members.views.index', name='index'),
+    url(r'^$', 'members.views.index', name='index'),
 
     url(r'^accounts/', include('allauth.urls')),
 

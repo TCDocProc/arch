@@ -7,4 +7,5 @@ def index(request):
 
 @login_required(login_url='/')
 def authenticated_page(request):
-    return HttpResponse(loader.get_template('auth.html').render(Context({})))
+    context = RequestContext(request, {})
+    return HttpResponse(loader.get_template('auth.html').render(context))
