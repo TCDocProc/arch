@@ -145,8 +145,6 @@ STATICFILES_DIRS = (
     os.path.join(STATIC_ROOT, 'bower_components'),
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
 BOWER_COMPONENTS_ROOT = STATIC_ROOT
 
 PIPELINE_COMPILERS = (
@@ -202,7 +200,7 @@ if LOCAL:
         }
     }
 
-# 
+#
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': True,

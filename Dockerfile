@@ -89,6 +89,6 @@ run python /home/docker/code/app/manage.py bower install
 
 USER root
 
-run python /home/docker/code/app/manage.py collectstatic --noinput
+run python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1
 
 cmd ["supervisord", "-n"]
