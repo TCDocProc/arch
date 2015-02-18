@@ -1,0 +1,35 @@
+sudo apt-get -y install python python-dev python-setuptools check sqlite3 cython
+sudo apt-get install -y curl
+curl -sL https://deb.nodesource.com/setup | sudo bash
+sudo apt-get install -y nodejs
+
+# install yuglify
+sudo npm install -g yuglify
+
+# install bower
+sudo npm install -g bower
+
+# install coffee-script
+sudo apt-get install -y coffeescript
+
+# install sass and compass
+sudo apt-get install -y rubygems
+sudo gem install compass -V --no-ri --no-rdoc
+
+# needed by scss compiler
+sudo gem install json -V --no-ri --no-rdoc
+sudo easy_install virtualenv virtualenvwrapper pip
+git config --global url."https://github.com".insteadOf "git://github.com"
+virtualenv venv
+source venv/bin/activate
+pip install -r app/requirements.txt
+export DEBUG=1
+export LOCAL=1
+cd app;
+mkdir collectstatic
+mkdir collectstatic/bower_components
+python ./manage.py bower install
+cd ../;
+python app/manage.py collectstatic --noinput
+python app/manage.py migrate
+python app/manage.py runserver
