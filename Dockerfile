@@ -18,7 +18,7 @@ maintainer Dockerfiles
 
 run apt-get update
 run apt-get install -y build-essential git
-run apt-get install -y python libxml2-dev libxslt1-dev python-dev python-setuptools
+run apt-get install -y python python-dev python-setuptools
 run apt-get install -y nginx supervisor
 run easy_install pip
 
@@ -38,10 +38,10 @@ run apt-get install -y coffeescript
 
 # install sass and compass
 run apt-get install -y rubygems
-run	gem install compass
+run	gem install compass -v 1.0.3
 
 # needed by scss compiler
-run	gem install json
+run	gem install json -v 1.8.2
 
 # install uwsgi now because it takes a little while
 run apt-get install -y uwsgi
@@ -89,6 +89,6 @@ run python /home/docker/code/app/manage.py bower install
 
 USER root
 
-run python /home/docker/code/app/manage.py collectstatic --noinput
+run python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1
 
 cmd ["supervisord", "-n"]
