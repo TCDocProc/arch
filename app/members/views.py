@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def index(request):
+	#
     return HttpResponse(loader.get_template('index.html').render(Context({})))
 
 @login_required(login_url='/')
 def authenticated_page(request):
-    return HttpResponse(loader.get_template('auth.html').render(Context({})))
+	#
+	context = RequestContext(request, {})
+	return HttpResponse(loader.get_template('auth.html').render(context))
