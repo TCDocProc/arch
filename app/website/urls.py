@@ -9,4 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^auth/', 'members.views.authenticated_page', name='auth'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^processes/', 'processes.views.index'),
 )

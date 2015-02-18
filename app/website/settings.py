@@ -69,7 +69,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'members',
-
+    'processes',
 
     # 3rd party
     'backbone_tastypie',
