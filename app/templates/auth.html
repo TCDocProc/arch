@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		{% load pipeline %}
-	</head>
-	<body>
-			This should appear only if you are authenticated
-	</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+	This should appear only if you are authenticated
+{% endblock %}

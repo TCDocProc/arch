@@ -37,7 +37,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     # allauth specific context processors
     "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
     "django.contrib.auth.context_processors.auth",
 )
 
@@ -51,9 +50,8 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_REDIRECT_URL = '/auth/'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/auth/'
@@ -172,11 +170,11 @@ BOWER_INSTALLED_APPS = (
 )
 
 PIPELINE_CSS = {
-    'members': {
+    'base': {
         'source_filenames': (
-          'members/scss/app.scss',
+          'scss/base.scss',
         ),
-        'output_filename': 'members/css/app.css',
+        'output_filename': 'css/base.css',
     },
 }
 
