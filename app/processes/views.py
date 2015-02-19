@@ -19,14 +19,15 @@ def index(request):
 
 def _parse_process(process):
     return { "id"       : process.attrib["pid"],
-             "type"     : re.search(r'\./(.*)\.pml',process.attrib["model"]).group(1),
+             "type"     : "process",
+             "name"     : re.search(r'\./(.*)\.pml',process.attrib["model"]).group(1),
              "sequence" : _parse_seq(process) }
 
 def _parse_action(elem):
-    return { "type"        : "action",
-             "name"        : elem.attrib["name"],
-             "description" : re.sub(r'(\t|(<br>)|(\n\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
-             "state"       : elem.attrib["state"]}
+    return { "type"  : "action",
+             "name"  : elem.attrib["name"],
+             "info"  : re.sub(r'(\t|(<br>)|(\n\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
+             "state" : elem.attrib["state"]}
 
 def _parse_branch(elem):
     return { "type"        : "branch",
