@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block static %}
+    {% load pipeline %}
+    {% javascript 'processes' %}
+{% endblock %}
+
+{% block content %}
+	This should appear only if you are authenticated
+{% endblock %}

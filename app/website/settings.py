@@ -183,11 +183,19 @@ PIPELINE_JS = {
             'jquery/dist/jquery.min.js',
             'underscore/underscore.js',
             'backbone/backbone.js',
-            'js/backbone-tastypie.js',
             'members/coffee/app.coffee',
         ),
         'output_filename': 'members/js/app.js',
     },
+    'processes': {
+        'source_filenames': (
+            'jquery/dist/jquery.min.js',
+            'underscore/underscore.js',
+            'backbone/backbone.js',
+            'processes/coffee/app.coffee',
+        ),
+        'output_filename': 'processes/js/app.js',
+    }
 }
 
 if LOCAL:
