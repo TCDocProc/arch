@@ -45,6 +45,25 @@ jQuery ->
 
 ###############################################################################
 
+    $(window).on 'popstate', ->
+
+        done = false
+
+        nodes = $(".sequence.fill:not(.hidden)")
+
+        _.each nodes, (node) ->
+            if $(node).children(':hidden').length == 0
+                $(node).siblings().removeClass "hidden"
+                $(node).removeClass "fill"
+                done = true
+
+        if not done
+            nodes = $(".branch.focused:not(.hidden)")
+
+            _.each nodes, (node) ->
+                if $(node).children(':hidden').length == 0 and $(node).parent().hasClass "sequence"
+                    $(node).siblings().removeClass "hidden"
+                    $(node).removeClass "focused"
 
 
     class BranchView extends Backbone.View
@@ -57,8 +76,9 @@ jQuery ->
             $(@el).click =>
 
                 if $(@el).parent().hasClass 'fill'
-                    $(@el).siblings().addClass "hidden", 300
-                    $(@el).addClass "focused", 300
+                    window.history.pushState 'forward', null, './3.html'
+                    $(@el).siblings().addClass "hidden"
+                    $(@el).addClass "focused"
 
         render: ->
 
@@ -94,8 +114,11 @@ jQuery ->
             $(@el).click =>
 
                 if $(@el).parent().hasClass 'focused'
-                    $(@el).siblings().addClass "hidden", 300
-                    $(@el).addClass "fill", 300
+
+                    window.history.pushState 'forward', null, './3.html'
+
+                    $(@el).siblings().addClass 'hidden'
+                    $(@el).addClass "fill"
 
         render: ->
 
