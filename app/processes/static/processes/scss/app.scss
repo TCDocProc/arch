@@ -1,0 +1,187 @@
+@import "settings";
+@import url(http://fonts.googleapis.com/css?family=Lato:700);
+
+@mixin keyframes($animation-name) {
+
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
+
+$card-margin: 10px;
+$cell-margin: 3px;
+
+.body {
+    background-color: #ECF0F1;
+}
+
+.content {
+    padding: 0;
+    margin-top: 50px;
+    height: 600px;
+    font-family: "Lato";
+    width:100%;
+    max-width: 500px;
+}
+
+.sequence {
+
+    @for $i from 1 through 10 {
+        &:first-child:nth-last-child(#{$i}),
+        &:first-child:nth-last-child(#{$i}) ~ & {
+            width: calc(100% / #{$i})
+        }
+    }
+
+    display: inline-block;
+    vertical-align: top;
+    height: 100% !important;
+    cursor: pointer;
+
+    .focused > & {
+        margin: $card-margin;
+        height: calc(100% - 2 * #{$card-margin}) !important;
+        width: calc(100% - 5 * #{$card-margin}) !important;
+    }
+
+    &.fill {
+        margin: 0;
+        width: 100% !important;
+    }
+
+    &.hidden {
+        margin: 0;
+        width: 0 !important;
+        display: none;
+    }
+}
+
+.cell {
+
+    @for $i from 1 through 10 {
+        &:first-child:nth-last-child(#{$i}),
+        &:first-child:nth-last-child(#{$i}) ~ & {
+            height: calc(100% / #{$i} - 2 * #{$cell-margin})
+        }
+    }
+
+    display: block;
+
+    .focused > .sequence > & {
+        min-height: 180px;
+    }
+
+    &.branch {
+
+        overflow-x: visible;
+        white-space: nowrap;
+
+        padding: 5px;
+
+        &.focused {
+            height: 100% !important;
+            padding: 0;
+        }
+
+    }
+
+    &.action {
+
+        overflow: hidden;
+        margin: $cell-margin;
+        border-radius: 5px;
+        text-weight: bold;
+        white-space: normal;
+
+        .fill > & {
+            height: auto !important;
+            cursor: default;
+        }
+
+        h1 {
+            display: none;
+            text-transform: uppercase;
+
+            .focused > .sequence > .branch > .sequence > & {
+                font-size: 16px;
+                padding: 0 15px;
+                display: inline-block;
+            }
+
+            .focused > .sequence > & {
+                font-size: 32px !important;
+                padding: 0 30px !important;
+                display: inline-block;
+            }
+
+        }
+
+        p {
+            display: none;
+            margin: 0;
+
+            .fill > & {
+                padding: 0 30px !important;
+                padding-bottom: 20px !important;
+                display: inline-block !important;
+                width: 100%;
+
+                &:last-child {
+                    padding-bottom: 25px !important;
+                    text-align: right;
+                }
+            }
+        }
+
+        &.READY, &.AVAILABLE {
+            background-color: #14B259;
+        }
+
+        &.ACTIVE {
+            background-color: #14B259;
+
+            @include keyframes(glow) {
+                0% { background-color: #398CBF; }
+                90% { background-color: #14B259; }
+            }
+            @include animation('glow 1s infinite');
+        }
+
+        &.BLOCKED, &.SUSPENDED {
+            background-color: #E8142A;
+        }
+
+        &.DONE, &.SATISFIED {
+            background-color: #6FBB84;
+        }
+
+        &.NONE {
+            background-color: #7F8C8D;
+        }
+    }
+
+    &.hidden {
+        height: 0 !important;
+        display: none;
+    }
+}

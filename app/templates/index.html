@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
+{% extends "base.html" %}
+
+{% block static %}
 		{% load pipeline %}
 		{% javascript 'members' %}
 		{% stylesheet 'members' %}
-	</head>
-	<body>
-			This should appear
-	</body>
-</html>
+{% endblock %}
+
+{% block content %}
+Welcome to the alpha version of TCD doc proc. <br /><br /><button onclick="window.location = '/processes/user/1.html';">View Experimental Interface</button>
+{% endblock %}

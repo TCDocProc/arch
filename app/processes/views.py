@@ -1,21 +1,27 @@
 from django.http import HttpResponse
+from django.template import RequestContext, loader, Context
 
 import xml.etree.cElementTree as et
 import requests, json, re
 from website import settings
 
-def index(request):
+def index(request,user_id,extension):
 
     r = requests.get("http://proisis.lero.ie/~jnoll/carepathways/peos.cgi")
     xml = ""
-    if r.status_code == 200:
+    if False: #r.status_code == 200:
         xml = et.fromstring(r.text)
     else:
         xml = et.fromstring(open(settings.STATIC_ROOT+"/xml/pathways.xml", "r").read())
 
     response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
 
-    return HttpResponse(json.dumps(response), content_type='application/json')
+    if(extension=="json"):
+        return HttpResponse(json.dumps(response), content_type='application/json')
+
+    elif(extension=="html"):
+        context = RequestContext(request, { "data": response })
+        return HttpResponse(loader.get_template('process.html').render(context))
 
 def _parse_process(process):
     return { "id"       : process.attrib["pid"],
@@ -25,7 +31,7 @@ def _parse_process(process):
 
 def _parse_action(elem):
     return { "type"  : "action",
-             "name"  : elem.attrib["name"],
+             "name"  : elem.attrib["name"].replace("_"," "),
              "info"  : re.sub(r'(\t|(<br>)|(\n\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
              "state" : elem.attrib["state"]}
 

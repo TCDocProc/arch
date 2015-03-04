@@ -165,6 +165,7 @@ BOWER_INSTALLED_APPS = (
     'jquery#2.1.1',
     'backbone#1.1.2',
     'foundation#5.4.7',
+    'jquery-ui#1.11.3',
 )
 
 PIPELINE_CSS = {
@@ -174,6 +175,12 @@ PIPELINE_CSS = {
         ),
         'output_filename': 'css/base.css',
     },
+    'processes': {
+        'source_filenames': (
+            'processes/scss/app.scss',
+        ),
+        'output_filename': 'processes/css/app.css',
+    }
 }
 
 
@@ -183,11 +190,20 @@ PIPELINE_JS = {
             'jquery/dist/jquery.min.js',
             'underscore/underscore.js',
             'backbone/backbone.js',
-            'js/backbone-tastypie.js',
             'members/coffee/app.coffee',
         ),
         'output_filename': 'members/js/app.js',
     },
+    'processes': {
+        'source_filenames': (
+            'jquery/dist/jquery.min.js',
+            'underscore/underscore.js',
+            'backbone/backbone.js',
+            'jquery-ui/jquery-ui.min.js',
+            'processes/coffee/app.coffee',
+        ),
+        'output_filename': 'processes/js/app.js',
+    }
 }
 
 if LOCAL:

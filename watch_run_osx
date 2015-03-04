@@ -6,7 +6,7 @@ PID=$(./run $1)
 
 echo "Running on: http://$(boot2docker ip):$1"
 
-find . -type f \( -iname '*.coffee' -o -iname '*.scss' -o -iname '*.css' -o -iname '*.js' \) | entr \
+find . -type f \( -iname '*.coffee' -o -iname '*.scss' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' \) | entr \
 	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput &
 
 find . -type f \( -iname '*.py' \) | entr \
