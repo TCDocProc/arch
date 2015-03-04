@@ -41,9 +41,51 @@
 								<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
 								<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
 							</action>
+							<branch>
+								<sequence>
+									<action name="Glucose_test" state="SATISFIED">
+										<script>
+											&quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
+											(normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
+										</script>
+										<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+										<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+									</action>
+								</sequence>
+								<sequence>
+									<action name="Cholesterol_test" state="ACTIVE">
+										<script>
+											&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+											Normal values&lt;br&gt;
+											Total: below 200 mg/dL&lt;br&gt;
+											LDL: below 70 mg/dL&lt;br&gt;
+											HDL: 40 mg/dL and above (men)&lt;br&gt;
+											50 mg/dL and above (women) &lt;br&gt;
+											Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+										</script>
+										<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+										<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+									</action>
+								</sequence>
+							</branch>
 						</sequence>
 						<sequence>
-							<action name="Cholesterol_test" state="NONE">
+							<action name="Cholesterol_test" state="ACTIVE">
+								<script>
+									&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+									Normal values&lt;br&gt;
+									Total: below 200 mg/dL&lt;br&gt;
+									LDL: below 70 mg/dL&lt;br&gt;
+									HDL: 40 mg/dL and above (men)&lt;br&gt;
+									50 mg/dL and above (women) &lt;br&gt;
+									Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+								</script>
+								<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+								<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+							</action>
+						</sequence>
+						<sequence>
+							<action name="Cholesterol_test" state="ACTIVE">
 								<script>
 									&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
 									Normal values&lt;br&gt;
