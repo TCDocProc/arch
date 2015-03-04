@@ -1,13 +1,41 @@
 @import "settings";
+@import url(http://fonts.googleapis.com/css?family=Josefin+Slab:700);
+
+@mixin keyframes($animation-name) {
+
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
 
 $card-margin: 10px;
-$cell-height: 200px;
+$cell-margin: 3px;
 
 .content {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
     padding: 0;
     height: 600px;
+    background-color: #ECF0F1;
+    font-family: "Josefin Slab";
 }
 
 .sequence {
@@ -21,13 +49,12 @@ $cell-height: 200px;
 
     display: inline-block;
     vertical-align: top;
-    border: solid 1px black;
     height: 100% !important;
 
     .focused > & {
-        margin: 0 $card-margin;
-        height: calc(100% - #{$card-margin});
-        width: calc(100% - 5*#{$card-margin}) !important;
+        margin: $card-margin;
+        height: calc(100% - 2 * #{$card-margin}) !important;
+        width: calc(100% - 5 * #{$card-margin}) !important;
     }
 
     &.fill {
@@ -47,13 +74,15 @@ $cell-height: 200px;
     @for $i from 1 through 10 {
         &:first-child:nth-last-child(#{$i}),
         &:first-child:nth-last-child(#{$i}) ~ & {
-            height: calc(100% / #{$i})
+            height: calc(100% / #{$i} - 2 * #{$cell-margin})
         }
     }
 
     display: block;
-    height: $cell-height;
 
+    .focused > .sequence > & {
+        min-height: 180px;
+    }
 
     &.branch {
 
@@ -71,27 +100,72 @@ $cell-height: 200px;
 
     &.action {
 
-        padding: 5px;
         overflow: hidden;
+        margin: $cell-margin;
+        border-radius: 5px;
+        text-weight: bold;
+        white-space: normal;
+
+        .fill > & {
+            height: auto !important;
+        }
+
+        h1 {
+            display: none;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+
+            .focused > .sequence > .branch > .sequence > & {
+                font-size: 16px;
+                padding: 0 15px;
+                display: inline-block;
+            }
+
+            .focused > .sequence > & {
+                font-size: 32px !important;
+                padding: 0 30px !important;
+                display: inline-block;
+            }
+
+        }
+
+        p {
+            display: none;
+            text-transform: uppercase;
+            margin: 0;
+
+            .fill > & {
+                padding: 0 30px !important;
+                padding-bottom: 20px !important;
+                display: inline-block !important;
+            }
+        }
 
         &.READY, &.AVAILABLE {
-            background-color: yellow;
+            background-color: #14B259;
         }
 
         &.ACTIVE {
-            background-color: blue;
+            background-color: #14B259;
+            border: 5px solid #398CBF;
+
+            @include keyframes(glow) {
+                0% { border: 5px solid #398CBF; }
+                90% { border: 5px solid #14B259; }
+            }
+            @include animation('glow 1s infinite');
         }
 
         &.BLOCKED, &.SUSPENDED {
-            background-color: red;
+            background-color: #E8142A;
         }
 
         &.DONE, &.SATISFIED {
-            background-color: green;
+            background-color: #6FBB84;
         }
 
         &.NONE {
-            background-color: gray;
+            background-color: #7F8C8D;
         }
     }
 

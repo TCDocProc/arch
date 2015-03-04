@@ -7,8 +7,6 @@ from website import settings
 
 def index(request,user_id,extension):
 
-
-
     r = requests.get("http://proisis.lero.ie/~jnoll/carepathways/peos.cgi")
     xml = ""
     if False: #r.status_code == 200:
@@ -33,7 +31,7 @@ def _parse_process(process):
 
 def _parse_action(elem):
     return { "type"  : "action",
-             "name"  : elem.attrib["name"],
+             "name"  : elem.attrib["name"].replace("_"," "),
              "info"  : re.sub(r'(\t|(<br>)|(\n\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
              "state" : elem.attrib["state"]}
 
