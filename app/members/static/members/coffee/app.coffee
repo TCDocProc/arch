@@ -24,8 +24,7 @@ jQuery ->
             @render()
 
         render: ->
-
-            $(@el).append '<button>Add List Item</button>'
+            $(@el).append '<button id="backbone-test" style="display:none;">Add List Item</button>'
             $(@el).append '<ul></ul>'
 
         addItem: ->
@@ -40,6 +39,6 @@ jQuery ->
         appendItem: (item) ->
             $('ul').append "<li>#{item.get 'part1'} #{item.get 'part2'}!</li>"
 
-        events: 'click button': 'addItem'
+        events: 'click #backbone-test': 'addItem'
 
     list_view = new ListView
