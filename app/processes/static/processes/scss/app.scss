@@ -2,7 +2,6 @@
 
 $card-margin: 10px;
 $cell-height: 200px;
-$focused-branch-padding: 10px;
 
 .content {
     border-left: 1px solid black;
@@ -23,12 +22,12 @@ $focused-branch-padding: 10px;
     display: inline-block;
     vertical-align: top;
     border: solid 1px black;
-    height: 100%;
+    height: 100% !important;
 
     .focused > & {
-        margin: $card-margin;
+        margin: 0 $card-margin;
         height: calc(100% - #{$card-margin});
-        width: calc(100% - 2*#{$card-margin+$focused-branch-padding}) !important;
+        width: calc(100% - 5*#{$card-margin}) !important;
     }
 
     &.fill {
@@ -37,7 +36,9 @@ $focused-branch-padding: 10px;
     }
 
     &.hidden {
+        margin: 0;
         width: 0 !important;
+        display: none;
     }
 }
 
@@ -53,19 +54,19 @@ $focused-branch-padding: 10px;
     display: block;
     height: $cell-height;
 
+
     &.branch {
 
         overflow-x: scroll;
         white-space: nowrap;
 
+        padding: 5px;
+
         &.focused {
-            height: 100%;
-            padding: $focused-branch-padding;
+            height: 100% !important;
+            padding: 0;
         }
 
-        &.hidden {
-            height: 0;
-        }
     }
 
     &.action {
@@ -92,5 +93,10 @@ $focused-branch-padding: 10px;
         &.NONE {
             background-color: gray;
         }
+    }
+
+    &.hidden {
+        height: 0 !important;
+        display: none;
     }
 }

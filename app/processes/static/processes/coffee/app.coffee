@@ -52,6 +52,14 @@ jQuery ->
         attributes:
             class: "cell branch"
 
+        initialize: ->
+
+            $(@el).click =>
+
+                if $(@el).parent().hasClass 'fill'
+                    $(@el).siblings().addClass "hidden", 300
+                    $(@el).addClass "focused", 300
+
         render: ->
 
             _.each @model.get('seqs'), (seq) =>
@@ -79,12 +87,13 @@ jQuery ->
         attributes:
             class: "sequence"
 
-        events:
-            click: "click"
+        initialize: ->
 
-        click: ->
-            $(@el).addClass "fill", 300
-            $(@el).siblings().addClass "hidden", 300
+            $(@el).click =>
+
+                if $(@el).parent().hasClass 'focused'
+                    $(@el).siblings().addClass "hidden", 300
+                    $(@el).addClass "fill", 300
 
         render: ->
 
