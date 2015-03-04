@@ -32,7 +32,7 @@ def _parse_process(process):
 def _parse_action(elem):
     return { "type"  : "action",
              "name"  : elem.attrib["name"].replace("_"," "),
-             "info"  : re.sub(r'(\t|(<br>)|(\n\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
+             "info"  : re.sub(r'(\t|(<br>)|(\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
              "state" : elem.attrib["state"]}
 
 def _parse_branch(elem):

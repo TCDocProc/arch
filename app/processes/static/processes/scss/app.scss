@@ -31,7 +31,7 @@
 $card-margin: 10px;
 $cell-margin: 3px;
 
-.body {
+body {
     background-color: #ECF0F1;
 }
 
@@ -112,6 +112,7 @@ $cell-margin: 3px;
         border-radius: 5px;
         text-weight: bold;
         white-space: normal;
+        border: 2px solid white;
 
         .fill > & {
             height: auto !important;
@@ -129,6 +130,7 @@ $cell-margin: 3px;
             }
 
             .focused > .sequence > & {
+                margin:15px 0;
                 font-size: 32px !important;
                 padding: 0 30px !important;
                 display: inline-block;
