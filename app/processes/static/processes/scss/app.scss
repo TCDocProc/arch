@@ -31,11 +31,17 @@
 $card-margin: 10px;
 $cell-margin: 3px;
 
+.body {
+    background-color: #ECF0F1;
+}
+
 .content {
     padding: 0;
+    margin-top: 50px;
     height: 600px;
-    background-color: #ECF0F1;
     font-family: "Lato";
+    width:100%;
+    max-width: 500px;
 }
 
 .sequence {
@@ -50,6 +56,7 @@ $cell-margin: 3px;
     display: inline-block;
     vertical-align: top;
     height: 100% !important;
+    cursor: pointer;
 
     .focused > & {
         margin: $card-margin;
@@ -86,7 +93,7 @@ $cell-margin: 3px;
 
     &.branch {
 
-        overflow-x: scroll;
+        overflow-x: visible;
         white-space: nowrap;
 
         padding: 5px;
@@ -108,12 +115,12 @@ $cell-margin: 3px;
 
         .fill > & {
             height: auto !important;
+            cursor: default;
         }
 
         h1 {
             display: none;
             text-transform: uppercase;
-            margin-bottom: 20px;
 
             .focused > .sequence > .branch > .sequence > & {
                 font-size: 16px;
@@ -137,6 +144,12 @@ $cell-margin: 3px;
                 padding: 0 30px !important;
                 padding-bottom: 20px !important;
                 display: inline-block !important;
+                width: 100%;
+
+                &:last-child {
+                    padding-bottom: 25px !important;
+                    text-align: right;
+                }
             }
         }
 
@@ -146,11 +159,10 @@ $cell-margin: 3px;
 
         &.ACTIVE {
             background-color: #14B259;
-            border: 5px solid #398CBF;
 
             @include keyframes(glow) {
-                0% { border: 5px solid #398CBF; }
-                90% { border: 5px solid #14B259; }
+                0% { background-color: #398CBF; }
+                90% { background-color: #14B259; }
             }
             @include animation('glow 1s infinite');
         }
