@@ -50,27 +50,27 @@ jQuery ->
     class BranchView extends Backbone.View
 
         attributes:
-            class: "branch"
-            style: "overflow-x: scroll; display: block"
+            class: "cell branch"
 
         render: ->
 
             _.each @model.get('seqs'), (seq) =>
                 seqView = new SequenceView model: seq
                 $(@el).append seqView.render().$el
-                seqView.$el.css('width',""+(100/@model.get('seqs').length-10)+"%")
 
             return @
 
     class ActionView extends Backbone.View
 
         attributes:
-            class: "action"
-            style: "display:block; height:100px; border-radius: 5px; border: 1px solid black; padding: 10px"
+            class: "cell action"
 
         render: ->
 
+            $(@el).addClass @model.get('state')
+
             $(@el).html "<p> #{ @model.get("name") } </p>"
+
             return @
 
 
@@ -78,12 +78,13 @@ jQuery ->
 
         attributes:
             class: "sequence"
-            style: "display:inline-block;
-                    width:90%;
-                    margin: 5%;
-                    border-radius:5px;
-                    background-color: #666666;
-                    vertical-align: top"
+
+        events:
+            click: "click"
+
+        click: ->
+            $(@el).addClass "fill", 300
+            $(@el).siblings().addClass "hidden", 300
 
         render: ->
 
@@ -102,8 +103,7 @@ jQuery ->
     class ProcessesView extends Backbone.View
 
         attributes:
-            class: "process"
-            style: "overflow-x: scroll; white-space:nowrap; max-height:100%;"
+            class: "cell branch focused"
 
         render: ->
 
@@ -112,11 +112,12 @@ jQuery ->
                 processView = new SequenceView model: seq
                 $(@el).append processView.render().$el
 
+
             return @
 
     class PageView extends Backbone.View
 
-        el: 'body'
+        el: '.content'
 
         render: ->
             collection = new Processes

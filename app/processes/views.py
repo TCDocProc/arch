@@ -11,7 +11,7 @@ def index(request,user_id,extension):
 
     r = requests.get("http://proisis.lero.ie/~jnoll/carepathways/peos.cgi")
     xml = ""
-    if r.status_code == 200:
+    if False: #r.status_code == 200:
         xml = et.fromstring(r.text)
     else:
         xml = et.fromstring(open(settings.STATIC_ROOT+"/xml/pathways.xml", "r").read())

@@ -1,0 +1,96 @@
+@import "settings";
+
+$card-margin: 10px;
+$cell-height: 200px;
+$focused-branch-padding: 10px;
+
+.content {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0;
+    height: 600px;
+}
+
+.sequence {
+
+    @for $i from 1 through 10 {
+        &:first-child:nth-last-child(#{$i}),
+        &:first-child:nth-last-child(#{$i}) ~ & {
+            width: calc(100% / #{$i})
+        }
+    }
+
+    display: inline-block;
+    vertical-align: top;
+    border: solid 1px black;
+    height: 100%;
+
+    .focused > & {
+        margin: $card-margin;
+        height: calc(100% - #{$card-margin});
+        width: calc(100% - 2*#{$card-margin+$focused-branch-padding}) !important;
+    }
+
+    &.fill {
+        margin: 0;
+        width: 100% !important;
+    }
+
+    &.hidden {
+        width: 0 !important;
+    }
+}
+
+.cell {
+
+    @for $i from 1 through 10 {
+        &:first-child:nth-last-child(#{$i}),
+        &:first-child:nth-last-child(#{$i}) ~ & {
+            height: calc(100% / #{$i})
+        }
+    }
+
+    display: block;
+    height: $cell-height;
+
+    &.branch {
+
+        overflow-x: scroll;
+        white-space: nowrap;
+
+        &.focused {
+            height: 100%;
+            padding: $focused-branch-padding;
+        }
+
+        &.hidden {
+            height: 0;
+        }
+    }
+
+    &.action {
+
+        padding: 5px;
+        overflow: hidden;
+
+        &.READY, &.AVAILABLE {
+            background-color: yellow;
+        }
+
+        &.ACTIVE {
+            background-color: blue;
+        }
+
+        &.BLOCKED, &.SUSPENDED {
+            background-color: red;
+        }
+
+        &.DONE, &.SATISFIED {
+            background-color: green;
+        }
+
+        &.NONE {
+            background-color: gray;
+        }
+    }
+}
