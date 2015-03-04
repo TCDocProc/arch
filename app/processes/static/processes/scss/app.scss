@@ -1,5 +1,5 @@
 @import "settings";
-@import url(http://fonts.googleapis.com/css?family=Josefin+Slab:700);
+@import url(http://fonts.googleapis.com/css?family=Lato:700);
 
 @mixin keyframes($animation-name) {
 
@@ -35,7 +35,7 @@ $cell-margin: 3px;
     padding: 0;
     height: 600px;
     background-color: #ECF0F1;
-    font-family: "Josefin Slab";
+    font-family: "Lato";
 }
 
 .sequence {
@@ -113,7 +113,7 @@ $cell-margin: 3px;
         h1 {
             display: none;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
 
             .focused > .sequence > .branch > .sequence > & {
                 font-size: 16px;
@@ -131,7 +131,6 @@ $cell-margin: 3px;
 
         p {
             display: none;
-            text-transform: uppercase;
             margin: 0;
 
             .fill > & {

@@ -78,7 +78,8 @@ jQuery ->
             $(@el).addClass @model.get('state')
 
             $(@el).html "<h1> #{ @model.get("name") } </h1>
-                        <p> #{ @model.get("info") } </p>"
+                        <p> #{ @model.get("info") } </p>
+                        <p> STATUS: #{ @model.get("state") } </p>"
 
             return @
 
