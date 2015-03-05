@@ -59,6 +59,15 @@ body {
     cursor: pointer;
 
     .focused > & {
+
+        &:not(.fill) {
+            &:hover {
+                background-color: #DDDDDD;
+            }
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+
         margin: $card-margin;
         height: calc(100% - 2 * #{$card-margin}) !important;
         width: calc(100% - 5 * #{$card-margin}) !important;
@@ -92,6 +101,14 @@ body {
     }
 
     &.branch {
+
+        .fill > &:not(.focused) {
+            &:hover {
+                background-color: #DDDDDD;
+            }
+            border-radius: 5px;
+            border: 1px solid white;
+        }
 
         overflow-x: visible;
         white-space: nowrap;
