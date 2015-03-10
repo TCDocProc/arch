@@ -51,7 +51,7 @@ cd arch
 
 To run the web app first run `boot2docker ip` and then use `http://IP_ADDRESS:PORT`
 
-###Ubuntu
+###Ubuntu Install Without Docker
 
 ```
 ## Update apt-get
@@ -63,15 +63,37 @@ sudo apt-get install -y git
 ## Clone repo
 git clone http://github.com/TCDocProc/arch
 
-cd arch
+cd arch/
 
-## Install the webapp
-sudo ./install_ubuntu
-
-## Run the webapp
-sudo ./run <port>
+## Install the webapp and run it
+./nodocker_install
 
 ```
+## Feature Listing
+
+###Authentication - Complete
+
+Use /accounts/signup/ to register your own user.
+
+A test user is provider at 
+	Username	: test
+	Pass	 	: testpass
+
+###Pathway Listing
+
+On Login you will see either an interface or an upload screen. If you are on the upload screen you can upload an example xml.
+
+This will be converted to josn by the xml to json parser.
+
+Then you will be re-directed to you Pathway view.
+
+###Pathway View
+
+Panning and Zooming is done by clicking through the interface. Metadate shows up when you zoom in fully.
+
+###Responsiveness
+
+The whole view is responsiveness.
 
 ### Windows
 Coming never

@@ -2,6 +2,7 @@ sudo apt-get -y install python python-dev python-setuptools check sqlite3 cython
 sudo apt-get install -y curl
 curl -sL https://deb.nodesource.com/setup | sudo bash
 sudo apt-get install -y nodejs
+sudo rm -rf venv
 
 # install yuglify
 sudo npm install -g yuglify
@@ -25,7 +26,7 @@ source venv/bin/activate
 pip install -r app/requirements.txt
 export DEBUG=1
 export LOCAL=1
-m -rf app/collectstatic
+sudo rm -rf app/collectstatic
 cd app;
 mkdir collectstatic
 mkdir collectstatic/bower_components
