@@ -19,14 +19,14 @@ def index(request,user_id,extension):
     if(extension=="json"):
         return HttpResponse(json.dumps(response), content_type='application/json')
 
-    elif(extension=="html"):
+    else:
         context = RequestContext(request, { "data": response })
         return HttpResponse(loader.get_template('process.html').render(context))
 
 def _parse_process(process):
     return { "id"       : process.attrib["pid"],
              "type"     : "process",
-             "name"     : re.search(r'\./(.*)\.pml',process.attrib["model"]).group(1),
+             "name"     : re.search(r'\./(.*)\.pml',process.attrib["model"]).group(1).replace("_"," "),
              "sequence" : _parse_seq(process) }
 
 def _parse_action(elem):

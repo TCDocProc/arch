@@ -28,77 +28,84 @@
     animation: #{$str};
 }
 
-$card-margin: 10px;
-$cell-margin: 3px;
+$background-color: #ECF0F1;
+$unfilled-seq-width: 300px;
+$filled-seq-width: 350px;
 
 body {
-    background-color: #ECF0F1;
+    background-color: $background-color;
 }
 
+.row {
+    height: 100%;
+    max-height: 600px;
+}
 .content {
     padding: 0;
     margin-top: 50px;
-    height: 600px;
+    height: calc( 100% - 50px);
     font-family: "Lato";
     width:100%;
     max-width: 500px;
 }
 
+
+
+h1 {
+    font-size: 24px;
+}
+
+
 .sequence {
 
     @for $i from 1 through 10 {
-        &:first-child:nth-last-child(#{$i}),
-        &:first-child:nth-last-child(#{$i}) ~ & {
+        &.siblings-#{$i} {
             width: calc(100% / #{$i})
         }
     }
 
+    & > h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #ECF0F1;
+        background-color: #333333;
+        margin: 0;
+    }
+
     display: inline-block;
     vertical-align: top;
-    height: 100% !important;
+    height: 100%;
     cursor: pointer;
 
     .focused > & {
 
         &:not(.fill) {
-            &:hover {
-                background-color: #DDDDDD;
-            }
-            border-radius: 5px;
-            border: 1px solid white;
+            margin-right: 5px;
         }
 
-        margin: $card-margin;
-        height: calc(100% - 2 * #{$card-margin}) !important;
-        width: calc(100% - 5 * #{$card-margin}) !important;
+        height: calc(100%);
+        width: $unfilled-seq-width;
     }
 
     &.fill {
-        margin: 0;
-        width: 100% !important;
-    }
-
-    &.hidden {
-        margin: 0;
-        width: 0 !important;
-        display: none;
+        margin: auto;
+        width: $filled-seq-width;
     }
 }
 
 .cell {
 
     @for $i from 1 through 10 {
-        &:first-child:nth-last-child(#{$i}),
-        &:first-child:nth-last-child(#{$i}) ~ & {
-            height: calc(100% / #{$i} - 2 * #{$cell-margin})
+        &.siblings-#{$i} {
+            height: calc( 100% / #{$i} );
+            h1 ~ & {
+                height: calc( (100% - 36px) / #{$i} );
+            }
         }
     }
 
     display: block;
 
-    .focused > .sequence > & {
-        min-height: 180px;
-    }
 
     &.branch {
 
@@ -106,51 +113,56 @@ body {
             &:hover {
                 background-color: #DDDDDD;
             }
-            border-radius: 5px;
-            border: 1px solid white;
+            margin: 5px 0;
         }
 
         overflow-x: visible;
         white-space: nowrap;
 
-        padding: 5px;
-
         &.focused {
-            height: 100% !important;
+            height: 100%;
             padding: 0;
+            @for $i from 1 through 10 {
+                &.children-#{$i} {
+                    width: calc( #{$unfilled-seq-width} * #{$i});
+                }
+            }
+            &.remove-width {
+                width: auto;
+            }
         }
-
     }
 
     &.action {
 
         overflow: hidden;
-        margin: $cell-margin;
-        border-radius: 5px;
+        // border-radius: 3px;
         text-weight: bold;
         white-space: normal;
-        border: 2px solid white;
+        // border: 2px solid white;
 
         .fill > & {
-            height: auto !important;
+            height: auto;
             cursor: default;
         }
 
         h1 {
-            display: none;
+
             text-transform: uppercase;
 
-            .focused > .sequence > .branch > .sequence > & {
-                font-size: 16px;
+            :not(.focused) > .sequence > & {
+                font-size: 0.8em;
                 padding: 0 15px;
-                display: inline-block;
             }
 
             .focused > .sequence > & {
-                margin:15px 0;
-                font-size: 32px !important;
-                padding: 0 30px !important;
-                display: inline-block;
+                margin:10px 0;
+                font-size: 1.5em;
+                padding: 0 15px;
+            }
+
+            :not(.focused) > * > :not(.focused) > * > & {
+                display: none;
             }
 
         }
@@ -158,49 +170,70 @@ body {
         p {
             display: none;
             margin: 0;
+            padding: 0 15px;
+            padding-bottom: 20px;
+            width: 100%;
 
-            .fill > & {
-                padding: 0 30px !important;
-                padding-bottom: 20px !important;
-                display: inline-block !important;
-                width: 100%;
-
-                &:last-child {
-                    padding-bottom: 25px !important;
-                    text-align: right;
-                }
+            &:last-child {
+                padding-bottom: 10px;
+                text-align: right;
             }
-        }
 
-        &.READY, &.AVAILABLE {
-            background-color: #14B259;
-        }
-
-        &.ACTIVE {
-            background-color: #14B259;
-
-            @include keyframes(glow) {
-                0% { background-color: #398CBF; }
-                90% { background-color: #14B259; }
-            }
-            @include animation('glow 1s infinite');
-        }
-
-        &.BLOCKED, &.SUSPENDED {
-            background-color: #E8142A;
-        }
-
-        &.DONE, &.SATISFIED {
-            background-color: #6FBB84;
-        }
-
-        &.NONE {
-            background-color: #7F8C8D;
         }
     }
+}
 
-    &.hidden {
-        height: 0 !important;
-        display: none;
+$border-darkness: 3%;
+
+.READY, .AVAILABLE {
+
+    $ready-color: #14B259;
+
+    background-color: $ready-color;
+    border: 1px solid darken($ready-color, $border-darkness);
+}
+
+.ACTIVE {
+
+    $active-start-color: #398CBF;
+    $active-end-color: #14B259;
+
+    background-color: $active-end-color;
+    border: 1px solid darken($active-end-color, $border-darkness);
+
+    @include keyframes(glow) {
+        0% {
+            background-color: $active-start-color;
+            border: 1px solid darken($active-start-color, $border-darkness);
+        }
+        90% {
+            background-color: $active-end-color;
+            border: 1px solid darken($active-end-color, $border-darkness);
+        }
     }
+    @include animation('glow 1s infinite');
+}
+
+.BLOCKED, .SUSPENDED {
+
+    $blocked-color: #E8142A;
+
+    background-color: $blocked-color;
+    border: 1px solid darken($blocked-color, $border-darkness);
+}
+
+.DONE, .SATISFIED {
+
+    $done-color: #6FBB84;
+
+    background-color: $done-color;
+    border: 1px solid darken($done-color, $border-darkness);
+}
+
+.NONE {
+
+    $none-color: #7F8C8D;
+
+    background-color: $none-color;
+    border: 1px solid darken($none-color, $border-darkness);
 }
