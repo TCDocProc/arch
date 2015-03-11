@@ -31,6 +31,7 @@ A user-friendly interface for presenting care pathways for a single patient usin
 | ![jenkins-logo]
 
 [jenkins-logo]:https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000
+
 ##Deployment
 
 ###OS X
@@ -42,16 +43,20 @@ git clone http://github.com/TCDocProc/arch
 cd arch
 
 ## Install the webapp
-./install_osx
+./install_osx [options...]
+
+OPTIONS:
+   -h      Show usage info
+   -s      Skip brew installation
 
 ## Run the webapp
-./run <port>
+./watch_run_osx <port>
 
 ```
 
-To run the web app first run `boot2docker ip` and then use `http://IP_ADDRESS:PORT`
+The last command returns `Running on: http://<boot2docker-ip>:<port>` you can open the webapp at the returned URL.
 
-###Ubuntu Install Without Docker
+###Ubuntu (Without Docker)
 
 ```
 ## Update apt-get
@@ -65,35 +70,66 @@ git clone http://github.com/TCDocProc/arch
 
 cd arch/
 
-## Install the webapp and run it
-./nodocker_install
+## Install & Run the webapp
+./install_run_ubuntu
 
 ```
+
+Upon completion the script returns:  
+`Starting development sever at http://<ip>:<port>/`  
+you can run the webapp using the returned URL.
+
+*All packages installed by `install_run_ubuntu` are inside of a virtual env, so it will not conflict with your existing development setup.* 
+
 ## Feature Listing
 
-###Authentication - Complete
+###✅ Authentication - Completed
 
-Use /accounts/signup/ to register your own user.
+Uses Django AllAuth library.  
+Includes password recovery, signing up, logging in and logging out.  
+There’s no need to confirm an email. There are no password requirements (in terms of length or symbols).
 
-A test user is provider at 
-	Username	: test
-	Pass	 	: testpass
+To try it out:
 
-###Pathway Listing
+Sign Up | Sign In | Sign Out | Password Recovery
+------- | -------|-----|-----------------
+`/accounts/signup/` | `/accounts/login/` | `/accounts/logout/` | `/accounts/password/reset/`
 
-On Login you will see either an interface or an upload screen. If you are on the upload screen you can upload an example xml.
+###✅ Pathway Listing - Completed
 
-This will be converted to josn by the xml to json parser.
+On Login you will see your Pathway view.
 
-Then you will be re-directed to you Pathway view.
+####Process Structure / Process State / XML Parser
 
-###Pathway View
+The list of pathways is extracted from the XML process table. Then the pathway structure is extracted from each and finally the action states are extracted. This information is then converted to JSON using Python and it’s built-in capabilities.
 
-Panning and Zooming is done by clicking through the interface. Metadate shows up when you zoom in fully.
+See `arch/app/processes/views.py` for the XML to JSON conversion.
 
-###Responsiveness
+###✅ Pathway View - Completed
 
-The whole view is responsiveness.
+####Graph Layout
+The graph is read top down. The top cell is the root of the tree / graph. A branch is represented by two or more cells appearing beside each other.
 
-### Windows
-Coming never
+####Pan / Zoom
+Pan around the view by scrolling vertically or horizontally. Zoom into a cell by clicking it and zoom out by going back a page.
+
+####Click to Display Metadata
+The metadata of an action (it’s description and status) will be shown once you click on the cell and it is in it’s most nested position.
+
+####Colours
+Colours are used to convey the state of a cell. 
+
+Green | Grey | Red | Blue (flashing)
+------- | -------|-----|-----------------
+Ready | None | Blocked | Active
+
+####Refinements
+
+
+###Mobile Friendly
+
+####Tablets
+A tablet friendly UI requires some work but is very similar to desktop in terms of screen space available.
+
+####Phones
+A phone friendly UI requires more work since the device has a narrow width or height depending on it’s orientation and very little screen real-estate.
