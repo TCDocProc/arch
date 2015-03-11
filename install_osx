@@ -35,6 +35,7 @@ docker_init()
 	# Start boot2docker
 	boot2docker init
 	boot2docker up
+    $(boot2docker shellinit)
 
 	# Build and run web app
 	docker build -t webapp .

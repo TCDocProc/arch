@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
 {% block static %}
-    {% load pipeline %}
-    {% javascript 'processes' %}
-    {% stylesheet 'processes' %}
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'processes/scss/app.css' %}" />
+
+    <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'underscore/underscore.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
+
 {% endblock %}
 
 {% block topbar %}

@@ -68,7 +68,6 @@ INSTALLED_APPS = (
 
     # 3rd party
     'backbone_tastypie',
-    'pipeline',
     'djangobower',
     'debug_toolbar',
 
@@ -129,7 +128,6 @@ else:
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
     'djangobower.finders.BowerFinder',
 )
 
@@ -139,17 +137,6 @@ STATICFILES_DIRS = (
 )
 
 BOWER_COMPONENTS_ROOT = STATIC_ROOT
-
-PIPELINE_COMPILERS = (
-  'pipeline.compilers.coffee.CoffeeScriptCompiler',
-  'pipeline.compilers.sass.SASSCompiler',
-
-)
-
-PIPELINE_SASS_ARGUMENTS = "--scss -I "+STATIC_ROOT+"/bower_components/foundation/scss -I "+STATIC_ROOT+"/scss"
-
-PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
-PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
 ALLOWED_HOSTS = [
     'localhost',  # Allow domain and subdomains
@@ -163,43 +150,6 @@ BOWER_INSTALLED_APPS = (
     'jquery-ui#1.11.3',
 )
 
-PIPELINE_CSS = {
-    'base': {
-        'source_filenames': (
-          'scss/base.scss',
-        ),
-        'output_filename': 'css/base.css',
-    },
-    'processes': {
-        'source_filenames': (
-            'processes/scss/app.scss',
-        ),
-        'output_filename': 'processes/css/app.css',
-    }
-}
-
-
-PIPELINE_JS = {
-    'members': {
-        'source_filenames': (
-            'jquery/dist/jquery.min.js',
-            'underscore/underscore.js',
-            'backbone/backbone.js',
-            'members/coffee/app.coffee',
-        ),
-        'output_filename': 'members/js/app.js',
-    },
-    'processes': {
-        'source_filenames': (
-            'jquery/dist/jquery.min.js',
-            'underscore/underscore.js',
-            'backbone/backbone.js',
-            'jquery-ui/jquery-ui.min.js',
-            'processes/coffee/app.coffee',
-        ),
-        'output_filename': 'processes/js/app.js',
-    }
-}
 
 if LOCAL:
     CACHES = {
@@ -208,35 +158,3 @@ if LOCAL:
             'LOCATION': '/tmp/django_cache',
         }
     }
-
-#
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True,
-#     'formatters': {
-#         'verbose': {
-#             'format': '[%(asctime)s] %(levelname)s %(pathname)s:%(lineno)s %(message)s'
-#         }
-#     },
-#     'handlers': {
-#         'logfile': {
-#             'level':'DEBUG',
-#             'class':'logging.handlers.RotatingFileHandler',
-#             'filename':'/var/log/django.log',
-#             'maxBytes': 50000,
-#             'backupCount': 2,
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'root': {
-#         'handlers': ['logfile'],
-#         'level': 'DEBUG',
-#     },
-#     'loggers': {
-#         '': {
-#             'handlers': ['logfile'],
-#             'level': 'DEBUG',
-#             'propagate': True
-#         },
-#     }
-# }
