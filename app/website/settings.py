@@ -70,7 +70,6 @@ INSTALLED_APPS = (
     'backbone_tastypie',
     'pipeline',
     'djangobower',
-    'debug_toolbar',
 
     'allauth',
     'allauth.account',
@@ -84,7 +83,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'website.urls'
