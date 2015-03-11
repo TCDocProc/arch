@@ -79,7 +79,7 @@ Upon completion the script returns:
 `Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
-To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do. When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have showed you every major feature.
+To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do (there's an example xml file in app/static/ ). When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have shown you every major feature.
 
 *All packages installed by `install_run_ubuntu` are inside of a virtual env, so it will not conflict with your existing development setup.* 
 
@@ -125,7 +125,9 @@ Green | Grey | Red | Blue (flashing)
 ------- | -------|-----|-----------------
 Ready | None | Blocked | Active
 
-####Refinements
+####Testing
+
+There are several tests set up on jenkins and these infer several tests in the django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine. More detailed tests need to be made for the next iteration.
 
 
 ###Mobile Friendly
