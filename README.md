@@ -76,7 +76,7 @@ cd arch/
 ```
 
 Upon completion the script returns:  
-`Starting development sever at http://127.0.0.1:8000/`  
+`Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
 *All packages installed by `install_run_ubuntu` are inside of a virtual env, so it will not conflict with your existing development setup.* 
@@ -87,21 +87,23 @@ you can run the webapp using the returned URL.
 
 Uses Django AllAuth library.  
 Includes password recovery, signing up, logging in and logging out.  
-Does not check for a valid email or send a confirmation email. There are no password requirements (in terms of length or characters).
+There’s no need to confirm an email. There are no password requirements (in terms of length or symbols).
 
-Try registering your own user at `<base-url>/accounts/signup/`.
+To try it out:
+
+Sign Up | Sign In | Sign Out | Password Recovery
+------- | -------|-----|-----------------
+`/accounts/signup/` | `/accounts/login/` | `/accounts/logout/` | `/accounts/password/reset/`
 
 ###✅ Pathway Listing - Completed
 
-On Login you will see either an interface or an upload screen. If you are on the upload screen you can upload an example XML.
-
-This will be converted to JSON by the XML to JSON parser.
-
-Then you will be re-directed to you Pathway view.
+On Login you will see your Pathway view.
 
 ####Process Structure / Process State / XML Parser
 
-The list of pathways is extracted from the kernel’s XML process table. Then the pathway structure is extracted from each and finally the action states are extracted. This information is then converted to JSON using Python and it’s built-in capabilities.
+The list of pathways is extracted from the XML process table. Then the pathway structure is extracted from each and finally the action states are extracted. This information is then converted to JSON using Python and it’s built-in capabilities.
+
+See `arch/app/processes/views.py` for the XML to JSON conversion.
 
 ###✅ Pathway View - Completed
 
