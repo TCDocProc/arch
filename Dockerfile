@@ -25,7 +25,7 @@ run easy_install pip
 # install npm
 run apt-get install -y curl
 run curl -sL https://deb.nodesource.com/setup | bash
-run	apt-get install -y nodejs
+run apt-get install -y nodejs
 
 # install yuglify
 run npm install -g yuglify
@@ -38,10 +38,10 @@ run apt-get install -y coffeescript
 
 # install sass and compass
 run apt-get install -y rubygems
-run	gem install compass -v 1.0.3
+run gem install compass -v 1.0.3
 
 # needed by scss compiler
-run	gem install json -v 1.8.2
+run gem install json -v 1.8.2
 
 # install uwsgi now because it takes a little while
 run apt-get install -y uwsgi
@@ -68,7 +68,7 @@ run pip install -r /home/docker/code/app/requirements.txt
 
 # sync the database
 run cd /home/docker/code && \
-     python ./app/manage.py migrate
+    python ./app/manage.py migrate
 
 expose 80
 
