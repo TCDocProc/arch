@@ -66,10 +66,6 @@ run ln -s /home/docker/code/supervisor-app.conf /etc/supervisor/conf.d/
 # run pip install
 run pip install -r /home/docker/code/app/requirements.txt
 
-# sync the database
-run cd /home/docker/code && \
-    python ./app/manage.py migrate
-
 expose 80
 
 run mkdir /home/docker/volatile
@@ -90,5 +86,9 @@ run python /home/docker/code/app/manage.py bower install
 USER root
 
 run python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1
+
+# sync the database
+run cd /home/docker/code && \
+    python ./app/manage.py migrate
 
 cmd ["supervisord", "-n"]

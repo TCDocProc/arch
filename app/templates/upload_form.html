@@ -3,9 +3,9 @@
 {% block title %}Upload Your Pathway{% endblock %}
 
 {% block content %}
-    <h1>Upload Pathway For Christ Sake</h1>
+    <h1>Upload Pathway</h1>
     <form action="#" method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{form}} 
-        <input type="submit" value="Upload" />
+        {% csrf_token %} {{form}}
+        <input class="button success radius" type="submit" value="Upload" />
     </form>
 {% endblock %}

@@ -9,30 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
     </head>
     <body>
-        <div class="fixed">
-          <nav class="top-bar" data-topbar role="navigation">
-            <ul class="title-area">
-              <li class="name">
-                <h1><a>TCDoc</a></h1>
-              </li>
-            </ul>
-            <section class="top-bar-section">
-              <!-- Right Nav Section -->
-              <ul class="right">
-                {% if request.user.is_authenticated %}
-                  <li><a>{{request.user.email}}</a></li>
-                  <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-                {% else %}
-                  <li><a href="{% url 'account_login' %}">Sign In</a></li>
-                  <li><a class= "nav-item" href="{% url 'account_signup' %}">Sign Up</a></li>
-                {% endif %}
-              </ul>
-              <!-- Left Nav Section -->
-              <ul class="left">
-              </ul>
-            </section>
-          </nav>
-    </div>
+      {% block topbar %}
+        {% include '_top_bar.html' %}
+      {% endblock %}
 
       <div class="row">
         <div class = "content text-center twelve columns">
