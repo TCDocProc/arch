@@ -63,7 +63,9 @@ jQuery ->
 
 ###############################################################################
 
-    ANIMATION_SPEED = 500
+    ANIMATION_SPEED = 150
+
+    enableInteraction = true
 
     class ActionView extends Backbone.View
 
@@ -84,12 +86,16 @@ jQuery ->
 
             return @
 
-        moveToPath: (path) ->
+        moveToPath: (path, complete) ->
+
+            @complete = complete
 
             if _.first(path)? and _.first(path) isnt @model.i
-                $(@el).slideUp()
+                $(@el).slideUp ANIMATION_SPEED, =>
+                    @complete()
             else
-                $(@el).slideDown()
+                $(@el).slideDown ANIMATION_SPEED, =>
+                    @complete()
 
 
     class BranchView extends Backbone.View
@@ -102,22 +108,34 @@ jQuery ->
             $(@el).addClass "siblings-#{siblingCount}"
             $(@el).addClass "children-#{@model.get("seqs").length}"
             $(@el).click =>
-                if $(@el).parent().hasClass('fill') and not $(@el).hasClass("focused")
+                if $(@el).parent().hasClass('fill') and not $(@el).hasClass("focused") and enableInteraction
                     Backbone.history.navigate "#{Backbone.history.fragment.match(/.*[^\/]/g)}/#{@model.i}", true
 
         render: ->
 
-            @seqViews = []
+            @childViews = []
 
             _.each @model.get('seqs'), (seq) =>
                 seqView = new SequenceView model: seq
                 seqView.setup @model.get('seqs').length
                 $(@el).append seqView.render().$el
-                @seqViews.push(seqView)
+                @childViews.push(seqView)
 
             return @
 
-        moveToPath: (path) ->
+        moveToPath: (path, complete) ->
+
+            @complete = complete
+            passToChildren = =>
+
+                completion = 0
+                @childViews.map (view) =>
+                    nextPath = undefined
+                    nextPath = _.tail(path) if path?
+                    view.moveToPath nextPath, =>
+                        completion += 1
+                        if completion >= @childViews.length
+                            @complete()
 
             if _.first(path)?
 
@@ -125,20 +143,19 @@ jQuery ->
 
                     $(@el).addClass "focused", ANIMATION_SPEED, 'swing', =>
                          $(@el).addClass "remove-width"
-                         @seqViews.map (seqView) ->
-                             seqView.moveToPath _.tail(path)  if path?
-                             seqView.moveToPath undefined unless path?
+                         passToChildren()
                 else
                     if $(@el).is(":visible")
-                        $(@el).animate height: "toggle", ANIMATION_SPEED, 'swing'
+                        $(@el).animate height: "toggle", ANIMATION_SPEED, 'swing', =>
+                            @complete()
             else
                 if $(@el).is(":hidden")
-                    $(@el).animate height: "toggle", ANIMATION_SPEED, 'swing'
+                    $(@el).animate height: "toggle", ANIMATION_SPEED, 'swing', =>
+                        @complete()
                 else
                     $(@el).removeClass "remove-width"
                     $(@el).removeClass "focused", ANIMATION_SPEED, 'swing', =>
-                        @seqViews.map (seqView) ->
-                            seqView.moveToPath undefined
+                        passToChildren()
 
 
     class SequenceView extends Backbone.View
@@ -146,18 +163,20 @@ jQuery ->
         attributes:
             class: "sequence"
 
+        visible: true
+
         setup: (siblingCount, header) ->
 
             $(@el).addClass "siblings-#{siblingCount}"
             $(@el).addClass "children-#{@model.get("objs").length}"
             $(@el).prepend  "<h1>#{header}</h1>" if header isnt undefined
             $(@el).click =>
-                if $(@el).parent().hasClass('focused') and not $(@el).hasClass("fill")
+                if $(@el).parent().hasClass('focused') and not $(@el).hasClass("fill") and enableInteraction
                     Backbone.history.navigate "#{Backbone.history.fragment.match(/.*[^\/]/g)}/#{@model.i}", true
 
         render: ->
 
-            @cells = []
+            @childViews = []
 
             _.each @model.get("objs"), (obj) =>
 
@@ -167,37 +186,58 @@ jQuery ->
                         actionView = new ActionView model: obj
                         actionView.setup @model.get("objs").length
                         $(@el).append actionView.render().$el
-                        @cells.push(actionView)
+                        @childViews.push(actionView)
 
                     when "branch"
                         branchView = new BranchView model: obj
                         branchView.setup @model.get("objs").length
                         $(@el).append branchView.render().$el
-                        @cells.push(branchView)
+                        @childViews.push(branchView)
 
             return @
 
-        moveToPath: (path) ->
+        moveToPath: (path, complete) ->
+
+            @complete = complete
+
+            passToChildren = =>
+
+                completion = 0
+                @childViews.map (cell) =>
+                    nextPath = undefined
+                    nextPath = _.tail(path) if path?
+                    cell.moveToPath nextPath, =>
+                        completion += 1
+                        if completion >= @childViews.length
+                            @complete()
+
 
             if _.first(path)?
+
                 if _.first(path) is @model.i
+
                     $(@el).addClass "fill", ANIMATION_SPEED, 'swing', =>
                         $(@el).children('.action').children('p').slideDown ANIMATION_SPEED, =>
-                            @cells.map (cell) ->
-                                cell.moveToPath _.tail(path)  if path?
-                                cell.moveToPath undefined unless path?
+                            passToChildren()
                 else
-                    if $(@el).is(":visible")
-                        $(@el).animate width: 'toggle', ANIMATION_SPEED
+
+                    if @visible
+                        @visible = false
+                        $(@el).animate width: 'toggle', ANIMATION_SPEED, =>
+                            @complete()
+
             else
 
-                if $(@el).is(":hidden")
-                    $(@el).animate width: "toggle", ANIMATION_SPEED
-                else
+                if @visible
                     $(@el).children('.action').children('p').slideUp ANIMATION_SPEED, =>
                         $(@el).removeClass "fill", ANIMATION_SPEED, =>
-                            @cells.map (cell) ->
-                                cell.moveToPath undefined
+                            passToChildren()
+                else
+                    @visible = true
+                    $(@el).animate width: "toggle", ANIMATION_SPEED, =>
+                        @complete()
+
+
 
     class ProcessesView extends Backbone.View
 
@@ -211,7 +251,7 @@ jQuery ->
 
         render: ->
 
-            @processViews = []
+            @childViews = []
 
             $(@el).addClass "children-#{@collection.models.length}"
             _.each @collection.models, (proc) =>
@@ -219,15 +259,20 @@ jQuery ->
                 processView = new SequenceView model: seq
                 processView.setup @collection.models.length, proc.get('name')
                 $(@el).append processView.render().$el
-                @processViews.push processView
+                @childViews.push processView
 
             return @
 
-        moveToPath: (path) ->
+        moveToPath: (path, complete) ->
 
-            @processViews.map (view) ->
-                view.moveToPath path
+            @complete = complete
 
+            completion = 0
+            @childViews.map (view) =>
+                view.moveToPath path, =>
+                    completion += 1
+                    if completion >= @childViews.length
+                        @complete()
 
     class PageView extends Backbone.View
 
@@ -236,6 +281,10 @@ jQuery ->
         initialize: (user_id) ->
 
             @user_id = user_id
+            $('ul.title-area > :nth-child(1)').click =>
+                if enableInteraction
+                    Backbone.history.navigate "/processes/user/#{@user_id}", true
+
             return @
 
         render: (callback) ->
@@ -251,14 +300,32 @@ jQuery ->
 
         moveToPath: (path) ->
 
-            @procView.moveToPath path?.split("/").map(Number)
+            navClick = (path) =>
+                if enableInteraction
+                    Backbone.history.navigate "/processes/user/#{@user_id}/#{path.join('/')}", true
 
+            enableInteraction = false
+
+            $('ul.title-area > :not(:nth-child(1))')?.remove()
+
+            pathArray = path?.split("/").map(Number)
+
+            pathArray?.forEach (e, i) =>
+
+                if i is 0
+                    $('ul.title-area').append "<li class='name'><h1>&#10095;</h1></li><li class='name'><h1><a>" + $(".content > .branch").children().eq(e).children("h1").text() + "</a></h1></li>"
+                else
+                    $('ul.title-area').append "<li class='name'><h1>&#10095;</h1></li><li class='name'><h1><a>...</a></h1></li>"
+
+                $('ul.title-area').children(":last-child").click -> navClick(_.first(pathArray,i+1))
+
+            @procView.moveToPath pathArray, ->
+                enableInteraction = true
 
     class AppRouter extends Backbone.Router
 
         routes:
             "processes/user/:user_id(/*path)": "process"
-
 
     app_router = new AppRouter;
 

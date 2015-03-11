@@ -49,7 +49,15 @@ body {
     max-width: 500px;
 }
 
+.top-bar .name {
+    display: inline-block;
+    vertical-align: top;
+}
 
+.top-bar .name h1 {
+    line-height: 39px;
+    text-transform: capitalize;
+}
 
 h1 {
     font-size: 24px;
@@ -66,7 +74,7 @@ h1 {
 
     & > h1 {
         text-align: center;
-        text-transform: uppercase;
+        text-transform: capitalize;
         color: #ECF0F1;
         background-color: #333333;
         margin: 0;
@@ -90,6 +98,9 @@ h1 {
     &.fill {
         margin: auto;
         width: $filled-seq-width;
+        > h1 {
+            display: none;
+        }
     }
 }
 
@@ -184,10 +195,20 @@ h1 {
 }
 
 $border-darkness: 3%;
+$border-width: 2px;
+
+$ready-color: #14B259;
+
+$active-start-color: #398CBF;
+$active-end-color: #14B259;
+
+$blocked-color: #E8142A;
+
+$done-color: #6FBB84;
+
+$none-color: #7F8C8D;
 
 .READY, .AVAILABLE {
-
-    $ready-color: #14B259;
 
     background-color: $ready-color;
     border: 1px solid darken($ready-color, $border-darkness);
@@ -195,20 +216,17 @@ $border-darkness: 3%;
 
 .ACTIVE {
 
-    $active-start-color: #398CBF;
-    $active-end-color: #14B259;
-
     background-color: $active-end-color;
-    border: 1px solid darken($active-end-color, $border-darkness);
+    border: $border-width solid darken($active-end-color, $border-darkness);
 
     @include keyframes(glow) {
         0% {
             background-color: $active-start-color;
-            border: 1px solid darken($active-start-color, $border-darkness);
+            border: $border-width solid darken($active-start-color, $border-darkness);
         }
         90% {
             background-color: $active-end-color;
-            border: 1px solid darken($active-end-color, $border-darkness);
+            border: $border-width solid darken($active-end-color, $border-darkness);
         }
     }
     @include animation('glow 1s infinite');
@@ -216,24 +234,18 @@ $border-darkness: 3%;
 
 .BLOCKED, .SUSPENDED {
 
-    $blocked-color: #E8142A;
-
     background-color: $blocked-color;
-    border: 1px solid darken($blocked-color, $border-darkness);
+    border: $border-width solid darken($blocked-color, $border-darkness);
 }
 
 .DONE, .SATISFIED {
 
-    $done-color: #6FBB84;
-
     background-color: $done-color;
-    border: 1px solid darken($done-color, $border-darkness);
+    border: $border-width solid darken($done-color, $border-darkness);
 }
 
 .NONE {
 
-    $none-color: #7F8C8D;
-
     background-color: $none-color;
-    border: 1px solid darken($none-color, $border-darkness);
+    border: $border-width solid darken($none-color, $border-darkness);
 }
