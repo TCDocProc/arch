@@ -88,7 +88,7 @@ USER root
 run python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1
 
 # sync the database
-run cd /home/docker/code && \
-    python ./app/manage.py migrate
+run cd /home/docker/code/app && \
+    python manage.py migrate
 
 cmd ["supervisord", "-n"]

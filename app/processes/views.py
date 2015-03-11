@@ -1,27 +1,33 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Context
+from django.contrib.auth.decorators import login_required
+import members.models as m
 
 import xml.etree.cElementTree as et
 import requests, json, re
 from website import settings
 
+@login_required(login_url='/accounts/signup/')
 def index(request,user_id,extension):
 
-    r = requests.get("http://proisis.lero.ie/~jnoll/carepathways/peos.cgi")
-    xml = ""
-    if False: #r.status_code == 200:
-        xml = et.fromstring(r.text)
+    pathways = m.Pathway.objects.filter(user_id=request.user.id)
+
+    if pathways:
+
+        xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
+
+        response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
+
+        if(extension=="json"):
+            return HttpResponse(json.dumps(response), content_type='application/json')
+
+        else:
+            context = RequestContext(request, { "data": response })
+            return HttpResponse(loader.get_template('process.html').render(context))
     else:
-        xml = et.fromstring(open(settings.STATIC_ROOT+"/xml/pathways.xml", "r").read())
 
-    response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
+        return HttpResponseRedirect( '/add_pathway/' )
 
-    if(extension=="json"):
-        return HttpResponse(json.dumps(response), content_type='application/json')
-
-    else:
-        context = RequestContext(request, { "data": response })
-        return HttpResponse(loader.get_template('process.html').render(context))
 
 def _parse_process(process):
     return { "id"       : process.attrib["pid"],
