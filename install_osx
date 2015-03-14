@@ -41,7 +41,6 @@ docker_init()
 	docker build -t webapp .
 }
 
-NO_INSTALL=
 while getopts “h:s” OPTION
 do
      case $OPTION in
