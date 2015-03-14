@@ -70,18 +70,21 @@ git clone http://github.com/TCDocProc/arch
 
 cd arch/
 
-## Install & Run the webapp
-./install_run_ubuntu
+## Install the webapp
+./arch_ubuntu install
+
+## Run the webapp
+./arch_ubuntu run
 
 ```
 
-Upon completion the script returns:  
+Upon completion `./arch_ubuntu run' returns:  
 `Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
 To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do (there's an example xml file in app/static/ ). When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have shown you every major feature.
 
-*All packages installed by `install_run_ubuntu` are inside of a virtual env, so it will not conflict with your existing development setup.* 
+*All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.* 
 
 ## Feature Listing
 
@@ -89,7 +92,7 @@ To test all the features you will need to sign up with a false account and log i
 
 Uses Django AllAuth library.  
 Includes password recovery, signing up, logging in and logging out.  
-There’s no need to confirm an email. There are no password requirements (in terms of length or symbols).
+There’s no need to confirm an email. Password must be 6 characters or longer but no symbol restrictions apply.
 
 To try it out:
 
@@ -99,7 +102,7 @@ Sign Up | Sign In | Sign Out | Password Recovery
 
 ###✅ Pathway Listing - Completed
 
-On Login you will see your Pathway view.
+On Login you will either see your pathway view or an upload screen. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/static/xml/pathways.xml`.
 
 ####Process Structure / Process State / XML Parser
 
