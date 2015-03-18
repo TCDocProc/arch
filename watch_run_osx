@@ -19,6 +19,8 @@ echo "Starting..."
 
 PID=$(./run $1)
 
+docker exec $PID python /home/docker/code/app/manage.py migrate&>/dev/null
+
 echo "Running on: http://$(boot2docker ip):$1"
 
 for file in `find . -regex ".*/[^_/]*\.scss"`; do
