@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
-import members.models as m
+from core import models
 
 import xml.etree.cElementTree as et
 import requests, json, re
@@ -10,7 +10,7 @@ from website import settings
 @login_required(login_url='/accounts/signup/')
 def index(request,user_id,extension):
 
-    pathways = m.Pathway.objects.filter(user_id=request.user.id)
+    pathways = Pathway.objects.filter(user_id=request.user.id)
 
     if pathways:
 

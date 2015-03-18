@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 
 from forms import UploadPathwayForm
-from members.models import UploadForm, Pathway
+from core.models import UploadForm, Pathway
 
 
 def index(request):
@@ -13,7 +13,6 @@ def index(request):
 
 @login_required(login_url='/accounts/signup/')
 def add_pathway(request):
-
     pathways = Pathway.objects.filter(user_id=request.user)
 
     if not pathways:
@@ -33,3 +32,8 @@ def add_pathway(request):
 
     else:
         return HttpResponseRedirect('/processes/user/'+str(request.user.id) )
+
+def integrate(request):
+    context = RequestContext(request)
+    context['test'] = request.GET['test']
+    return HttpResponse(loader.get_template('core/integrate.html').render(context))
