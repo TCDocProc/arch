@@ -16,6 +16,13 @@ def add_pathway(request):
 
     pathways = Pathway.objects.filter(user_id=request.user)
 
+    #If defaults button is clicked
+    default = request.GET.get('default', '')
+    if default != '':
+        instance = Pathway(pathway_xml="/pathways/example/pathways.xml",user_id=request.user)
+        instance.save()
+        return HttpResponseRedirect('/processes/user/'+str(request.user.id) )
+    
     if not pathways:
 
         if request.method=="POST":
