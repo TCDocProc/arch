@@ -87,8 +87,11 @@ USER root
 
 run python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1
 
+USER django
+
 # sync the database
-run cd /home/docker/code/app && \
-    python manage.py migrate
+run cd /home/docker/code/app && python manage.py syncdb --noinput && python manage.py migrate
+
+USER root
 
 cmd ["supervisord", "-n"]
