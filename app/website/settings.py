@@ -67,7 +67,6 @@ INSTALLED_APPS = (
     'processes',
 
     # 3rd party
-    'backbone_tastypie',
     'djangobower',
 
     'allauth',
