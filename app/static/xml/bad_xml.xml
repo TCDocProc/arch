@@ -1,0 +1,176 @@
+<peos>
+    <models>
+        <model>patient_assessment</model>
+        <model>diabetes_assessment</model>
+    </models>
+    <process_table>
+        <process pid="0" model="./diabetes_assessment.pml" status="2>
+            <action name="Assess_patient_symptoms" state="READY">
+                <script>
+                    &quot;Diabetes symptoms:&lt;br&gt;
+                    Increased urination.&lt;br&gt;
+                    Increased appetite or loss of appetite.&lt;br&gt;
+                    Excessive thirst.&lt;br&gt;
+                    Visible weight loss.&lt;br&gt;
+                    Blurred vision.&lt;br&gt;
+                    Recurrent skin infections.&lt;br&gt;
+                    Fatigue.&lt;br&gt;
+                    Vaginal infections or infections of the foreskin in uncircumcised men.&lt;br&gt;
+                    Slowly healing sores.&lt;br&gt;&quot;
+                </script>
+                <req_resource name="patient_symptoms" value="001677980.spt" qualifier=""></req_resource>
+                <prov_resource name="assessment" value="001677980.hl7" qualifier=""></prov_resource>
+            <action>
+            <branch
+                <sequence>
+                    <action name="Glucose_test" state="SATISFIED">
+                        <script>
+                            &quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
+                            (normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
+                        </script>
+                        <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                        <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                    </action>
+                    <branch>
+                        <sequence>
+                            <action name="Glucose_test" state="SATISFIED">
+                                <script>
+                                    &quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
+                                    (normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
+                                </script>
+                                <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                            </action>
+                            <branch>
+                                <sequence>
+                                    <action name="Glucose_test" state="SATISFIED">
+                                        <script>
+                                            &quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
+                                            (normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
+                                        </script>
+                                        <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                        <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                                    </action>
+                                </sequence>
+                                <sequence>
+                                    <action name="Cholesterol_test" state="ACTIVE">
+                                        <script>
+                                            &quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+                                            Normal values&lt;br&gt;
+                                            Total: below 200 mg/dL&lt;br&gt;
+                                            LDL: below 70 mg/dL&lt;br&gt;
+                                            HDL: 40 mg/dL and above (men)&lt;br&gt;
+                                            50 mg/dL and above (women) &lt;br&gt;
+                                            Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+                                        </script>
+                                        <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                        <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                                    </action>
+                                </sequence>
+                                <branch>
+                                    <sequence>
+                                        <action name="Glucose_test" state="SATISFIED">
+                                            <script>
+                                                &quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
+                                                (normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
+                                            </script>
+                                            <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                            <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                                        </action>
+                                    </sequence>
+                                    <sequence>
+                                        <action name="Cholesterol_test" state="ACTIVE">
+                                            <script>
+                                                &quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+                                                Normal values&lt;br&gt;
+                                                Total: below 200 mg/dL&lt;br&gt;
+                                                LDL: below 70 mg/dL&lt;br&gt;
+                                                HDL: 40 mg/dL and above (men)&lt;br&gt;
+                                                50 mg/dL and above (women) &lt;br&gt;
+                                                Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+                                            </script>
+                                            <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                            <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                                        </action>
+                                    </sequence>
+                                </branch>
+                            </branch>
+                        </sequence>
+                        <sequence>
+                            <action name="Cholesterol_test" state="ACTIVE">
+                                <script>
+                                    &quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+                                    Normal values&lt;br&gt;
+                                    Total: below 200 mg/dL&lt;br&gt;
+                                    LDL: below 70 mg/dL&lt;br&gt;
+                                    HDL: 40 mg/dL and above (men)&lt;br&gt;
+                                    50 mg/dL and above (women) &lt;br&gt;
+                                    Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+                                </script>
+                                <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                            </action>
+                        </sequence>
+                        <sequence>
+                            <action name="Cholesterol_test" state="ACTIVE">
+                                <script>
+                                    &quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+                                    Normal values&lt;br&gt;
+                                    Total: below 200 mg/dL&lt;br&gt;
+                                    LDL: below 70 mg/dL&lt;br&gt;
+                                    HDL: 40 mg/dL and above (men)&lt;br&gt;
+                                    50 mg/dL and above (women) &lt;br&gt;
+                                    Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+                                </script>
+                                <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                                <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                            </action>
+                        </sequence>
+                    </branch>
+                </sequence>
+                <sequence>
+                    <action name="Cholesterol_test" state="NONE">
+                        <script>
+                            &quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
+                            Normal values&lt;br&gt;
+                            Total: below 200 mg/dL&lt;br&gt;
+                            LDL: below 70 mg/dL&lt;br&gt;
+                            HDL: 40 mg/dL and above (men)&lt;br&gt;
+                            50 mg/dL and above (women) &lt;br&gt;
+                            Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
+                        </script>
+                        <req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
+                        <prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
+                    </action>
+                </sequence>
+            </branch>
+            <action name="Assess_diabetes" state="NONE">
+                <script>
+                    &quot;Fasting blood sugar (FBS) glucose level of 100-125mg/dL means impaired fasting glucose, a type of prediabetes. This increases the risk for type 2 diabetes.&lt;br&gt;
+                    Fasting blood sugar (FBS) glucose level of 126 mg/dL and higher most often means diabetes. &lt;br&gt;&lt;br&gt;
+                    Cholesterol test levels do not influence the diabetes diagnosis but are a risk factor that should be considered and assesed.&lt;br&gt;&quot;
+                </script>
+                <req_resource name="blood_test" value="001677980.hl7" qualifier=""></req_resource>
+                <prov_resource name="diagnosis" value="001677980.hl7" qualifier=""></prov_resource>
+            </action>
+        </process>
+        <process pid="1" model="./diabetes_assessment.pml" status="2">
+            <action name="Assess_patient_symptoms" state="AVAILABLE">
+                <script>
+                    &quot;Diabetes symptoms:&lt;br&gt;
+                    Increased urination.&lt;br&gt;
+                    Increased appetite or loss of appetite.&lt;br&gt;
+                    Excessive thirst.&lt;br&gt;
+                    Visible weight loss.&lt;br&gt;
+                    Blurred vision.&lt;br&gt;
+                    Recurrent skin infections.&lt;br&gt;
+                    Fatigue.&lt;br&gt;
+                    Vaginal infections or infections of the foreskin in uncircumcised men.&lt;br&gt;
+                    Slowly healing sores.&lt;br&gt;&quot;
+                </script>
+                <req_resource name="patient_symptoms" value="001677980.spt" qualifier=""></req_resource>
+                <prov_resource name="assessment" value="001677980.hl7" qualifier=""></prov_resource>
+            </action>
+            <branch>
+    </process_table>
+</peos>

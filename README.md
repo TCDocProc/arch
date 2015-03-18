@@ -95,6 +95,22 @@ You need to upload a pathway xml file to test the interface. That means you need
 
 This allows you to test all the features from user system, xml parsing to the actual interface the patients will use.
 
+##Testing
+
+Using Django TestCase module built on top of Python’s  unittest module.
+
+To run the tests run `python app/manage.py test members processes`
+
+###Members
+`app/members/tests.py`  
+
+Tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also test the status code of each response appropriately.
+
+###Processes
+`app/processes/tests.py`
+
+Tests the XML to JSON conversion. Also tests the status codes of each response appropriately.
+
 ## Feature Listing
 
 ###✅ Authentication - Completed
@@ -139,8 +155,7 @@ Ready | None | Blocked | Active
 
 ####Testing
 
-There are several tests set up on jenkins and these infer several tests in the django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine. More detailed tests need to be made for the next iteration.
-
+There are several tests set up on Jenkins and these infer several tests in the Django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine.
 
 ###Mobile Friendly
 
