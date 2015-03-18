@@ -27,21 +27,8 @@ run apt-get install -y curl
 run curl -sL https://deb.nodesource.com/setup | bash
 run apt-get install -y nodejs
 
-# install yuglify
-run npm install -g yuglify
-
 # install bower
 run npm install -g bower
-
-# install coffee-script
-run apt-get install -y coffeescript
-
-# install sass and compass
-run apt-get install -y rubygems
-run gem install compass -v 1.0.3
-
-# needed by scss compiler
-run gem install json -v 1.8.2
 
 # install uwsgi now because it takes a little while
 run apt-get install -y uwsgi

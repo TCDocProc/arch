@@ -1,13 +1,38 @@
 #!/bin/bash
 
+CHILD_PROCESSES=()
+
+clean_up()
+{
+	kill $(ps -ef | grep 'sass --watch' | awk '{print $2}') >/dev/null 2>&1
+	kill $(ps -ef | grep 'coffee -cw' | awk '{print $2}') >/dev/null 2>&1
+	# for i in $CHILD_PROCESSES
+	# do
+	# 	echo killing $i
+	# 	kill -9 $i
+	# done
+}
+
+trap clean_up SIGHUP SIGINT SIGTERM
+
 echo "Starting..."
 
 PID=$(./run $1)
 
 echo "Running on: http://$(boot2docker ip):$1"
 
-find . -type f \( -iname '*.coffee' -o -iname '*.scss' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' \) | entr \
-	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput &
+for file in `find . -regex ".*/[^_/]*\.scss"`; do
+	sass --watch $file:"`dirname $file`/`basename $file .scss`.css" -I ./app/static/scss >/dev/null 2>&1 &
+	CHILD_PROCESSES+=($!)
+done
+
+for file in `find . -regex ".*/[^_/]*\.coffee"`; do
+	coffee -cw $file >/dev/null 2>&1 &
+	CHILD_PROCESSES+=($!)
+done
+
+find . -type f \( -iname '*.css' -o -iname '*.js' -o -iname '*.xml' \) | entr \
+	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1 &
 
 find . -type f \( -iname '*.py' \) | entr \
 	./run $1 | read PID
