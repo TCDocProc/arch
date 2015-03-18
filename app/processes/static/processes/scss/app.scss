@@ -39,6 +39,8 @@ body {
 .row {
     height: 100%;
     max-height: 600px;
+    margin-left: 330px;
+    width: 5px;
 }
 .content {
     padding: 0;
@@ -80,7 +82,7 @@ h1 {
 
 #minimap {
     padding: 0px 0;
-    height: 400px;
+    height: 300px;
 
     * {
         cursor: pointer !important;

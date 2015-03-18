@@ -394,12 +394,13 @@
       };
 
       MinimapView.prototype.moveToPath = function(path) {
-        var cv, i, _i, _j, _len, _len1, _ref, _ref1, _results;
+        var cv, i, _i, _j, _len, _len1, _ref, _ref1;
         if (this.selectedNode != null) {
           $(this.selectedNode.el).removeClass('selected');
         }
         $(this.el).find("*").removeClass('darken');
         if (path != null) {
+          $('.pushy > ul > h1').show();
           $(this.childViews[_.first(path)].el).show();
           $(this.el).click((function(_this) {
             return function() {
@@ -417,12 +418,11 @@
         } else {
           $(this.el).unbind('click');
           _ref1 = this.childViews;
-          _results = [];
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             cv = _ref1[_j];
-            _results.push($(cv.el).hide());
+            $(cv.el).hide();
           }
-          return _results;
+          return $('.pushy > ul > h1').hide();
         }
       };
 
