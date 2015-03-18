@@ -4,12 +4,14 @@
     {% load static %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'processes/scss/app.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'processes/css/pushy.css' %}" />
 
     <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'underscore/underscore.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/js/pushy.js' %}" charset="utf-8"></script>
 
 {% endblock %}
 
@@ -17,7 +19,16 @@
     <div class='fixed'>
         {% include '_top_bar.html' %}
     </div>
+    <div class="pushy pushy-left">
+        <ul>
+            <li class="pushy-item"><div class="DONE SATISFIED"/><span>Done</span></li>
+            <li class="pushy-item"><div class="AVAILABLE READY"/><span>Available to Do</span></li>
+            <li class="pushy-item"><div class="BLOCKED SUSPENDED"/><span>Blocked</span></li>
+            <li class="pushy-item"><div class="ACTIVE"/><span>Doing</span></li>
+        </ul>
+    </div>
 {% endblock %}
+
 
 {% block content %}
 
