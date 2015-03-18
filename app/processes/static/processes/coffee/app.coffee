@@ -248,8 +248,9 @@ jQuery ->
 
         el: $ '#minimap'
 
-        initialize: (collection) ->
+        initialize: (collection,user_id) ->
             @collection = collection
+            @user_id = user_id
             @childViews = ( new SequenceView model: proc.get('sequence') for proc in @collection.models )
             cv.setup 1 for cv in @childViews
             @selectedNode = undefined
@@ -267,7 +268,8 @@ jQuery ->
 
             if path?
                 $(@childViews[_.first(path)].el).show()
-
+                $(@el).click =>
+                    Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}", true
                 @selectedNode = @childViews[_.first(path)]
                 for i in _.rest(path)
                     @selectedNode = @selectedNode.childViews[i]
@@ -276,6 +278,7 @@ jQuery ->
                 $(@selectedNode.el).addClass 'selected'
 
             else
+                $(@el).unbind('click')
                 $(cv.el).hide() for cv in @childViews
 
     class PageView extends Backbone.View
@@ -299,7 +302,7 @@ jQuery ->
                 @procView = new ProcessesView collection
                 $(@el).html @procView.render().$el
 
-                @minimap = new MinimapView collection
+                @minimap = new MinimapView collection, @user_id
                 @minimap.render()
 
                 callback()

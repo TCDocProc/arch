@@ -8,11 +8,14 @@ body {
 
 .content {
   padding: 0;
-  margin-top: 50px;
+  margin-top: 80px;
   height: calc( 100% - 50px);
   font-family: "Lato";
   width: 100%;
   max-width: 500px; }
+
+ul.title-area {
+  padding-left: 0; }
 
 .top-bar .name {
   display: inline-block;
@@ -36,10 +39,10 @@ h1 {
   padding-top: 50px; }
 
 #minimap {
-  padding: 20px;
-  height: 500px; }
+  padding: 0px 0;
+  height: 400px; }
   #minimap * {
-    cursor: default !important; }
+    cursor: pointer !important; }
   #minimap > .sequence {
     display: none; }
   #minimap .selected {
@@ -71,18 +74,21 @@ h1 {
   .sequence.siblings-10 {
     width: calc(100% / 10); }
   .sequence > h1 {
-    text-align: center;
     text-transform: capitalize;
     color: #ECF0F1;
     background-color: #333333;
     margin: 0;
     margin-bottom: 3px;
-    padding: 5px; }
+    padding: 5px 20px; }
   .focused > .sequence {
     height: calc(100%);
     width: 300px; }
     .focused > .sequence:not(.fill) {
-      margin-right: 5px; }
+      margin: 0 15px; }
+      .focused > .sequence:not(.fill):hover {
+        margin: -5px 10px;
+        height: calc(100% + 10px);
+        width: calc(300px + 10px); }
   .sequence.fill {
     margin: auto;
     width: 350px; }
@@ -135,9 +141,30 @@ h1 {
     overflow-x: visible;
     white-space: nowrap; }
     .fill > .cell.branch:not(.focused) {
-      margin: 5px 0; }
+      margin: 15px 0; }
       .fill > .cell.branch:not(.focused):hover {
-        background-color: #DDDDDD; }
+        background-color: #DDDDDD;
+        margin: 10px -5px; }
+        .fill > .cell.branch:not(.focused):hover.siblings-1 {
+          height: calc( 100% / 1 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-2 {
+          height: calc( 100% / 2 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-3 {
+          height: calc( 100% / 3 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-4 {
+          height: calc( 100% / 4 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-5 {
+          height: calc( 100% / 5 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-6 {
+          height: calc( 100% / 6 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-7 {
+          height: calc( 100% / 7 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-8 {
+          height: calc( 100% / 8 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-9 {
+          height: calc( 100% / 9 - 2px ); }
+        .fill > .cell.branch:not(.focused):hover.siblings-10 {
+          height: calc( 100% / 10 - 2px ); }
     .cell.branch.focused {
       height: 100%;
       padding: 0; }
@@ -192,32 +219,32 @@ h1 {
         text-align: right; }
 
 .READY, .AVAILABLE {
-  background-color: #14B259;
-  border: 2px solid #12a452; }
+  background-color: #FFF;
+  border: 2px solid #f7f7f7; }
   .READY.darken, .darken .READY, .AVAILABLE.darken, .darken .AVAILABLE {
-    background-color: #052814;
-    border: 1px solid #031b0d; }
+    background-color: #b3b3b3;
+    border: 1px solid #ababab; }
 
 .ACTIVE {
-  background-color: #398CBF;
-  border: 2px solid #3583b3; }
+  background-color: #4A90E2;
+  border: 2px solid #3d88e0; }
   .ACTIVE.darken, .darken .ACTIVE {
-    background-color: #163649;
-    border: 2px solid #122d3d; }
+    background-color: #14457f;
+    border: 2px solid #123e72; }
 
 .BLOCKED, .SUSPENDED {
-  background-color: #E8142A;
-  border: 2px solid #da1327; }
+  background-color: #D0021B;
+  border: 2px solid #c10219; }
   .BLOCKED.darken, .darken .BLOCKED, .SUSPENDED.darken, .darken .SUSPENDED {
-    background-color: #5b0810;
-    border: 2px solid #4d070e; }
+    background-color: #380107;
+    border: 2px solid #290005; }
 
 .DONE, .SATISFIED {
-  background-color: #6FBB84;
-  border: 2px solid #65b67b; }
+  background-color: #B1BAC4;
+  border: 2px solid #a8b2bd; }
   .DONE.darken, .darken .DONE, .SATISFIED.darken, .darken .SATISFIED {
-    background-color: #2f623d;
-    border: 2px solid #2a5836; }
+    background-color: #5f6d7d;
+    border: 2px solid #586675; }
 
 .NONE {
   background-color: #7F8C8D;

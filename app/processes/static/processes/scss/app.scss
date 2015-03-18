@@ -42,11 +42,14 @@ body {
 }
 .content {
     padding: 0;
-    margin-top: 50px;
+    margin-top: 80px;
     height: calc( 100% - 50px);
     font-family: "Lato";
     width:100%;
     max-width: 500px;
+}
+ul.title-area {
+    padding-left: 0;
 }
 
 .top-bar .name {
@@ -76,11 +79,11 @@ h1 {
 }
 
 #minimap {
-    padding: 20px;
-    height: 500px;
+    padding: 0px 0;
+    height: 400px;
 
     * {
-        cursor: default !important;
+        cursor: pointer !important;
     }
 
     & > .sequence {
@@ -96,18 +99,17 @@ h1 {
 
     @for $i from 1 through 10 {
         &.siblings-#{$i} {
-            width: calc(100% / #{$i})
+            width: calc(100% / #{$i});
         }
     }
 
     & > h1 {
-        text-align: center;
         text-transform: capitalize;
         color: #ECF0F1;
         background-color: #333333;
         margin: 0;
         margin-bottom: 3px;
-        padding: 5px;
+        padding: 5px 20px;
     }
 
     display: inline-block;
@@ -118,7 +120,12 @@ h1 {
     .focused > & {
 
         &:not(.fill) {
-            margin-right: 5px;
+            margin: 0 15px;
+            &:hover {
+                margin: -5px 10px;
+                height: calc(100% + 10px);
+                width: calc(#{$unfilled-seq-width} + 10px);
+            }
         }
 
         height: calc(100%);
@@ -153,8 +160,14 @@ h1 {
         .fill > &:not(.focused) {
             &:hover {
                 background-color: #DDDDDD;
+                margin: 10px -5px;
+                @for $i from 1 through 10 {
+                    &.siblings-#{$i} {
+                        height: calc( 100% / #{$i} - 2px );
+                    }
+                }
             }
-            margin: 5px 0;
+            margin: 15px 0;
         }
 
         overflow-x: visible;
@@ -228,13 +241,13 @@ $border-darkness: 3%;
 $darken-darkness: 30%;
 $border-width: 2px;
 
-$ready-color: #14B259;
+$ready-color: #FFF;
 
-$active-color: #398CBF;
+$active-color: #4A90E2;
 
-$blocked-color: #E8142A;
+$blocked-color: #D0021B;
 
-$done-color: #6FBB84;
+$done-color: #B1BAC4;
 
 $none-color: #7F8C8D;
 

@@ -358,9 +358,10 @@
 
       MinimapView.prototype.el = $('#minimap');
 
-      MinimapView.prototype.initialize = function(collection) {
+      MinimapView.prototype.initialize = function(collection, user_id) {
         var cv, proc, _i, _len, _ref;
         this.collection = collection;
+        this.user_id = user_id;
         this.childViews = (function() {
           var _i, _len, _ref, _results;
           _ref = this.collection.models;
@@ -400,6 +401,11 @@
         $(this.el).find("*").removeClass('darken');
         if (path != null) {
           $(this.childViews[_.first(path)].el).show();
+          $(this.el).click((function(_this) {
+            return function() {
+              return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (_.first(path)), true);
+            };
+          })(this));
           this.selectedNode = this.childViews[_.first(path)];
           _ref = _.rest(path);
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -409,6 +415,7 @@
           }
           return $(this.selectedNode.el).addClass('selected');
         } else {
+          $(this.el).unbind('click');
           _ref1 = this.childViews;
           _results = [];
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
@@ -449,7 +456,7 @@
             return function() {
               _this.procView = new ProcessesView(collection);
               $(_this.el).html(_this.procView.render().$el);
-              _this.minimap = new MinimapView(collection);
+              _this.minimap = new MinimapView(collection, _this.user_id);
               _this.minimap.render();
               return callback();
             };
