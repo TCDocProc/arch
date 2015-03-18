@@ -10,12 +10,16 @@
     <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/coffee/minimap.js' %}" charset="utf-8"></script>
 
 {% endblock %}
 
 {% block topbar %}
     <div class='fixed'>
         {% include '_top_bar.html' %}
+    </div>
+    <div class="sidebar">
+        <div id="minimap"></div>
     </div>
 {% endblock %}
 

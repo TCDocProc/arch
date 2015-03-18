@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty;
 
   jQuery(function() {
-    var Action, ActionView, AppRouter, Branch, BranchView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, view;
+    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, view;
     Action = (function(_super) {
       __extends(Action, _super);
 
@@ -349,6 +349,79 @@
       return ProcessesView;
 
     })(Backbone.View);
+    MinimapView = (function(_super) {
+      __extends(MinimapView, _super);
+
+      function MinimapView() {
+        return MinimapView.__super__.constructor.apply(this, arguments);
+      }
+
+      MinimapView.prototype.el = $('#minimap');
+
+      MinimapView.prototype.initialize = function(collection) {
+        var cv, proc, _i, _len, _ref;
+        this.collection = collection;
+        this.childViews = (function() {
+          var _i, _len, _ref, _results;
+          _ref = this.collection.models;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            proc = _ref[_i];
+            _results.push(new SequenceView({
+              model: proc.get('sequence')
+            }));
+          }
+          return _results;
+        }).call(this);
+        _ref = this.childViews;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          cv = _ref[_i];
+          cv.setup(1);
+        }
+        this.selectedNode = void 0;
+        return this;
+      };
+
+      MinimapView.prototype.render = function(callback) {
+        var cv, _i, _len, _ref;
+        _ref = this.childViews;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          cv = _ref[_i];
+          $(this.el).append(cv.render().$el);
+        }
+        return this;
+      };
+
+      MinimapView.prototype.moveToPath = function(path) {
+        var cv, i, _i, _j, _len, _len1, _ref, _ref1, _results;
+        if (this.selectedNode != null) {
+          $(this.selectedNode.el).removeClass('selected');
+        }
+        $(this.el).find("*").removeClass('darken');
+        if (path != null) {
+          $(this.childViews[_.first(path)].el).show();
+          this.selectedNode = this.childViews[_.first(path)];
+          _ref = _.rest(path);
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            i = _ref[_i];
+            this.selectedNode = this.selectedNode.childViews[i];
+            $(this.selectedNode.el).siblings().addClass('darken');
+          }
+          return $(this.selectedNode.el).addClass('selected');
+        } else {
+          _ref1 = this.childViews;
+          _results = [];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            cv = _ref1[_j];
+            _results.push($(cv.el).hide());
+          }
+          return _results;
+        }
+      };
+
+      return MinimapView;
+
+    })(Backbone.View);
     PageView = (function(_super) {
       __extends(PageView, _super);
 
@@ -376,6 +449,8 @@
             return function() {
               _this.procView = new ProcessesView(collection);
               $(_this.el).html(_this.procView.render().$el);
+              _this.minimap = new MinimapView(collection);
+              _this.minimap.render();
               return callback();
             };
           })(this)
@@ -408,7 +483,8 @@
             };
           })(this));
         }
-        return this.procView.moveToPath(pathArray);
+        this.procView.moveToPath(pathArray);
+        return this.minimap.moveToPath(pathArray);
       };
 
       return PageView;
