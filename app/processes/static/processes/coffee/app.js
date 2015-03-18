@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty;
 
   jQuery(function() {
-    var ANIMATION_SPEED, Action, ActionView, AppRouter, Branch, BranchView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, enableInteraction, view;
+    var Action, ActionView, AppRouter, Branch, BranchView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, view;
     Action = (function(_super) {
       __extends(Action, _super);
 
@@ -111,8 +111,6 @@
       return Processes;
 
     })(Backbone.Collection);
-    ANIMATION_SPEED = 150;
-    enableInteraction = true;
     ActionView = (function(_super) {
       __extends(ActionView, _super);
 
@@ -134,20 +132,11 @@
         return this;
       };
 
-      ActionView.prototype.moveToPath = function(path, complete) {
-        this.complete = complete;
+      ActionView.prototype.moveToPath = function(path) {
         if ((_.first(path) != null) && _.first(path) !== this.model.i) {
-          return $(this.el).slideUp(ANIMATION_SPEED, (function(_this) {
-            return function() {
-              return _this.complete();
-            };
-          })(this));
+          return $(this.el).hide();
         } else {
-          return $(this.el).slideDown(ANIMATION_SPEED, (function(_this) {
-            return function() {
-              return _this.complete();
-            };
-          })(this));
+          return $(this.el).show();
         }
       };
 
@@ -170,7 +159,7 @@
         $(this.el).addClass("children-" + (this.model.get("seqs").length));
         return $(this.el).click((function(_this) {
           return function() {
-            if ($(_this.el).parent().hasClass('fill') && !$(_this.el).hasClass("focused") && enableInteraction) {
+            if ($(_this.el).parent().hasClass('fill') && !$(_this.el).hasClass("focused")) {
               return Backbone.history.navigate((Backbone.history.fragment.match(/.*[^\/]/g)) + "/" + _this.model.i, true);
             }
           };
@@ -193,64 +182,33 @@
         return this;
       };
 
-      BranchView.prototype.moveToPath = function(path, complete) {
+      BranchView.prototype.moveToPath = function(path) {
         var passToChildren;
-        this.complete = complete;
         passToChildren = (function(_this) {
           return function() {
-            var completion;
-            completion = 0;
             return _this.childViews.map(function(view) {
               var nextPath;
               nextPath = void 0;
               if (path != null) {
                 nextPath = _.tail(path);
               }
-              return view.moveToPath(nextPath, function() {
-                completion += 1;
-                if (completion >= _this.childViews.length) {
-                  return _this.complete();
-                }
-              });
+              return view.moveToPath(nextPath);
             });
           };
         })(this);
         if (_.first(path) != null) {
           if (_.first(path) === this.model.i) {
-            return $(this.el).addClass("focused", ANIMATION_SPEED, 'swing', (function(_this) {
-              return function() {
-                $(_this.el).addClass("remove-width");
-                return passToChildren();
-              };
-            })(this));
+            $(this.el).addClass("focused");
+            $(this.el).addClass("remove-width");
+            return passToChildren();
           } else {
-            if ($(this.el).is(":visible")) {
-              return $(this.el).animate({
-                height: "toggle"
-              }, ANIMATION_SPEED, 'swing', (function(_this) {
-                return function() {
-                  return _this.complete();
-                };
-              })(this));
-            }
+            return $(this.el).hide();
           }
         } else {
-          if ($(this.el).is(":hidden")) {
-            return $(this.el).animate({
-              height: "toggle"
-            }, ANIMATION_SPEED, 'swing', (function(_this) {
-              return function() {
-                return _this.complete();
-              };
-            })(this));
-          } else {
-            $(this.el).removeClass("remove-width");
-            return $(this.el).removeClass("focused", ANIMATION_SPEED, 'swing', (function(_this) {
-              return function() {
-                return passToChildren();
-              };
-            })(this));
-          }
+          $(this.el).removeClass("remove-width");
+          $(this.el).removeClass("focused");
+          $(this.el).show();
+          return passToChildren();
         }
       };
 
@@ -278,7 +236,7 @@
         }
         return $(this.el).click((function(_this) {
           return function() {
-            if ($(_this.el).parent().hasClass('focused') && !$(_this.el).hasClass("fill") && enableInteraction) {
+            if ($(_this.el).parent().hasClass('focused') && !$(_this.el).hasClass("fill")) {
               return Backbone.history.navigate((Backbone.history.fragment.match(/.*[^\/]/g)) + "/" + _this.model.i, true);
             }
           };
@@ -311,68 +269,33 @@
         return this;
       };
 
-      SequenceView.prototype.moveToPath = function(path, complete) {
+      SequenceView.prototype.moveToPath = function(path) {
         var passToChildren;
-        this.complete = complete;
         passToChildren = (function(_this) {
           return function() {
-            var completion;
-            completion = 0;
             return _this.childViews.map(function(cell) {
               var nextPath;
               nextPath = void 0;
               if (path != null) {
                 nextPath = _.tail(path);
               }
-              return cell.moveToPath(nextPath, function() {
-                completion += 1;
-                if (completion >= _this.childViews.length) {
-                  return _this.complete();
-                }
-              });
+              return cell.moveToPath(nextPath);
             });
           };
         })(this);
         if (_.first(path) != null) {
           if (_.first(path) === this.model.i) {
-            return $(this.el).addClass("fill", ANIMATION_SPEED, 'swing', (function(_this) {
-              return function() {
-                return $(_this.el).children('.action').children('p').slideDown(ANIMATION_SPEED, function() {
-                  return passToChildren();
-                });
-              };
-            })(this));
+            $(this.el).addClass("fill");
+            $(this.el).children('.action').children('p').show();
+            return passToChildren();
           } else {
-            if (this.visible) {
-              this.visible = false;
-              return $(this.el).animate({
-                width: 'toggle'
-              }, ANIMATION_SPEED, (function(_this) {
-                return function() {
-                  return _this.complete();
-                };
-              })(this));
-            }
+            return $(this.el).hide();
           }
         } else {
-          if (this.visible) {
-            return $(this.el).children('.action').children('p').slideUp(ANIMATION_SPEED, (function(_this) {
-              return function() {
-                return $(_this.el).removeClass("fill", ANIMATION_SPEED, function() {
-                  return passToChildren();
-                });
-              };
-            })(this));
-          } else {
-            this.visible = true;
-            return $(this.el).animate({
-              width: "toggle"
-            }, ANIMATION_SPEED, (function(_this) {
-              return function() {
-                return _this.complete();
-              };
-            })(this));
-          }
+          $(this.el).children('.action').children('p').hide();
+          $(this.el).removeClass("fill");
+          $(this.el).show();
+          return passToChildren();
         }
       };
 
@@ -413,18 +336,12 @@
         return this;
       };
 
-      ProcessesView.prototype.moveToPath = function(path, complete) {
+      ProcessesView.prototype.moveToPath = function(path) {
         var completion;
-        this.complete = complete;
         completion = 0;
         return this.childViews.map((function(_this) {
           return function(view) {
-            return view.moveToPath(path, function() {
-              completion += 1;
-              if (completion >= _this.childViews.length) {
-                return _this.complete();
-              }
-            });
+            return view.moveToPath(path);
           };
         })(this));
       };
@@ -445,9 +362,7 @@
         this.user_id = user_id;
         $('ul.title-area > :nth-child(1)').click((function(_this) {
           return function() {
-            if (enableInteraction) {
-              return Backbone.history.navigate("/processes/user/" + _this.user_id, true);
-            }
+            return Backbone.history.navigate("/processes/user/" + _this.user_id, true);
           };
         })(this));
         return this;
@@ -472,12 +387,9 @@
         var navClick, pathArray, _ref;
         navClick = (function(_this) {
           return function(path) {
-            if (enableInteraction) {
-              return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (path.join('/')), true);
-            }
+            return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (path.join('/')), true);
           };
         })(this);
-        enableInteraction = false;
         if ((_ref = $('ul.title-area > :not(:nth-child(1))')) != null) {
           _ref.remove();
         }
@@ -496,9 +408,7 @@
             };
           })(this));
         }
-        return this.procView.moveToPath(pathArray, function() {
-          return enableInteraction = true;
-        });
+        return this.procView.moveToPath(pathArray);
       };
 
       return PageView;

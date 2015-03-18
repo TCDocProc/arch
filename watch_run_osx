@@ -23,18 +23,18 @@ docker exec $PID python /home/docker/code/app/manage.py migrate&>/dev/null
 
 echo "Running on: http://$(boot2docker ip):$1"
 
-for file in `find . -regex ".*/[^_/]*\.scss"`; do
+for file in `find . -regex ".*/[^_/][^/]*\.scss"`; do
 	sass --watch $file:"`dirname $file`/`basename $file .scss`.css" -I ./app/static/scss >/dev/null 2>&1 &
 	CHILD_PROCESSES+=($!)
 done
 
-for file in `find . -regex ".*/[^_/]*\.coffee"`; do
+for file in `find . -regex ".*/[^_/][^/]*\.coffee"`; do
 	coffee -cw $file >/dev/null 2>&1 &
 	CHILD_PROCESSES+=($!)
 done
 
 find . -type f \( -iname '*.css' -o -iname '*.js' -o -iname '*.xml' \) | entr \
-	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput >/dev/null 2>&1 &
+	docker exec $PID python /home/docker/code/app/manage.py collectstatic --noinput &
 
 find . -type f \( -iname '*.py' \) | entr \
 	./run $1 | read PID
