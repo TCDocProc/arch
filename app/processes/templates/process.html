@@ -13,18 +13,25 @@
     <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/js/pushy.js' %}" charset="utf-8"></script>
 
+
 {% endblock %}
 
 {% block topbar %}
     <div class='fixed'>
-        {% include '_top_bar.html' %}
+        {% include '_top_bar.html' with show_menu=True %}
     </div>
+
     <div class="pushy pushy-left">
         <ul>
-            <li class="pushy-item"><div class="DONE SATISFIED"/><span>Done</span></li>
-            <li class="pushy-item"><div class="AVAILABLE READY"/><span>Available to Do</span></li>
-            <li class="pushy-item"><div class="BLOCKED SUSPENDED"/><span>Blocked</span></li>
-            <li class="pushy-item"><div class="ACTIVE"/><span>Doing</span></li>
+            <li class="pushy-item"><div class="ACTIVE"></div><span>Active</span></li>
+            <li class="pushy-item"><div class="AVAILABLE READY"></div><span>Available to Do</span></li>
+            <li class="pushy-item"><div class="DONE SATISFIED"></div><span>Done</span></li>
+            <li class="pushy-item"><div class="NONE"></div><span>None</span></li>
+            <li class="pushy-item"><div class="BLOCKED SUSPENDED"></div><span>Blocked</span></li>
+
+
+            <h1 style="color: white; text-align: center; padding-top: 10px; margin-top:0">Minimap</h1>
+            <div id="minimap"></div>
         </ul>
     </div>
 {% endblock %}

@@ -209,7 +209,7 @@ jQuery ->
                 $(@el).children('.action').children('p').hide()
                 $(@el).removeClass "fill"
                 $(@el).show()
-                
+
                 passToChildren()
 
 
@@ -244,6 +244,43 @@ jQuery ->
             @childViews.map (view) =>
                 view.moveToPath path
 
+    class MinimapView extends Backbone.View
+
+        el: $ '#minimap'
+
+        initialize: (collection,user_id) ->
+            @collection = collection
+            @user_id = user_id
+            @childViews = ( new SequenceView model: proc.get('sequence') for proc in @collection.models )
+            cv.setup 1 for cv in @childViews
+            @selectedNode = undefined
+            return @
+
+        render: (callback) ->
+
+            $(@el).append cv.render().$el for cv in @childViews
+            return @
+
+        moveToPath: (path) ->
+
+            $(@selectedNode.el).removeClass 'selected' if @selectedNode?
+            $(@el).find("*").removeClass 'darken'
+
+            if path?
+                $(@childViews[_.first(path)].el).show()
+                $(@el).click =>
+                    Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}", true
+                @selectedNode = @childViews[_.first(path)]
+                for i in _.rest(path)
+                    @selectedNode = @selectedNode.childViews[i]
+                    $(@selectedNode.el).siblings().addClass 'darken'
+
+                $(@selectedNode.el).addClass 'selected'
+
+            else
+                $(@el).unbind('click')
+                $(cv.el).hide() for cv in @childViews
+
     class PageView extends Backbone.View
 
         el: '.content'
@@ -261,8 +298,13 @@ jQuery ->
             collection = new Processes @user_id
 
             collection.fetch success: =>
+
                 @procView = new ProcessesView collection
                 $(@el).html @procView.render().$el
+
+                @minimap = new MinimapView collection, @user_id
+                @minimap.render()
+
                 callback()
 
             return @
@@ -286,6 +328,7 @@ jQuery ->
                 $('ul.title-area').children(":last-child").click -> navClick(_.first(pathArray,i+1))
 
             @procView.moveToPath pathArray
+            @minimap.moveToPath pathArray
 
     class AppRouter extends Backbone.Router
 

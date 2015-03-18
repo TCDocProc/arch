@@ -1,8 +1,10 @@
 <nav class="top-bar" data-topbar role="navigation">
-  <ul class="title-area">
-    <li class="name menu-btn">
-      <h1><a>&#9776;</a></h1>
-    </li>
+    {% if show_menu %}
+        <div class="menu-btn">
+            &#9776;
+        </div>
+    {% endif %}
+    <ul class="title-area">
         <li class="name">
       <h1><a>TCDoc</a></h1>
     </li>

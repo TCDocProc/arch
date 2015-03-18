@@ -42,11 +42,14 @@ body {
 }
 .content {
     padding: 0;
-    margin-top: 50px;
+    margin-top: 80px;
     height: calc( 100% - 50px);
     font-family: "Lato";
     width:100%;
     max-width: 500px;
+}
+ul.title-area {
+    padding-left: 0;
 }
 
 .top-bar .name {
@@ -63,23 +66,50 @@ h1 {
     font-size: 24px;
 }
 
+.sidebar {
+    position: fixed;
+    width: 400px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    z-index: 50;
+    padding-top: 50px;
 
+}
+
+#minimap {
+    padding: 0px 0;
+    height: 400px;
+
+    * {
+        cursor: pointer !important;
+    }
+
+    & > .sequence {
+        display: none;
+    }
+
+    .selected {
+        border: 1px solid white;
+    }
+
+}
 .sequence {
 
     @for $i from 1 through 10 {
         &.siblings-#{$i} {
-            width: calc(100% / #{$i})
+            width: calc(100% / #{$i});
         }
     }
 
     & > h1 {
-        text-align: center;
         text-transform: capitalize;
         color: #ECF0F1;
         background-color: #333333;
         margin: 0;
         margin-bottom: 3px;
-        padding: 5px;
+        padding: 5px 20px;
     }
 
     display: inline-block;
@@ -90,7 +120,12 @@ h1 {
     .focused > & {
 
         &:not(.fill) {
-            margin-right: 5px;
+            margin: 0 15px;
+            &:hover {
+                margin: -5px 10px;
+                height: calc(100% + 10px);
+                width: calc(#{$unfilled-seq-width} + 10px);
+            }
         }
 
         height: calc(100%);
@@ -125,8 +160,14 @@ h1 {
         .fill > &:not(.focused) {
             &:hover {
                 background-color: #DDDDDD;
+                margin: 10px -5px;
+                @for $i from 1 through 10 {
+                    &.siblings-#{$i} {
+                        height: calc( 100% / #{$i} - 2px );
+                    }
+                }
             }
-            margin: 5px 0;
+            margin: 15px 0;
         }
 
         overflow-x: visible;
@@ -197,57 +238,68 @@ h1 {
 }
 
 $border-darkness: 3%;
+$darken-darkness: 30%;
 $border-width: 2px;
 
-$ready-color: #14B259;
+$ready-color: #FFF;
 
-$active-start-color: #398CBF;
-$active-end-color: #14B259;
+$active-color: #4A90E2;
 
-$blocked-color: #E8142A;
+$blocked-color: #D0021B;
 
-$done-color: #6FBB84;
+$done-color: #B1BAC4;
 
 $none-color: #7F8C8D;
 
 .READY, .AVAILABLE {
 
     background-color: $ready-color;
-    border: 1px solid darken($ready-color, $border-darkness);
+    border: $border-width solid darken($ready-color, $border-darkness);
+
+    &.darken, .darken & {
+        background-color: darken($ready-color, $darken-darkness);
+        border: 1px solid darken( darken($ready-color, $border-darkness), $darken-darkness);
+    }
 }
 
 .ACTIVE {
 
-    background-color: $active-end-color;
-    border: $border-width solid darken($active-end-color, $border-darkness);
+    background-color: $active-color;
+    border: $border-width solid darken($active-color, $border-darkness);
 
-    @include keyframes(glow) {
-        0% {
-            background-color: $active-start-color;
-            border: $border-width solid darken($active-start-color, $border-darkness);
-        }
-        90% {
-            background-color: $active-end-color;
-            border: $border-width solid darken($active-end-color, $border-darkness);
-        }
+    &.darken, .darken & {
+        background-color: darken($active-color,$darken-darkness);
+        border: $border-width solid darken(darken($active-color, $border-darkness),$darken-darkness);
     }
-    @include animation('glow 1s infinite');
+
 }
 
 .BLOCKED, .SUSPENDED {
 
     background-color: $blocked-color;
     border: $border-width solid darken($blocked-color, $border-darkness);
+    &.darken, .darken & {
+        background-color: darken($blocked-color, $darken-darkness);
+        border: $border-width solid darken(darken($blocked-color, $border-darkness), $darken-darkness);
+    }
 }
 
 .DONE, .SATISFIED {
 
     background-color: $done-color;
     border: $border-width solid darken($done-color, $border-darkness);
+    &.darken, .darken & {
+        background-color: darken($done-color, $darken-darkness);
+        border: $border-width solid darken(darken($done-color, $border-darkness), $darken-darkness);
+    }
 }
 
 .NONE {
 
     background-color: $none-color;
     border: $border-width solid darken($none-color, $border-darkness);
+    &.darken, .darken & {
+        background-color: darken($none-color, $darken-darkness);
+        border: $border-width solid darken(darken($none-color, $border-darkness), $darken-darkness);
+    }
 }

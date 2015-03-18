@@ -1,7 +1,6 @@
 .pushy{
     position: fixed;
-    padding-left: 30px;
-    padding-top: 20px;
+    padding: 20px;
     width: 100%;
     max-width: 300px;
     height: 100%;
@@ -9,16 +8,37 @@
     z-index: 9999;
     background: #333332;
     margin-top: 45px;
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 1.0625rem;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
+.pushy > ul {
+    padding: 0;
+
+}
 .pushy-item{
     font-size: 20px;
     color:#eee;
-    padding-top: 20px;
+    clear: both;
+    height: 50px;
+
+    border-bottom: 2px groove #222;
+    padding: 8px;
+}
+
+.pushy-item:first-child {
+    border-top: 2px groove #222;
+}
+
+.pushy-item > div {
+    height: 32px;
+    width: 32px;
+    float: right;
+}
+
+.pushy-item > span {
+    float: left;
 }
 
 ul{
@@ -41,7 +61,7 @@ ul{
 }
 
 body .pushy-active {
-    margin-left: 200px;
+    /*margin-left: 200px;*/
 }
 /* Menu Movement */
 
@@ -93,18 +113,26 @@ body .pushy-active {
     left: 0;
     z-index: 9998;
     background-color: rgba(0,0,0,0.5);
-    -webkit-animation: fade 500ms; 
-    -moz-animation: fade 500ms; 
+    -webkit-animation: fade 500ms;
+    -moz-animation: fade 500ms;
     -o-animation: fade 500ms;
     animation: fade 500ms;
 }
 
 .menu-btn{
     color: #FFF;
+    display: inline-block;
+float: left;
+line-height: 33px;
+font-size: 33px;
+text-align: center;
+width: 50px;
+cursor: pointer;
+height: 45px;
 }
 
 .menu-btn:hover{
-    background: #00b4ff;
+    background: #222;
     color: #FFF;
 }
 
