@@ -84,7 +84,16 @@ you can run the webapp using the returned URL.
 
 To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do (there's an example xml file in app/static/ ). When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have shown you every major feature.
 
-*All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.* 
+*All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
+
+###After Install
+You need to upload a pathway xml file to test the interface. That means you need to do 3 steps
+
+   - Register a user (using a dummy email and a password over 6 char)
+   - Upload a pathway (An example file is provided in app/static/xml in the project)
+   - Then you will see the interface
+
+This allows you to test all the features from user system, xml parsing to the actual interface the patients will use.
 
 ## Feature Listing
 
