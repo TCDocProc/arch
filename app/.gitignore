@@ -1,4 +1,7 @@
 db.sqlite3
 bower_components
 /filestorage/*
+!/filestorage
+!/filestorage/pathways
+!/filestorage/pathways/example
 !/filestorage/pathways/example/*
