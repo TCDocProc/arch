@@ -9,6 +9,7 @@ jQuery ->
 
         initialize: (data) ->
 
+
             seqs = []
 
             _.each data.sequences, (seq, i) =>
@@ -283,7 +284,9 @@ jQuery ->
             $(@el).find("*").removeClass 'darken'
 
             if _.first(path)?
-                $('.pushy > ul > h1').show()
+
+                $('#maptitle').show()
+
                 $(@childViews[_.first(path)].el).show()
                 $(@el).click =>
                     Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}", true
@@ -297,7 +300,7 @@ jQuery ->
             else
                 $(@el).unbind('click')
                 $(cv.el).hide() for cv in @childViews
-                $('.pushy > ul > h1').hide()
+                $('#maptitle').hide()
 
     class PageView extends Backbone.View
 
