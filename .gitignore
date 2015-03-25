@@ -4,3 +4,4 @@ app/collectstatic/
 app/static/admin/
 .idea/
 venv/
+.DS_Store
