@@ -57,12 +57,7 @@ jQuery ->
 
         url: ->
 
-            "/processes/user/#{@user_id}.json"
-
-        initialize: (user_id) ->
-
-            @user_id = user_id
-            return @
+            "/processes.json"
 
         parse: (response) ->
 
@@ -266,9 +261,8 @@ jQuery ->
 
         el: $ '#minimap'
 
-        initialize: (collection,user_id) ->
+        initialize: (collection) ->
             @collection = collection
-            @user_id = user_id
             @childViews = ( new SequenceView model: proc.get('sequence') for proc in @collection.models )
             cv.setup 1 for cv in @childViews
             @selectedNode = undefined
@@ -290,7 +284,7 @@ jQuery ->
 
                 $(@childViews[_.first(path)].el).show()
                 $(@el).click =>
-                    Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}", true
+                    Backbone.history.navigate "/processes/#{_.first(path)}", true
                 @selectedNode = @childViews[_.first(path)]
                 for i in _.rest(path)
                     @selectedNode = @selectedNode.childViews[i]
@@ -307,24 +301,23 @@ jQuery ->
 
         el: '.content'
 
-        initialize: (user_id) ->
+        initialize: ->
 
-            @user_id = user_id
             $('ul.title-area > :nth-child(1)').click =>
-                Backbone.history.navigate "/processes/user/#{@user_id}", true
+                Backbone.history.navigate "/processes", true
 
             return @
 
         render: (callback) ->
 
-            @collection = new Processes @user_id
+            @collection = new Processes
 
             @collection.fetch success: =>
 
                 @procView = new ProcessesView @collection
                 $(@el).html @procView.render().$el
 
-                @minimap = new MinimapView @collection, @user_id
+                @minimap = new MinimapView @collection
                 @minimap.render()
 
                 callback()
@@ -338,7 +331,7 @@ jQuery ->
         moveToPath: (path) ->
 
             navClick = (path) =>
-                Backbone.history.navigate "/processes/user/#{@user_id}/#{path.join('/')}", true
+                Backbone.history.navigate "/processes/#{path.join('/')}", true
 
             $('ul.title-area > :not(:nth-child(1))')?.remove()
 
@@ -361,7 +354,7 @@ jQuery ->
                 if p?
                     $("#go-to-active").append "<button class='button' style='width:100%'>Go to Active Step</button>"
                     $("#go-to-active > :last-child").click =>
-                        Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}/#{p}", true
+                        Backbone.history.navigate "/processes/#{_.first(path)}/#{p}", true
 
             @procView.moveToPath pathArray
             @minimap.moveToPath pathArray
@@ -369,18 +362,18 @@ jQuery ->
     class AppRouter extends Backbone.Router
 
         routes:
-            "processes/user/:user_id(/*path)": "process"
+            "processes(/*path)": "process"
 
     app_router = new AppRouter
 
     view = undefined
 
-    app_router.on 'route:process',  (user_id, path) ->
+    app_router.on 'route:process',  (path) ->
 
         if view?
             view.moveToPath path
         else
-            view = new PageView user_id
+            view = new PageView
             view.render ->
                 view.moveToPath path
 

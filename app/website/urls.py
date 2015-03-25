@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^add_pathway/$', 'members.views.add_pathway', name='add_pathway'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^processes/user/(?P<user_id>\d+)(?:(\.(?P<extension>(json)))|(?:(/\d+)+/?|/?$))', 'processes.views.index',name='process_view'),
+    url(r'^processes(?:(\.(?P<extension>(json)))|(?:(/\d+)+/?|/?$))', 'processes.views.index',name='process_view'),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

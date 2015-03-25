@@ -121,12 +121,7 @@
       Processes.prototype.model = Process;
 
       Processes.prototype.url = function() {
-        return "/processes/user/" + this.user_id + ".json";
-      };
-
-      Processes.prototype.initialize = function(user_id) {
-        this.user_id = user_id;
-        return this;
+        return "/processes.json";
       };
 
       Processes.prototype.parse = function(response) {
@@ -402,10 +397,9 @@
 
       MinimapView.prototype.el = $('#minimap');
 
-      MinimapView.prototype.initialize = function(collection, user_id) {
+      MinimapView.prototype.initialize = function(collection) {
         var cv, proc, _i, _len, _ref;
         this.collection = collection;
-        this.user_id = user_id;
         this.childViews = (function() {
           var _i, _len, _ref, _results;
           _ref = this.collection.models;
@@ -448,7 +442,7 @@
           $(this.childViews[_.first(path)].el).show();
           $(this.el).click((function(_this) {
             return function() {
-              return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (_.first(path)), true);
+              return Backbone.history.navigate("/processes/" + (_.first(path)), true);
             };
           })(this));
           this.selectedNode = this.childViews[_.first(path)];
@@ -482,24 +476,23 @@
 
       PageView.prototype.el = '.content';
 
-      PageView.prototype.initialize = function(user_id) {
-        this.user_id = user_id;
+      PageView.prototype.initialize = function() {
         $('ul.title-area > :nth-child(1)').click((function(_this) {
           return function() {
-            return Backbone.history.navigate("/processes/user/" + _this.user_id, true);
+            return Backbone.history.navigate("/processes", true);
           };
         })(this));
         return this;
       };
 
       PageView.prototype.render = function(callback) {
-        this.collection = new Processes(this.user_id);
+        this.collection = new Processes;
         this.collection.fetch({
           success: (function(_this) {
             return function() {
               _this.procView = new ProcessesView(_this.collection);
               $(_this.el).html(_this.procView.render().$el);
-              _this.minimap = new MinimapView(_this.collection, _this.user_id);
+              _this.minimap = new MinimapView(_this.collection);
               _this.minimap.render();
               return callback();
             };
@@ -516,7 +509,7 @@
         var navClick, p, pathArray, _ref;
         navClick = (function(_this) {
           return function(path) {
-            return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (path.join('/')), true);
+            return Backbone.history.navigate("/processes/" + (path.join('/')), true);
           };
         })(this);
         if ((_ref = $('ul.title-area > :not(:nth-child(1))')) != null) {
@@ -544,7 +537,7 @@
             $("#go-to-active").append("<button class='button' style='width:100%'>Go to Active Step</button>");
             $("#go-to-active > :last-child").click((function(_this) {
               return function() {
-                return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (_.first(path)) + "/" + p, true);
+                return Backbone.history.navigate("/processes/" + (_.first(path)) + "/" + p, true);
               };
             })(this));
           }
@@ -564,7 +557,7 @@
       }
 
       AppRouter.prototype.routes = {
-        "processes/user/:user_id(/*path)": "process"
+        "processes(/*path)": "process"
       };
 
       return AppRouter;
@@ -572,11 +565,11 @@
     })(Backbone.Router);
     app_router = new AppRouter;
     view = void 0;
-    app_router.on('route:process', function(user_id, path) {
+    app_router.on('route:process', function(path) {
       if (view != null) {
         return view.moveToPath(path);
       } else {
-        view = new PageView(user_id);
+        view = new PageView;
         return view.render(function() {
           return view.moveToPath(path);
         });

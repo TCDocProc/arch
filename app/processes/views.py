@@ -8,7 +8,7 @@ import requests, json, re
 from website import settings
 
 @login_required(login_url='/accounts/signup/')
-def index(request,user_id,extension):
+def index(request,extension):
 
     pathways = m.Pathway.objects.filter(user_id=request.user.id)
 
