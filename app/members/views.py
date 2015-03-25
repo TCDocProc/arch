@@ -21,7 +21,7 @@ def add_pathway(request):
     if default != '':
         instance = Pathway(pathway_xml="pathways/example/pathways.xml",user_id=request.user)
         instance.save()
-        return HttpResponseRedirect('/processes/user/'+str(request.user.id) )
+        return HttpResponseRedirect('/processes' )
 
     if not pathways:
 
@@ -32,11 +32,11 @@ def add_pathway(request):
             if xmlForm.is_valid():
                 xmlForm.instance.user_id = request.user
                 xmlForm.save()
-                return HttpResponseRedirect('/processes/user/'+str(request.user.id) )
+                return HttpResponseRedirect('/processes' )
         else:
             xmlForm=UploadForm()
 
         return render(request,'upload_form.html',{'form':xmlForm})
 
     else:
-        return HttpResponseRedirect('/processes/user/'+str(request.user.id) )
+        return HttpResponseRedirect('/processes' )

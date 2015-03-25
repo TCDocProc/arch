@@ -32,7 +32,7 @@ class ProcessesTestCase(TestCase):
 
         self.__upload_sample_xml()
 
-        response = self.client.get('/processes/user/%s.json' % str(self.user.id))
+        response = self.client.get('/processes.json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
 
@@ -42,10 +42,10 @@ class ProcessesTestCase(TestCase):
 
         self.__upload_sample_xml()
 
-        response = self.client.get('/processes/user/%s/0' % str(self.user.id))
+        response = self.client.get('/processes/0')
         self.assertEqual(response.status_code, 200)
 
     def __upload_sample_xml(self):
         with open(self.PATHWAY_SAMPLE_XML) as fp:
             response = self.client.post(reverse('add_pathway'), {'pathway_xml': fp})
-            self.assertRedirects(response, '/processes/user/%s' % str(self.user.id), status_code=302)
+            self.assertRedirects(response, '/processes', status_code=302)

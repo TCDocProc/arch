@@ -65,6 +65,7 @@ INSTALLED_APPS = (
 
     'members',
     'processes',
+    'openemr',
 
     # 3rd party
     'djangobower',
