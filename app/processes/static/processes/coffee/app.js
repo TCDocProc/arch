@@ -505,8 +505,10 @@
             };
           })(this)
         });
-        this.sheperd = new Arch.Sheperd;
-        this.sheperd.init();
+        if ((typeof Arch !== "undefined" && Arch !== null ? Arch.Sheperd : void 0) != null) {
+          this.sheperd = new Arch.Sheperd;
+          this.sheperd.init();
+        }
         return this;
       };
 

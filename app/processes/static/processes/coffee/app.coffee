@@ -329,9 +329,10 @@ jQuery ->
 
                 callback()
 
-            @sheperd = new Arch.Sheperd
-            @sheperd.init()
-            
+            if Arch?.Sheperd?
+                @sheperd = new Arch.Sheperd
+                @sheperd.init()
+
             return @
 
         moveToPath: (path) ->
