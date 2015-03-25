@@ -242,6 +242,7 @@
           if (_.first(path) === this.model.i) {
             $(this.el).addClass("focused");
             $(this.el).addClass("remove-width");
+            $(this.el).show();
             return passToChildren();
           } else {
             return $(this.el).hide();
@@ -329,6 +330,7 @@
           if (_.first(path) === this.model.i) {
             $(this.el).addClass("fill");
             $(this.el).children('.action').children('p').show();
+            $(this.el).show();
             return passToChildren();
           } else {
             return $(this.el).hide();
@@ -503,6 +505,8 @@
             };
           })(this)
         });
+        this.sheperd = new Arch.Sheperd;
+        this.sheperd.init();
         return this;
       };
 
@@ -535,7 +539,7 @@
         if (_.first(path) != null) {
           p = _.first(this.collection.get(_.first(path)).getRelativeActivePaths());
           if (p != null) {
-            $("#go-to-active").append("<button class='button' style='width:100%'>Go to active</button>");
+            $("#go-to-active").append("<button class='button' style='width:100%'>Go to Active Step</button>");
             $("#go-to-active > :last-child").click((function(_this) {
               return function() {
                 return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (_.first(path)) + "/" + p, true);

@@ -236,11 +236,11 @@ h1 {
     border: 1px solid #0f4325; }
 
 .ACTIVE {
-  background-color: #4A90E2;
-  border: 2px solid #3d88e0; }
+  background-color: #00b2ed;
+  border: 2px solid #00a7de; }
   .ACTIVE.darken, .darken .ACTIVE {
-    background-color: #14457f;
-    border: 2px solid #123e72; }
+    background-color: #003f54;
+    border: 2px solid #003445; }
 
 .BLOCKED, .SUSPENDED {
   background-color: #D0021B;

@@ -26,7 +26,7 @@
     -ms-animation: #{$str};
     -o-animation: #{$str};
     animation: #{$str};
-    
+
 }
 
 $background-color: #ECF0F1;
@@ -260,7 +260,7 @@ $border-width: 2px;
 
 $ready-color: #2ecc71;
 
-$active-color: #4A90E2;
+$active-color: lighten(#008CBA,10%);
 
 $blocked-color: #D0021B;
 

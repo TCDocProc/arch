@@ -148,7 +148,7 @@ jQuery ->
 
                     $(@el).addClass "focused"
                     $(@el).addClass "remove-width"
-
+                    $(@el).show()
                     passToChildren()
                 else
 
@@ -216,6 +216,7 @@ jQuery ->
                 if _.first(path) is @model.i
                     $(@el).addClass "fill"
                     $(@el).children('.action').children('p').show()
+                    $(@el).show()
                     passToChildren()
 
                 else
@@ -328,6 +329,9 @@ jQuery ->
 
                 callback()
 
+            @sheperd = new Arch.Sheperd
+            @sheperd.init()
+            
             return @
 
         moveToPath: (path) ->
@@ -354,7 +358,7 @@ jQuery ->
 
                 p = _.first(@collection.get(_.first(path)).getRelativeActivePaths())
                 if p?
-                    $("#go-to-active").append "<button class='button' style='width:100%'>Go to active</button>"
+                    $("#go-to-active").append "<button class='button' style='width:100%'>Go to Active Step</button>"
                     $("#go-to-active > :last-child").click =>
                         Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}/#{p}", true
 

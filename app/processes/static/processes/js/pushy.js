@@ -11,7 +11,7 @@ $(function() {
         menuBtn = $('.menu-btn, .pushy a'), //css classes to toggle the menu
         menuSpeed = 200, //jQuery fallback menu speed
         menuWidth = pushy.width() + "px"; //jQuery fallback menu width
-    if ( $( window ).width() > 800 ){
+    if ( $( window ).width() < 800 ){
         togglePushy();
     }
 
