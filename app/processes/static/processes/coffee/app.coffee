@@ -351,3 +351,17 @@ jQuery ->
                 view.moveToPath path
 
     Backbone.history.start pushState: true
+
+    window.scrollTo 0,1;
+
+    ss = _.last document.styleSheets
+    ss.insertRule ".focused > .sequence { max-width: #{ $(window).width() - 80}px; max-height: #{ $(window).height() - 100}px; }", ss.cssRules.length
+    ss.insertRule ".sequence.fill { max-width: #{ $(window).width() - 20}px }", ss.cssRules.length
+
+    $(window).resize ->
+        ss = _.last(document.styleSheets)
+        ss.deleteRule ss.cssRules.length - 1
+        ss.deleteRule ss.cssRules.length - 1
+
+        ss.insertRule ".focused > .sequence { max-width: #{ $(window).width() - 80}px; max-height: #{ $(window).height() - 100}px; }", ss.cssRules.length
+        ss.insertRule ".sequence.fill { max-width: #{ $(window).width() - 20}px }", ss.cssRules.length
