@@ -322,8 +322,8 @@ jQuery ->
 
                 callback()
 
-            if Arch?.Sheperd?
-                @sheperd = new Arch.Sheperd
+            if ARCHShepherd?
+                @sheperd = new ARCHShepherd
                 @sheperd.init()
 
             return @

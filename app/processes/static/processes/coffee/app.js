@@ -498,8 +498,8 @@
             };
           })(this)
         });
-        if ((typeof Arch !== "undefined" && Arch !== null ? Arch.Sheperd : void 0) != null) {
-          this.sheperd = new Arch.Sheperd;
+        if (typeof ARCHShepherd !== "undefined" && ARCHShepherd !== null) {
+          this.sheperd = new ARCHShepherd;
           this.sheperd.init();
         }
         return this;
