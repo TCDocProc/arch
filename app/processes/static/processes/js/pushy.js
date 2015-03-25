@@ -16,7 +16,7 @@ $(function() {
     }
 
     function togglePushy(){
-        content.toggleClass(pushyActiveClass); //toggle site overlay
+        content.toggleClass(pushyActiveClass, menuSpeed); //toggle site overlay
         pushy.toggleClass(pushyClass);
         container.toggleClass(containerClass);
         push.toggleClass(pushClass); //css class to add pushy capability
@@ -69,7 +69,7 @@ $(function() {
             togglePushy();
         });
         //close menu when clicking site overlay
-        siteOverlay.click(function(){ 
+        siteOverlay.click(function(){
         });
     }else{
         //jQuery fallback
@@ -91,7 +91,7 @@ $(function() {
         });
 
         //close menu when clicking site overlay
-        siteOverlay.click(function(){ 
+        siteOverlay.click(function(){
             if (state) {
                 openPushyFallback();
                 state = false;

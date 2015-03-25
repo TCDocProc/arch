@@ -39,28 +39,38 @@ body {
 .row {
     height: 100%;
     max-height: 600px;
-    margin-left: 330px;
+    margin-left: 0px;
     width: 5px;
 }
 .content {
-    padding: 0;
-    margin-top: 80px;
-    height: calc( 100% - 50px);
+    padding: 0px;
+    margin-left: 10px;
+    padding-top: 65px;
+    height: 100%;
     font-family: "Lato";
     width:100%;
     max-width: 500px;
 }
 ul.title-area {
     padding-left: 0;
+    float:left;
 }
 
 .top-bar .name {
     display: inline-block;
     vertical-align: top;
+
+    @media screen and (max-width: 768px) {
+        & {
+            display:none;
+        }
+        &:nth-child(1) {
+            display:inline-block;
+        }
+    }
 }
 
 .top-bar .name h1 {
-    line-height: 39px;
     text-transform: capitalize;
 }
 
@@ -123,10 +133,12 @@ h1 {
 
         &:not(.fill) {
             margin: 0 15px;
-            &:hover {
-                margin: -5px 10px;
-                height: calc(100% + 10px);
-                width: calc(#{$unfilled-seq-width} + 10px);
+            @media screen and (min-width: 768px) {
+                &:hover {
+                    margin: -5px 10px;
+                    height: calc(100% + 10px);
+                    width: calc(#{$unfilled-seq-width} + 10px);
+                }
             }
         }
 
@@ -160,12 +172,14 @@ h1 {
     &.branch {
 
         .fill > &:not(.focused) {
-            &:hover {
-                background-color: #DDDDDD;
-                margin: 10px -5px;
-                @for $i from 1 through 10 {
-                    &.siblings-#{$i} {
-                        height: calc( 100% / #{$i} - 2px );
+            @media screen and (min-width: 768px) {
+                &:hover {
+                    background-color: #DDDDDD;
+                    margin: 10px -5px;
+                    @for $i from 1 through 10 {
+                        &.siblings-#{$i} {
+                            height: calc( 100% / #{$i} - 2px );
+                        }
                     }
                 }
             }
