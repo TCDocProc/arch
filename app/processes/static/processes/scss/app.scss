@@ -204,7 +204,7 @@ h1 {
 
         h1 {
 
-            text-transform: uppercase;
+            text-transform: capitalize;
 
             :not(.focused) > .sequence > & {
                 font-size: 0.8em;
@@ -243,15 +243,15 @@ $border-darkness: 3%;
 $darken-darkness: 30%;
 $border-width: 2px;
 
-$ready-color: #FFF;
+$ready-color: #2ecc71;
 
 $active-color: #4A90E2;
 
 $blocked-color: #D0021B;
 
-$done-color: #B1BAC4;
+$done-color: #fff;
 
-$none-color: #7F8C8D;
+$none-color: #bdc3c7;
 
 .READY, .AVAILABLE {
 

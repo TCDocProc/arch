@@ -267,7 +267,7 @@ jQuery ->
             $(@el).find("*").removeClass 'darken'
 
             if path?
-                $('.pushy > ul > h1').show()
+                $('.pushy > ul > #maptitle').show()
                 $(@childViews[_.first(path)].el).show()
                 $(@el).click =>
                     Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}", true
@@ -281,7 +281,7 @@ jQuery ->
             else
                 $(@el).unbind('click')
                 $(cv.el).hide() for cv in @childViews
-                $('.pushy > ul > h1').hide()
+                $('.pushy > ul > #maptitle').hide()
 
     class PageView extends Backbone.View
 
