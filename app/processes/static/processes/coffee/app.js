@@ -400,7 +400,7 @@
         }
         $(this.el).find("*").removeClass('darken');
         if (path != null) {
-          $('.pushy > ul > h1').show();
+          $('.pushy > ul > #maptitle').show();
           $(this.childViews[_.first(path)].el).show();
           $(this.el).click((function(_this) {
             return function() {
@@ -422,7 +422,7 @@
             cv = _ref1[_j];
             $(cv.el).hide();
           }
-          return $('.pushy > ul > h1').hide();
+          return $('.pushy > ul > #maptitle').hide();
         }
       };
 

@@ -208,7 +208,7 @@ h1 {
       height: auto;
       cursor: default; }
     .cell.action h1 {
-      text-transform: uppercase; }
+      text-transform: capitalize; }
       :not(.focused) > .sequence > .cell.action h1 {
         font-size: 0.8em;
         padding: 0 15px; }
@@ -229,11 +229,11 @@ h1 {
         text-align: right; }
 
 .READY, .AVAILABLE {
-  background-color: #FFF;
-  border: 2px solid #f7f7f7; }
+  background-color: #2ecc71;
+  border: 2px solid #2bc06a; }
   .READY.darken, .darken .READY, .AVAILABLE.darken, .darken .AVAILABLE {
-    background-color: #b3b3b3;
-    border: 1px solid #ababab; }
+    background-color: #124f2c;
+    border: 1px solid #0f4325; }
 
 .ACTIVE {
   background-color: #4A90E2;
@@ -250,17 +250,17 @@ h1 {
     border: 2px solid #290005; }
 
 .DONE, .SATISFIED {
-  background-color: #B1BAC4;
-  border: 2px solid #a8b2bd; }
+  background-color: #fff;
+  border: 2px solid #f7f7f7; }
   .DONE.darken, .darken .DONE, .SATISFIED.darken, .darken .SATISFIED {
-    background-color: #5f6d7d;
-    border: 2px solid #586675; }
+    background-color: #b3b3b3;
+    border: 2px solid #ababab; }
 
 .NONE {
-  background-color: #7F8C8D;
-  border: 2px solid #778586; }
+  background-color: #bdc3c7;
+  border: 2px solid #b5bbc0; }
   .NONE.darken, .darken .NONE {
-    background-color: #363c3d;
-    border: 2px solid #2f3435; }
+    background-color: #6c777f;
+    border: 2px solid #657077; }
 
 /*# sourceMappingURL=app.css.map */
