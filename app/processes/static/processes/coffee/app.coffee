@@ -2,6 +2,9 @@ jQuery ->
 
     class Action extends Backbone.Model
 
+        getRelativeActivePaths: ->
+            if @get('state') is 'ACTIVE' then [ "" ] else [ ]
+
     class Branch extends Backbone.Model
 
         initialize: (data) ->
@@ -14,6 +17,10 @@ jQuery ->
                 seqs.push s
 
             @set('seqs',seqs)
+
+        getRelativeActivePaths: ->
+            @get('seqs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
 
     class Sequence extends Backbone.Model
 
@@ -34,8 +41,14 @@ jQuery ->
 
             @set('objs',objs)
 
+        getRelativeActivePaths: ->
+            @get('objs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
+
     class Process extends Backbone.Model
 
+        getRelativeActivePaths: ->
+            @get('sequence').getRelativeActivePaths()
 
     class Processes extends Backbone.Collection
 
@@ -60,6 +73,9 @@ jQuery ->
 
             return response
 
+        getRelativeActivePaths: ->
+            @models.map (x,i) -> x.getRelativeActivePaths().map (y) -> "/#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
 
 ###############################################################################
 
@@ -266,7 +282,7 @@ jQuery ->
             $(@selectedNode.el).removeClass 'selected' if @selectedNode?
             $(@el).find("*").removeClass 'darken'
 
-            if path?
+            if _.first(path)?
                 $('.pushy > ul > h1').show()
                 $(@childViews[_.first(path)].el).show()
                 $(@el).click =>
@@ -297,14 +313,14 @@ jQuery ->
 
         render: (callback) ->
 
-            collection = new Processes @user_id
+            @collection = new Processes @user_id
 
-            collection.fetch success: =>
+            @collection.fetch success: =>
 
-                @procView = new ProcessesView collection
+                @procView = new ProcessesView @collection
                 $(@el).html @procView.render().$el
 
-                @minimap = new MinimapView collection, @user_id
+                @minimap = new MinimapView @collection, @user_id
                 @minimap.render()
 
                 callback()
@@ -329,6 +345,16 @@ jQuery ->
 
                 $('ul.title-area').children(":last-child").click -> navClick(_.first(pathArray,i+1))
 
+            $("#go-to-active").html ""
+
+            if _.first(path)?
+
+                p = _.first(@collection.get(_.first(path)).getRelativeActivePaths())
+                if p?
+                    $("#go-to-active").append "<button class='button' style='width:100%'>Go to active</button>"
+                    $("#go-to-active > :last-child").click =>
+                        Backbone.history.navigate "/processes/user/#{@user_id}/#{_.first(path)}/#{p}", true
+
             @procView.moveToPath pathArray
             @minimap.moveToPath pathArray
 
@@ -337,7 +363,7 @@ jQuery ->
         routes:
             "processes/user/:user_id(/*path)": "process"
 
-    app_router = new AppRouter;
+    app_router = new AppRouter
 
     view = undefined
 
