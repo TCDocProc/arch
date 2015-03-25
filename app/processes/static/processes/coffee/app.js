@@ -12,6 +12,14 @@
         return Action.__super__.constructor.apply(this, arguments);
       }
 
+      Action.prototype.getRelativeActivePaths = function() {
+        if (this.get('state') === 'ACTIVE') {
+          return [""];
+        } else {
+          return [];
+        }
+      };
+
       return Action;
 
     })(Backbone.Model);
@@ -34,6 +42,16 @@
           };
         })(this));
         return this.set('seqs', seqs);
+      };
+
+      Branch.prototype.getRelativeActivePaths = function() {
+        return this.get('seqs').map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
       };
 
       return Branch;
@@ -66,6 +84,16 @@
         return this.set('objs', objs);
       };
 
+      Sequence.prototype.getRelativeActivePaths = function() {
+        return this.get('objs').map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
+      };
+
       return Sequence;
 
     })(Backbone.Model);
@@ -75,6 +103,10 @@
       function Process() {
         return Process.__super__.constructor.apply(this, arguments);
       }
+
+      Process.prototype.getRelativeActivePaths = function() {
+        return this.get('sequence').getRelativeActivePaths();
+      };
 
       return Process;
 
@@ -106,6 +138,16 @@
           return process.i = i;
         });
         return response;
+      };
+
+      Processes.prototype.getRelativeActivePaths = function() {
+        return this.models.map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return "/" + i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
       };
 
       return Processes;
@@ -399,8 +441,8 @@
           $(this.selectedNode.el).removeClass('selected');
         }
         $(this.el).find("*").removeClass('darken');
-        if (path != null) {
-          $('.pushy > ul > #maptitle').show();
+        if (_.first(path) != null) {
+          $('#maptitle').show();
           $(this.childViews[_.first(path)].el).show();
           $(this.el).click((function(_this) {
             return function() {
@@ -422,7 +464,7 @@
             cv = _ref1[_j];
             $(cv.el).hide();
           }
-          return $('.pushy > ul > #maptitle').hide();
+          return $('#maptitle').hide();
         }
       };
 
@@ -449,14 +491,13 @@
       };
 
       PageView.prototype.render = function(callback) {
-        var collection;
-        collection = new Processes(this.user_id);
-        collection.fetch({
+        this.collection = new Processes(this.user_id);
+        this.collection.fetch({
           success: (function(_this) {
             return function() {
-              _this.procView = new ProcessesView(collection);
+              _this.procView = new ProcessesView(_this.collection);
               $(_this.el).html(_this.procView.render().$el);
-              _this.minimap = new MinimapView(collection, _this.user_id);
+              _this.minimap = new MinimapView(_this.collection, _this.user_id);
               _this.minimap.render();
               return callback();
             };
@@ -466,7 +507,7 @@
       };
 
       PageView.prototype.moveToPath = function(path) {
-        var navClick, pathArray, _ref;
+        var navClick, p, pathArray, _ref;
         navClick = (function(_this) {
           return function(path) {
             return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (path.join('/')), true);
@@ -489,6 +530,18 @@
               });
             };
           })(this));
+        }
+        $("#go-to-active").html("");
+        if (_.first(path) != null) {
+          p = _.first(this.collection.get(_.first(path)).getRelativeActivePaths());
+          if (p != null) {
+            $("#go-to-active").append("<button class='button' style='width:100%'>Go to active</button>");
+            $("#go-to-active > :last-child").click((function(_this) {
+              return function() {
+                return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (_.first(path)) + "/" + p, true);
+              };
+            })(this));
+          }
         }
         this.procView.moveToPath(pathArray);
         return this.minimap.moveToPath(pathArray);
