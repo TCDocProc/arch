@@ -4,6 +4,8 @@
     <head>
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'scss/base.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'shepherd/css/shepherd-theme-default.css' %}" />
+        <script type="text/javascript" src="{% static 'shepherd/shepherd.min.js' %}"></script>
         {% block static %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
