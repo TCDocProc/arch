@@ -228,10 +228,10 @@ h1 {
         padding-bottom: 10px;
         text-align: right; }
 
-.READY, .AVAILABLE {
+.READY {
   background-color: #2ecc71;
   border: 2px solid #2bc06a; }
-  .READY.darken, .darken .READY, .AVAILABLE.darken, .darken .AVAILABLE {
+  .READY.darken, .darken .READY {
     background-color: #124f2c;
     border: 1px solid #0f4325; }
 
@@ -256,10 +256,10 @@ h1 {
     background-color: #b3b3b3;
     border: 2px solid #ababab; }
 
-.NONE {
+.NONE, .AVAILABLE {
   background-color: #bdc3c7;
   border: 2px solid #b5bbc0; }
-  .NONE.darken, .darken .NONE {
+  .NONE.darken, .darken .NONE, .AVAILABLE.darken, .darken .AVAILABLE {
     background-color: #6c777f;
     border: 2px solid #657077; }
 

@@ -268,7 +268,7 @@ $done-color: #fff;
 
 $none-color: #bdc3c7;
 
-.READY, .AVAILABLE {
+.READY {
 
     background-color: $ready-color;
     border: $border-width solid darken($ready-color, $border-darkness);
@@ -311,7 +311,7 @@ $none-color: #bdc3c7;
     }
 }
 
-.NONE {
+.NONE, .AVAILABLE {
 
     background-color: $none-color;
     border: $border-width solid darken($none-color, $border-darkness);

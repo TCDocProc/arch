@@ -53,7 +53,7 @@
 									</action>
 								</sequence>
 								<sequence>
-									<action name="Cholesterol_test" state="NONE">
+									<action name="Cholesterol_test" state="READY">
 										<script>
 											&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
 											Normal values&lt;br&gt;
@@ -79,7 +79,7 @@
 										</action>
 									</sequence>
 									<sequence>
-										<action name="Cholesterol_test" state="NONE">
+										<action name="Cholesterol_test" state="READY">
 											<script>
 												&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
 												Normal values&lt;br&gt;
@@ -139,8 +139,8 @@
 				<prov_resource name="diagnosis" value="001677980.hl7" qualifier=""></prov_resource>
 			</action>
 		</process>
-		<process pid="1" model="./diabetes_assessment.pml" status="2">
-			<action name="Assess_patient_symptoms" state="AVAILABLE">
+		<process pid="1" model="./selection_example.pml" status="2">
+			<action name="Assess_patient_symptoms" state="DONE">
 				<script>
 					&quot;Diabetes symptoms:&lt;br&gt;
 					Increased urination.&lt;br&gt;
@@ -158,7 +158,7 @@
 			</action>
 			<branch>
 				<sequence>
-					<action name="Glucose_test" state="SATISFIED">
+					<action name="Glucose_test" state="DONE">
 						<script>
 							&quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
 							(normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
@@ -168,7 +168,7 @@
 					</action>
 				</sequence>
 				<sequence>
-					<action name="Cholesterol_test" state="SATISFIED">
+					<action name="Cholesterol_test" state="BLOCKED">
 						<script>
 							&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
 							Normal values&lt;br&gt;
@@ -183,7 +183,7 @@
 					</action>
 				</sequence>
 			</branch>
-			<action name="Assess_diabetes" state="AVAILABLE">
+			<action name="Assess_diabetes" state="READY">
 				<script>
 					&quot;Fasting blood sugar (FBS) glucose level of 100-125mg/dL means impaired fasting glucose, a type of prediabetes. This increases the risk for type 2 diabetes.&lt;br&gt;
 					Fasting blood sugar (FBS) glucose level of 126 mg/dL and higher most often means diabetes. &lt;br&gt;&lt;br&gt;
@@ -193,24 +193,46 @@
 				<prov_resource name="diagnosis" value="001677980.hl7" qualifier=""></prov_resource>
 			</action>
 		</process>
-		<process pid="2" model="./patient_assessment.pml" status="2">
-			<action name="Get_patient_symptoms" state="READY">
+		<process pid="2" model="./iteration_example.pml" status="2">
+			<action name="step_1" state="READY">
 				<script>
 					(null)
 				</script>
 				<req_resource name="patient_record" value="001671458.hl7" qualifier=""></req_resource>
 				<prov_resource name="patient_symptoms" value="001671458.spt" qualifier=""></prov_resource>
 			</action>
-			<action name="Assess_patient_symptoms" state="NONE">
+			<action name="step_2" state="DONE">
 				<script>
 					(null)
 				</script>
 				<req_resource name="patient_symptoms" value="001671458.spt" qualifier=""></req_resource>
 				<prov_resource name="assessment" value="001671458.hl7" qualifier=""></prov_resource>
 			</action>
+			<action name="step_3" state="DONE">
+				<script>
+					(null)
+				</script>
+				<req_resource name="patient_record" value="001671458.hl7" qualifier=""></req_resource>
+				<prov_resource name="patient_symptoms" value="001671458.spt" qualifier=""></prov_resource>
+			</action>
+			<action name="step_4" state="DONE">
+				<script>
+					(null)
+				</script>
+				<req_resource name="patient_symptoms" value="001671458.spt" qualifier=""></req_resource>
+				<prov_resource name="assessment" value="001671458.hl7" qualifier=""></prov_resource>
+			</action>
+			<action name="step_5" state="DONE">
+				<script>
+					(null)
+				</script>
+				<req_resource name="patient_record" value="001671458.hl7" qualifier=""></req_resource>
+				<prov_resource name="patient_symptoms" value="001671458.spt" qualifier=""></prov_resource>
+			</action>
+
 		</process>
 		<process pid="3" model="./diabetes_assessment.pml" status="2">
-			<action name="Assess_patient_symptoms" state="BLOCKED">
+			<action name="Assess_patient_symptoms" state="READY">
 				<script>
 					&quot;Diabetes symptoms:&lt;br&gt;
 					Increased urination.&lt;br&gt;
