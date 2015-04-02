@@ -11,6 +11,10 @@ import requests, json
 # Create your views here.
 
 def sign_up(request):
+    context = RequestContext(request, {
+        "login_url": ""
+     })
+
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
 
@@ -44,8 +48,7 @@ def sign_up(request):
                 doc.pathway_xml.save(username+".xml", ContentFile(response['xml']), save=True)
                 doc.save()
                 return HttpResponseRedirect("/") 
+        else:
+            context["failed"] = True
 
-    context = RequestContext(request, {
-        "login_url": ""
-     })
     return HttpResponse(loader.get_template('signup.html').render(context))
