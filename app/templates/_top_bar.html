@@ -1,7 +1,16 @@
 <nav class="top-bar" data-topbar role="navigation">
-  <ul class="title-area">
-    <li class="name">
-      <h1><a>TCDoc</a></h1>
+    {% if show_menu %}
+        <div class="menu-btn">
+            &#9776;
+        </div>
+    {% endif %}
+    <ul class="title-area">
+        <li class="name">
+            {% if custom_title %}
+                <h1><a>{{ custom_title }}</a></h1>
+            {% else %}
+                <h1><a>TCDoc</a></h1>
+            {% endif %}
     </li>
   </ul>
   <section class="top-bar-section">
@@ -17,6 +26,7 @@
     </ul>
     <!-- Left Nav Section -->
     <ul class="left">
+
     </ul>
   </section>
 </nav>

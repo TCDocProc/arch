@@ -4,13 +4,21 @@
     __hasProp = {}.hasOwnProperty;
 
   jQuery(function() {
-    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, view;
+    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, ss, view;
     Action = (function(_super) {
       __extends(Action, _super);
 
       function Action() {
         return Action.__super__.constructor.apply(this, arguments);
       }
+
+      Action.prototype.getRelativeActivePaths = function() {
+        if (this.get('state') === 'ACTIVE') {
+          return [""];
+        } else {
+          return [];
+        }
+      };
 
       return Action;
 
@@ -34,6 +42,16 @@
           };
         })(this));
         return this.set('seqs', seqs);
+      };
+
+      Branch.prototype.getRelativeActivePaths = function() {
+        return this.get('seqs').map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
       };
 
       return Branch;
@@ -66,6 +84,16 @@
         return this.set('objs', objs);
       };
 
+      Sequence.prototype.getRelativeActivePaths = function() {
+        return this.get('objs').map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
+      };
+
       return Sequence;
 
     })(Backbone.Model);
@@ -75,6 +103,10 @@
       function Process() {
         return Process.__super__.constructor.apply(this, arguments);
       }
+
+      Process.prototype.getRelativeActivePaths = function() {
+        return this.get('sequence').getRelativeActivePaths();
+      };
 
       return Process;
 
@@ -89,12 +121,7 @@
       Processes.prototype.model = Process;
 
       Processes.prototype.url = function() {
-        return "/processes/user/" + this.user_id + ".json";
-      };
-
-      Processes.prototype.initialize = function(user_id) {
-        this.user_id = user_id;
-        return this;
+        return "/processes.json";
       };
 
       Processes.prototype.parse = function(response) {
@@ -106,6 +133,16 @@
           return process.i = i;
         });
         return response;
+      };
+
+      Processes.prototype.getRelativeActivePaths = function() {
+        return this.models.map(function(x, i) {
+          return x.getRelativeActivePaths().map(function(y) {
+            return "/" + i + "/" + y;
+          });
+        }).reduce(function(x, y) {
+          return x.concat(y);
+        });
       };
 
       return Processes;
@@ -200,6 +237,7 @@
           if (_.first(path) === this.model.i) {
             $(this.el).addClass("focused");
             $(this.el).addClass("remove-width");
+            $(this.el).show();
             return passToChildren();
           } else {
             return $(this.el).hide();
@@ -287,6 +325,7 @@
           if (_.first(path) === this.model.i) {
             $(this.el).addClass("fill");
             $(this.el).children('.action').children('p').show();
+            $(this.el).show();
             return passToChildren();
           } else {
             return $(this.el).hide();
@@ -393,13 +432,19 @@
       };
 
       MinimapView.prototype.moveToPath = function(path) {
-        var cv, i, _i, _j, _len, _len1, _ref, _ref1, _results;
+        var cv, i, _i, _j, _len, _len1, _ref, _ref1;
         if (this.selectedNode != null) {
           $(this.selectedNode.el).removeClass('selected');
         }
         $(this.el).find("*").removeClass('darken');
-        if (path != null) {
+        if (_.first(path) != null) {
+          $('#maptitle').show();
           $(this.childViews[_.first(path)].el).show();
+          $(this.el).click((function(_this) {
+            return function() {
+              return Backbone.history.navigate("/processes/" + (_.first(path)), true);
+            };
+          })(this));
           this.selectedNode = this.childViews[_.first(path)];
           _ref = _.rest(path);
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -409,13 +454,13 @@
           }
           return $(this.selectedNode.el).addClass('selected');
         } else {
+          $(this.el).unbind('click');
           _ref1 = this.childViews;
-          _results = [];
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             cv = _ref1[_j];
-            _results.push($(cv.el).hide());
+            $(cv.el).hide();
           }
-          return _results;
+          return $('#maptitle').hide();
         }
       };
 
@@ -431,38 +476,40 @@
 
       PageView.prototype.el = '.content';
 
-      PageView.prototype.initialize = function(user_id) {
-        this.user_id = user_id;
+      PageView.prototype.initialize = function() {
         $('ul.title-area > :nth-child(1)').click((function(_this) {
           return function() {
-            return Backbone.history.navigate("/processes/user/" + _this.user_id, true);
+            return Backbone.history.navigate("/processes", true);
           };
         })(this));
         return this;
       };
 
       PageView.prototype.render = function(callback) {
-        var collection;
-        collection = new Processes(this.user_id);
-        collection.fetch({
+        this.collection = new Processes;
+        this.collection.fetch({
           success: (function(_this) {
             return function() {
-              _this.procView = new ProcessesView(collection);
+              _this.procView = new ProcessesView(_this.collection);
               $(_this.el).html(_this.procView.render().$el);
-              _this.minimap = new MinimapView(collection);
+              _this.minimap = new MinimapView(_this.collection);
               _this.minimap.render();
               return callback();
             };
           })(this)
         });
+        if (typeof ARCHShepherd !== "undefined" && ARCHShepherd !== null) {
+          this.sheperd = new ARCHShepherd;
+          this.sheperd.init();
+        }
         return this;
       };
 
       PageView.prototype.moveToPath = function(path) {
-        var navClick, pathArray, _ref;
+        var navClick, p, pathArray, _ref;
         navClick = (function(_this) {
           return function(path) {
-            return Backbone.history.navigate("/processes/user/" + _this.user_id + "/" + (path.join('/')), true);
+            return Backbone.history.navigate("/processes/" + (path.join('/')), true);
           };
         })(this);
         if ((_ref = $('ul.title-area > :not(:nth-child(1))')) != null) {
@@ -483,6 +530,18 @@
             };
           })(this));
         }
+        $("#go-to-active").html("");
+        if (_.first(path) != null) {
+          p = _.first(this.collection.get(_.first(path)).getRelativeActivePaths());
+          if (p != null) {
+            $("#go-to-active").append("<button class='button' style='width:100%'>Go to Active Step</button>");
+            $("#go-to-active > :last-child").click((function(_this) {
+              return function() {
+                return Backbone.history.navigate("/processes/" + (_.first(path)) + "/" + p, true);
+              };
+            })(this));
+          }
+        }
         this.procView.moveToPath(pathArray);
         return this.minimap.moveToPath(pathArray);
       };
@@ -498,7 +557,7 @@
       }
 
       AppRouter.prototype.routes = {
-        "processes/user/:user_id(/*path)": "process"
+        "processes(/*path)": "process"
       };
 
       return AppRouter;
@@ -506,18 +565,29 @@
     })(Backbone.Router);
     app_router = new AppRouter;
     view = void 0;
-    app_router.on('route:process', function(user_id, path) {
+    app_router.on('route:process', function(path) {
       if (view != null) {
         return view.moveToPath(path);
       } else {
-        view = new PageView(user_id);
+        view = new PageView;
         return view.render(function() {
           return view.moveToPath(path);
         });
       }
     });
-    return Backbone.history.start({
+    Backbone.history.start({
       pushState: true
+    });
+    window.scrollTo(0, 1);
+    ss = _.last(document.styleSheets);
+    ss.insertRule(".focused > .sequence { max-width: " + ($(window).width() - 80) + "px; max-height: " + ($(window).height() - 100) + "px; }", ss.cssRules.length);
+    ss.insertRule(".sequence.fill { max-width: " + ($(window).width() - 20) + "px }", ss.cssRules.length);
+    return $(window).resize(function() {
+      ss = _.last(document.styleSheets);
+      ss.deleteRule(ss.cssRules.length - 1);
+      ss.deleteRule(ss.cssRules.length - 1);
+      ss.insertRule(".focused > .sequence { max-width: " + ($(window).width() - 80) + "px; max-height: " + ($(window).height() - 100) + "px; }", ss.cssRules.length);
+      return ss.insertRule(".sequence.fill { max-width: " + ($(window).width() - 20) + "px }", ss.cssRules.length);
     });
   });
 

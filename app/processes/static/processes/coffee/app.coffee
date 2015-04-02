@@ -2,9 +2,13 @@ jQuery ->
 
     class Action extends Backbone.Model
 
+        getRelativeActivePaths: ->
+            if @get('state') is 'ACTIVE' then [ "" ] else [ ]
+
     class Branch extends Backbone.Model
 
         initialize: (data) ->
+
 
             seqs = []
 
@@ -14,6 +18,10 @@ jQuery ->
                 seqs.push s
 
             @set('seqs',seqs)
+
+        getRelativeActivePaths: ->
+            @get('seqs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
 
     class Sequence extends Backbone.Model
 
@@ -34,8 +42,14 @@ jQuery ->
 
             @set('objs',objs)
 
+        getRelativeActivePaths: ->
+            @get('objs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
+
     class Process extends Backbone.Model
 
+        getRelativeActivePaths: ->
+            @get('sequence').getRelativeActivePaths()
 
     class Processes extends Backbone.Collection
 
@@ -43,12 +57,7 @@ jQuery ->
 
         url: ->
 
-            "/processes/user/#{@user_id}.json"
-
-        initialize: (user_id) ->
-
-            @user_id = user_id
-            return @
+            "/processes.json"
 
         parse: (response) ->
 
@@ -60,6 +69,9 @@ jQuery ->
 
             return response
 
+        getRelativeActivePaths: ->
+            @models.map (x,i) -> x.getRelativeActivePaths().map (y) -> "/#{i}/#{y}"
+                .reduce (x,y) -> x.concat y
 
 ###############################################################################
 
@@ -131,7 +143,7 @@ jQuery ->
 
                     $(@el).addClass "focused"
                     $(@el).addClass "remove-width"
-
+                    $(@el).show()
                     passToChildren()
                 else
 
@@ -199,6 +211,7 @@ jQuery ->
                 if _.first(path) is @model.i
                     $(@el).addClass "fill"
                     $(@el).children('.action').children('p').show()
+                    $(@el).show()
                     passToChildren()
 
                 else
@@ -265,9 +278,13 @@ jQuery ->
             $(@selectedNode.el).removeClass 'selected' if @selectedNode?
             $(@el).find("*").removeClass 'darken'
 
-            if path?
-                $(@childViews[_.first(path)].el).show()
+            if _.first(path)?
 
+                $('#maptitle').show()
+
+                $(@childViews[_.first(path)].el).show()
+                $(@el).click =>
+                    Backbone.history.navigate "/processes/#{_.first(path)}", true
                 @selectedNode = @childViews[_.first(path)]
                 for i in _.rest(path)
                     @selectedNode = @selectedNode.childViews[i]
@@ -276,40 +293,45 @@ jQuery ->
                 $(@selectedNode.el).addClass 'selected'
 
             else
+                $(@el).unbind('click')
                 $(cv.el).hide() for cv in @childViews
+                $('#maptitle').hide()
 
     class PageView extends Backbone.View
 
         el: '.content'
 
-        initialize: (user_id) ->
+        initialize: ->
 
-            @user_id = user_id
             $('ul.title-area > :nth-child(1)').click =>
-                Backbone.history.navigate "/processes/user/#{@user_id}", true
+                Backbone.history.navigate "/processes", true
 
             return @
 
         render: (callback) ->
 
-            collection = new Processes @user_id
+            @collection = new Processes
 
-            collection.fetch success: =>
+            @collection.fetch success: =>
 
-                @procView = new ProcessesView collection
+                @procView = new ProcessesView @collection
                 $(@el).html @procView.render().$el
 
-                @minimap = new MinimapView collection
+                @minimap = new MinimapView @collection
                 @minimap.render()
 
                 callback()
+
+            if ARCHShepherd?
+                @sheperd = new ARCHShepherd
+                @sheperd.init()
 
             return @
 
         moveToPath: (path) ->
 
             navClick = (path) =>
-                Backbone.history.navigate "/processes/user/#{@user_id}/#{path.join('/')}", true
+                Backbone.history.navigate "/processes/#{path.join('/')}", true
 
             $('ul.title-area > :not(:nth-child(1))')?.remove()
 
@@ -324,25 +346,49 @@ jQuery ->
 
                 $('ul.title-area').children(":last-child").click -> navClick(_.first(pathArray,i+1))
 
+            $("#go-to-active").html ""
+
+            if _.first(path)?
+
+                p = _.first(@collection.get(_.first(path)).getRelativeActivePaths())
+                if p?
+                    $("#go-to-active").append "<button class='button' style='width:100%'>Go to Active Step</button>"
+                    $("#go-to-active > :last-child").click =>
+                        Backbone.history.navigate "/processes/#{_.first(path)}/#{p}", true
+
             @procView.moveToPath pathArray
             @minimap.moveToPath pathArray
 
     class AppRouter extends Backbone.Router
 
         routes:
-            "processes/user/:user_id(/*path)": "process"
+            "processes(/*path)": "process"
 
-    app_router = new AppRouter;
+    app_router = new AppRouter
 
     view = undefined
 
-    app_router.on 'route:process',  (user_id, path) ->
+    app_router.on 'route:process',  (path) ->
 
         if view?
             view.moveToPath path
         else
-            view = new PageView user_id
+            view = new PageView
             view.render ->
                 view.moveToPath path
 
     Backbone.history.start pushState: true
+
+    window.scrollTo 0,1;
+
+    ss = _.last document.styleSheets
+    ss.insertRule ".focused > .sequence { max-width: #{ $(window).width() - 80}px; max-height: #{ $(window).height() - 100}px; }", ss.cssRules.length
+    ss.insertRule ".sequence.fill { max-width: #{ $(window).width() - 20}px }", ss.cssRules.length
+
+    $(window).resize ->
+        ss = _.last(document.styleSheets)
+        ss.deleteRule ss.cssRules.length - 1
+        ss.deleteRule ss.cssRules.length - 1
+
+        ss.insertRule ".focused > .sequence { max-width: #{ $(window).width() - 80}px; max-height: #{ $(window).height() - 100}px; }", ss.cssRules.length
+        ss.insertRule ".sequence.fill { max-width: #{ $(window).width() - 20}px }", ss.cssRules.length

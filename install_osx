@@ -28,6 +28,8 @@ brew_init()
 
 	# For watch
 	brew install entr
+    brew install npm
+    
 }
 
 docker_init()

@@ -1,19 +1,18 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
-from core import models
+from core.models import *
 
 import xml.etree.cElementTree as et
 import requests, json, re
 from website import settings
 
 @login_required(login_url='/accounts/signup/')
-def index(request,user_id,extension):
+def index(request,extension):
 
-    pathways = Pathway.objects.filter(user_id=request.user.id)
+    pathways = Pathway.objects.filter(user_id=request.user.id).order_by('-id')
 
     if pathways:
-
         xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
 
         response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]

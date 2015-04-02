@@ -84,7 +84,32 @@ you can run the webapp using the returned URL.
 
 To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do (there's an example xml file in app/static/ ). When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have shown you every major feature.
 
-*All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.* 
+*All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
+
+###After Install
+You need to upload a pathway xml file to test the interface. That means you need to do 3 steps
+
+   - Register a user (using a dummy email and a password over 6 char)
+   - Upload a pathway (An example file is provided in app/static/xml in the project)
+   - Then you will see the interface
+
+This allows you to test all the features from user system, xml parsing to the actual interface the patients will use.
+
+##Testing
+
+Using Django TestCase module built on top of Python’s  unittest module.
+
+To run the tests run `python app/manage.py test members processes`
+
+###Members
+`app/members/tests.py`  
+
+Tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also test the status code of each response appropriately.
+
+###Processes
+`app/processes/tests.py`
+
+Tests the XML to JSON conversion. Also tests the status codes of each response appropriately.
 
 ## Feature Listing
 
@@ -130,8 +155,7 @@ Ready | None | Blocked | Active
 
 ####Testing
 
-There are several tests set up on jenkins and these infer several tests in the django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine. More detailed tests need to be made for the next iteration.
-
+There are several tests set up on Jenkins and these infer several tests in the Django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine.
 
 ###Mobile Friendly
 

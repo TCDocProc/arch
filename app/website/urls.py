@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^add_pathway/$', 'core.views.add_pathway', name='add_pathway'),
     url(r'^integrate/$', 'core.views.integrate', name='integrate'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^processes/user/(?P<user_id>\d+)(?:(\.(?P<extension>(json)))|(?:(/\d+)+/?|/?$))', 'processes.views.index',name='process_view'),
+    url(r'^processes(?:(\.(?P<extension>(json)))|(?:(/\d+)+/?|/?$))', 'processes.views.index', name='process_view'),
+    url(r'^openemr/signup', 'openemr.views.sign_up' )
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

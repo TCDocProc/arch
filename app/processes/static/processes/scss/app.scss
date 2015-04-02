@@ -26,6 +26,7 @@
     -ms-animation: #{$str};
     -o-animation: #{$str};
     animation: #{$str};
+
 }
 
 $background-color: #ECF0F1;
@@ -39,23 +40,38 @@ body {
 .row {
     height: 100%;
     max-height: 600px;
+    margin-left: 0px;
+    width: 5px;
 }
 .content {
-    padding: 0;
-    margin-top: 50px;
-    height: calc( 100% - 50px);
+    padding: 0px;
+    margin-left: 10px;
+    padding-top: 65px;
+    height: 100%;
     font-family: "Lato";
     width:100%;
     max-width: 500px;
+}
+ul.title-area {
+    padding-left: 0;
+    float:left;
 }
 
 .top-bar .name {
     display: inline-block;
     vertical-align: top;
+
+    @media screen and (max-width: 768px) {
+        & {
+            display:none;
+        }
+        &:nth-child(1) {
+            display:inline-block;
+        }
+    }
 }
 
 .top-bar .name h1 {
-    line-height: 39px;
     text-transform: capitalize;
 }
 
@@ -76,11 +92,11 @@ h1 {
 }
 
 #minimap {
-    padding: 20px;
-    height: 500px;
+    padding: 0px 0;
+    height: 300px;
 
     * {
-        cursor: default !important;
+        cursor: pointer !important;
     }
 
     & > .sequence {
@@ -96,18 +112,17 @@ h1 {
 
     @for $i from 1 through 10 {
         &.siblings-#{$i} {
-            width: calc(100% / #{$i})
+            width: calc(100% / #{$i});
         }
     }
 
     & > h1 {
-        text-align: center;
         text-transform: capitalize;
         color: #ECF0F1;
         background-color: #333333;
         margin: 0;
         margin-bottom: 3px;
-        padding: 5px;
+        padding: 5px 20px;
     }
 
     display: inline-block;
@@ -118,7 +133,14 @@ h1 {
     .focused > & {
 
         &:not(.fill) {
-            margin-right: 5px;
+            margin: 0 15px;
+            @media screen and (min-width: 768px) {
+                &:hover {
+                    margin: -5px 10px;
+                    height: calc(100% + 10px);
+                    width: calc(#{$unfilled-seq-width} + 10px);
+                }
+            }
         }
 
         height: calc(100%);
@@ -151,10 +173,18 @@ h1 {
     &.branch {
 
         .fill > &:not(.focused) {
-            &:hover {
-                background-color: #DDDDDD;
+            @media screen and (min-width: 768px) {
+                &:hover {
+                    background-color: #DDDDDD;
+                    margin: 10px -5px;
+                    @for $i from 1 through 10 {
+                        &.siblings-#{$i} {
+                            height: calc( 100% / #{$i} - 2px );
+                        }
+                    }
+                }
             }
-            margin: 5px 0;
+            margin: 15px 0;
         }
 
         overflow-x: visible;
@@ -189,7 +219,7 @@ h1 {
 
         h1 {
 
-            text-transform: uppercase;
+            text-transform: capitalize;
 
             :not(.focused) > .sequence > & {
                 font-size: 0.8em;
@@ -228,15 +258,15 @@ $border-darkness: 3%;
 $darken-darkness: 30%;
 $border-width: 2px;
 
-$ready-color: #14B259;
+$ready-color: #2ecc71;
 
-$active-color: #398CBF;
+$active-color: lighten(#008CBA,10%);
 
-$blocked-color: #E8142A;
+$blocked-color: #D0021B;
 
-$done-color: #6FBB84;
+$done-color: #fff;
 
-$none-color: #7F8C8D;
+$none-color: #bdc3c7;
 
 .READY, .AVAILABLE {
 
