@@ -11,7 +11,7 @@ from core.models import UploadForm, Pathway
 def index(request):
     return HttpResponse(loader.get_template('index.html').render(Context({})))
 
-@login_required(login_url='/accounts/signup/')
+@login_required(login_url='/openemr/signup/')
 def add_pathway(request):
     pathways = Pathway.objects.filter(user_id=request.user)
 

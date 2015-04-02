@@ -7,7 +7,7 @@ import xml.etree.cElementTree as et
 import requests, json, re
 from website import settings
 
-@login_required(login_url='/accounts/signup/')
+@login_required(login_url='/openemr/signup/')
 def index(request,extension):
 
     pathways = Pathway.objects.filter(user_id=request.user.id).order_by('-id')
