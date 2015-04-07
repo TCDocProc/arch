@@ -125,6 +125,11 @@ Sign Up | Sign In | Sign Out | Password Recovery
 ------- | -------|-----|-----------------
 `/accounts/signup/` | `/accounts/login/` | `/accounts/logout/` | `/accounts/password/reset/`
 
+On the homepage when not logged in click on the "Use Local Login" button to check these features.
+
+###✅ OpenEMR Integration - Completed
+
+
 ###✅ Pathway Listing - Completed
 
 On Login you will either see your pathway view or an upload screen. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/static/xml/pathways.xml`.
@@ -135,7 +140,7 @@ The list of pathways is extracted from the XML process table. Then the pathway s
 
 See `arch/app/processes/views.py` for the XML to JSON conversion.
 
-###✅ Pathway View - Completed
+###✅ Pathway View (Graph View) - Completed
 
 ####Graph Layout
 The graph is read top down. The top cell is the root of the tree / graph. A branch is represented by two or more cells appearing beside each other.
