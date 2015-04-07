@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from core.models import *
 import os.path
 
+from core.models import Pathway
+
 import xml.etree.cElementTree as et
 import requests, json, re
 from website import settings
@@ -26,6 +28,10 @@ def index(request,extension):
                 context = RequestContext(request, { "data": response })
                 return HttpResponse(loader.get_template('process.html').render(context))
         else:
+            instance = Pathway(pathway_xml="example.xml",user_id=request.user)
+            instance.save()
+            return HttpResponseRedirect('/processes' )
+
             return HttpResponseRedirect( '/add_pathway/' )
     else:
         return HttpResponseRedirect( '/add_pathway/' )
