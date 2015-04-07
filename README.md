@@ -129,6 +129,8 @@ On the homepage when not logged in click on the "Use Local Login" button to chec
 
 ###OpenEMR Integration - Completed
 
+The default screen will be an OpenEMR login screen, that makes a integrated login possible if an OpenEMR instance is available. At time of writing we used a instance running at `http://openemr.kev.sh/`, this makes available a user with name `demo` and password also `demo`. The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
+
 
 ### Pathway Listing - Completed
 
