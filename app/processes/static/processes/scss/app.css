@@ -263,4 +263,16 @@ h1 {
     background-color: #6c777f;
     border: 2px solid #657077; }
 
+body > * {
+  -webkit-transition: opacity .4s;
+  -moz-transition: opacity .4s;
+  -ms-transition: opacity .4s;
+  -o-transition: opacity .4s;
+  transition: opacity .4s;
+  opacity: 0.3; }
+  body > * .shepherd-enabled {
+    opacity: 1; }
+body .shepherd-enabled {
+  opacity: 1; }
+
 /*# sourceMappingURL=app.css.map */

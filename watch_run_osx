@@ -24,7 +24,7 @@ docker exec $PID python /home/docker/code/app/manage.py migrate >/dev/null 2>&1 
 echo "Running on: http://$(boot2docker ip):$1"
 
 for file in `find . -regex ".*/[^_/][^/]*\.scss"`; do
-	sass --watch $file:"`dirname $file`/`basename $file .scss`.css" -I ./app/static/scss >/dev/null 2>&1 &
+	sass --watch $file:"`dirname $file`/`basename $file .scss`.css" -I ./app/static/scss &
 	CHILD_PROCESSES+=($!)
 done
 
