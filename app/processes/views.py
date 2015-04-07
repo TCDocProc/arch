@@ -28,11 +28,9 @@ def index(request,extension):
                 context = RequestContext(request, { "data": response })
                 return HttpResponse(loader.get_template('process.html').render(context))
         else:
-            instance = Pathway(pathway_xml="example.xml",user_id=request.user)
-            instance.save()
+            pathways[0].pathway_xml = "example.xml"
+            pathways[0].save()
             return HttpResponseRedirect('/processes' )
-
-            return HttpResponseRedirect( '/add_pathway/' )
     else:
         return HttpResponseRedirect( '/add_pathway/' )
 
