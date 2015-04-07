@@ -8,8 +8,9 @@ usage: $0 COMMAND
 This script sets up the TCDDocProc arch environment for Ubuntu.
 
 COMMANDS:
-    install    Installs Arch for Ubuntu 
+    install    Installs Arch for Ubuntu
     run        Run Python server (skips installation)
+    test       Run unit tests for the system
 EOF
 }
 
@@ -63,6 +64,13 @@ run()
     python app/manage.py runserver
 }
 
+test()
+{
+    source venv/bin/activate
+    pip install -r app/requirements.txt
+    python app/manage.py test processes openemr core
+}
+
 case $1 in
     install)
         install
@@ -70,6 +78,10 @@ case $1 in
         ;;
     run)
         run
+        exit 1
+        ;;
+    test)
+        test
         exit 1
         ;;
     *)
