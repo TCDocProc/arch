@@ -129,8 +129,11 @@ On the homepage when not logged in click on the "Use Local Login" button to chec
 
 ###OpenEMR Integration - Completed
 
-The default screen will be an OpenEMR login screen, that makes a integrated login possible if an OpenEMR instance is available. At time of writing we used a instance running at `http://openemr.kev.sh/`, this makes available a user with name `demo` and password also `demo`. The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
+The default home screen when not logged in will be an OpenEMR login screen, that makes a integrated login possible if an OpenEMR instance is available. At time of writing we used a instance running at `http://openemr.kev.sh/`, this makes available a doctor user with name `demo` and password also `demo` if you want to login to the instance of OpenEMR. Note that those detials are useless on our system as they are for a doctor and our system is for patients.
 
+To use the OpenEMR login for our system, use a test email and the example OpenEMR details that are shown on our systems homepage (again, these are patient details). The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
+
+Note that to install our system with any running OpenEMR system all you need to do is drop in our php file (OpenEMR_integration/TCD_Doc_proc.php)into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
 
 ### Pathway Listing - Completed
 
