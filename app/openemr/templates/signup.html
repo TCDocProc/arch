@@ -10,13 +10,13 @@
 
     <form class="signup" id="signup_form" method="post" action="#">
         {% csrf_token %}
-        {% if failed %}<span class="error">Username or Password incorrect, please try again.</span>{% endif %}
+        {% if failed %}<span class="error">Username or Password incorrect, please try again, or visit the <a href="/accounts/login/">old sign-in</a> page.</span>{% endif %}
         <p><label for="id_email">E-mail:</label> <input id="id_email" name="email" placeholder="E-mail address" type="email" required/></p>
-<p><label for="id_password2">Open EMR Username:</label> <input id="id_password2" name="username" placeholder="OpenEMR Username" type="text" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/>
-<p><label for="id_password1">Open EMR Password:</label> <input id="id_password1" name="password" placeholder="OpenEMR Password" type="password" required/></p>
+        <p><label for="id_password2">Open EMR Username:</label> <input id="id_password2" name="username" placeholder="OpenEMR Username" type="text" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/>
+        <p><label for="id_password1">Open EMR Password:</label> <input id="id_password1" name="password" placeholder="OpenEMR Password" type="password" required/></p>
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button type="submit">OpenEMR Login &raquo;</button>
+        <button type="submit">OpenEMR Login &raquo;</button> <a href="/accounts/login/"><button type="button">Local Sign In</button></a>
     </form>
 {% endblock %}

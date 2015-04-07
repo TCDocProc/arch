@@ -4,12 +4,12 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 
-class CoreTestCase(IntegrateTestCase):
-    def setUp(self):
-        super(CoreTestCase, self).setUp()
-
-    def test_selenium(self):
-        self.run_integrate_test("test")
+# class CoreTestCase(IntegrateTestCase):
+#     def setUp(self):
+#         super(CoreTestCase, self).setUp()
+#
+#     def test_selenium(self):
+#         self.run_integrate_test("test")
 
 class PathwaysTestCase(TestCase):
     USERNAME = 'napoli'
@@ -26,7 +26,7 @@ class PathwaysTestCase(TestCase):
 
     def test_add_pathway_not_logged_in(self):
         response = self.client.get(reverse('add_pathway'))
-        self.assertRedirects(response, '/accounts/signup/?next=%s' % (reverse('add_pathway')), status_code=302)
+        self.assertRedirects(response, '/openemr/signup/?next=%s' % (reverse('add_pathway')), status_code=302)
 
     def test_add_pathway_logged_in_no_pathways(self):
         logged_in = self.client.login(username=self.USERNAME, password=self.PASSWORD)
