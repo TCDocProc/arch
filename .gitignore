@@ -2,7 +2,6 @@
 *.pyc
 .sass-cache
 app/collectstatic/
-app/filestorage/pathways/*
 app/static/admin/
 .idea/
 venv/
