@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
 from core.models import *
+import os.path
 
 import xml.etree.cElementTree as et
 import requests, json, re
@@ -13,18 +14,20 @@ def index(request,extension):
     pathways = Pathway.objects.filter(user_id=request.user.id).order_by('-id')
 
     if pathways:
-        xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
+        if os.path.isfile(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml)):
+            xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
 
-        response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
+            response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
 
-        if(extension=="json"):
-            return HttpResponse(json.dumps(response), content_type='application/json')
+            if(extension=="json"):
+                return HttpResponse(json.dumps(response), content_type='application/json')
 
+            else:
+                context = RequestContext(request, { "data": response })
+                return HttpResponse(loader.get_template('process.html').render(context))
         else:
-            context = RequestContext(request, { "data": response })
-            return HttpResponse(loader.get_template('process.html').render(context))
+            return HttpResponseRedirect( '/add_pathway/' )
     else:
-
         return HttpResponseRedirect( '/add_pathway/' )
 
 
