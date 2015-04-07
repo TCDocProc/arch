@@ -1,4 +1,4 @@
-[![Build Status](http://jenkins.kev.sh/job/DjangoMasterUnitTests/badge/icon)](http://jenkins.kev.sh/job/DjangoMasterUnitTests/) 
+<!--[![Build Status](http://jenkins.kev.sh/job/DjangoMasterUnitTests/badge/icon)](http://jenkins.kev.sh/job/DjangoMasterUnitTests/)--> 
 
 A user-friendly interface for presenting care pathways for a single patient using the PML language.
 
@@ -78,7 +78,7 @@ cd arch/
 
 ```
 
-Upon completion `./arch_ubuntu run' returns:  
+Upon completion `./arch_ubuntu run` returns:  
 `Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
@@ -99,21 +99,21 @@ This allows you to test all the features from user system, xml parsing to the ac
 
 Using Django TestCase module built on top of Python’s  unittest module.
 
-To run the tests run `python app/manage.py test members processes`
+To run the tests run `ubuntu test`
 
-###Members
-`app/members/tests.py`  
+### Core
+`app/core/tests.py`  
 
 Tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also test the status code of each response appropriately.
 
-###Processes
+### Processes
 `app/processes/tests.py`
 
 Tests the XML to JSON conversion. Also tests the status codes of each response appropriately.
 
 ## Feature Listing
 
-###✅ Authentication - Completed
+### Authentication - Completed
 
 Uses Django AllAuth library.  
 Includes password recovery, signing up, logging in and logging out.  
@@ -127,10 +127,10 @@ Sign Up | Sign In | Sign Out | Password Recovery
 
 On the homepage when not logged in click on the "Use Local Login" button to check these features.
 
-###✅ OpenEMR Integration - Completed
+###OpenEMR Integration - Completed
 
 
-###✅ Pathway Listing - Completed
+### Pathway Listing - Completed
 
 On Login you will either see your pathway view or an upload screen. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/static/xml/pathways.xml`.
 
@@ -140,23 +140,16 @@ The list of pathways is extracted from the XML process table. Then the pathway s
 
 See `arch/app/processes/views.py` for the XML to JSON conversion.
 
-###✅ Pathway View (Graph View) - Completed
+### Pathway View (Graph View) - Completed
 
 ####Graph Layout
-The graph is read top down. The top cell is the root of the tree / graph. A branch is represented by two or more cells appearing beside each other.
+The graph is read top down. The top cell beginning of a sequence of actions. A branch is represented by two or more sequences of cells appearing beside each other.
 
 ####Pan / Zoom
 Pan around the view by scrolling vertically or horizontally. Zoom into a cell by clicking it and zoom out by going back a page.
 
 ####Click to Display Metadata
 The metadata of an action (it’s description and status) will be shown once you click on the cell and it is in it’s most nested position.
-
-####Colours
-Colours are used to convey the state of a cell. 
-
-Green | Grey | Red | Blue (flashing)
-------- | -------|-----|-----------------
-Ready | None | Blocked | Active
 
 ####Testing
 
@@ -165,7 +158,7 @@ There are several tests set up on Jenkins and these infer several tests in the D
 ###Mobile Friendly
 
 ####Tablets
-A tablet friendly UI requires some work but is very similar to desktop in terms of screen space available.
+Full tablet support
 
 ####Phones
-A phone friendly UI requires more work since the device has a narrow width or height depending on it’s orientation and very little screen real-estate.
+Full phone support
