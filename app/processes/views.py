@@ -28,9 +28,8 @@ def index(request,extension):
                 context = RequestContext(request, { "data": response })
                 return HttpResponse(loader.get_template('process.html').render(context))
         else:
-            pathways[0].pathway_xml = "example.xml"
-            pathways[0].save()
-            return HttpResponseRedirect('/processes' )
+            pathways[0].delete()
+            return HttpResponseRedirect('/add_pathway/' )
     else:
         return HttpResponseRedirect( '/add_pathway/' )
 
