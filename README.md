@@ -99,7 +99,7 @@ This allows you to test all the features from user system, xml parsing to the ac
 
 Using Django TestCase module built on top of Python’s  unittest module.
 
-To run the tests run `ubuntu test`
+To run the tests run `./ubuntu test`
 
 ### Core
 `app/core/tests.py`  
