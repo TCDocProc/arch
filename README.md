@@ -76,6 +76,9 @@ cd arch/
 ## Run the webapp
 ./arch_ubuntu run
 
+## Run the tests
+./arch_ubuntu test
+
 ```
 
 Upon completion `./arch_ubuntu run` returns:  
