@@ -99,10 +99,9 @@ This allows you to test all the features from user system, xml parsing to the ac
 
 Using Django TestCase module built on top of Python’s  unittest module.
 
-To run the tests run `./ubuntu test`
+To run the tests run `./arch_ubuntu test`
 
-### Tests run
-The tests we wrote are run from
+### Core
 `app/core/tests.py`  
 
 This tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also tests the status code of each response appropriately.
