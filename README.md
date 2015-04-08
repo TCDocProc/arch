@@ -180,7 +180,7 @@ The legend shows what state each colour corresponds to.
 
 *Active Shortcut*
 
-To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'.
+To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'. This button only shows up if you're in a Pathway and it has an active step somewhere in it.
 
 *Breadcrumbs for Better Navigation*
 
