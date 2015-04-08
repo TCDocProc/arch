@@ -29,7 +29,7 @@
         <div class="clear"></div>
         <div id="leftpane" class="halfpage">
             <h2>OpenEMR Login</h2>
-            <p>This connects to the OpenEMR system running at <a href="http://openemr.kev.sh/">our own instance</a> and gets peos xml from a demo user called "Demo2" to use on our system.</p>
+            <p>This connects to the OpenEMR system running at <a href="http://openemr.kev.sh/">our own instance</a> and gets PEOS XML from a demo user called "Demo2" to use on our system.</p>
             <p>Just click login to proceed.</p>
 
             <form class="signup" id="signup_form" method="post" action="#">
@@ -37,8 +37,8 @@
                 <legend>OpenEMR Login</legend>
                 {% csrf_token %}
                 {% if failed %}<span class="error">Username or Password incorrect, please try again, or use sample local user.</span>{% endif %}
-                <label for="id_password2">Open EMR Username: <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/></label>
-                <label for="id_password1">Open EMR Password:<input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></label>
+                <label for="id_password2">OpenEMR Username: <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/></label>
+                <label for="id_password1">OpenEMR Password:<input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></label>
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
