@@ -1,1 +1,45 @@
 @import "settings";
+
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+$border-color: #777;
+$break-large: 600px;
+
+.halfpage {
+    @media screen and (min-width: $break-large) {
+        width: 49%;
+        display: inline-block;
+        padding: 50px;
+        vertical-align:top;
+        text-align: justify;
+    }
+}
+
+
+
+#rightpane{
+    @media screen and (min-width: $break-large) {
+        float: right;
+    }
+}
+
+#floatright {
+        @media screen and (min-width: $break-large) {
+            float: right;
+    }
+}
+
+h2 {
+    font-family: "EB Garamond", "Times New Roman", Times, serif;
+}
+
+.side-by-side{
+    display: inline-block;
+    vertical-align:top;
+
+}
+
+.pane-header {
+    padding-bottom:20px;
+    font-family: "EB Garamond", "Times New Roman", Times, serif;
+}

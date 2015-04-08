@@ -88,23 +88,17 @@ you can run the webapp using the returned URL.
 *All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
 
 ##Usage Instructions (After Installed & Running)
-If it's your first time or you are not logged in, you will be presented with a login page.   
-You have the option of using OpenEMR login or Local login.   
-Using OpenEMR your pathways will be automatically retrieved for you and presented using our patient interface.   
-Using the local approach allows you to specify your own pathway XML file or use our sample file. 
+If you are not logged in you will be presented with the login page and two options, OpenEMR login or Local login.       
 
 ###OpenEMR
-To login using OpenEMR use an arbitrary email address and the username and password that is provided on the webpage. After first login you MUST use the same arbitrary email for future logins as it is associated with this account locally.
+Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
+The login credentials are prefilled and you can simply just login.
 
 ###Local
-This approach allows you to create a local account by signing up or logging in with your existing local account.
+Using the local approach allows you to specify your own pathway XML file or use our sample file.
+There's no need to Signup, and you can simply login without using any credentials. Later you may upload a different XML file 
 
-**Creating a new local account**
-- Enter an arbitrary email address
-- Enter a password (6 characters or more)
-- Enter the above password again to verify
-
-After account creation you're presented with two buttons to either upload your own Pathway XML file, or use a Sample file provided by us if you don't have access to one. Similarly this will happen if you login and no pathways are associated with your account, otherwise you will just see your pathways presented using our patient interface.
+After login you're presented with two buttons to either upload your own Pathway XML file, or use a Sample file provided by us if you don't have access to one. After this process your pathways presented using our patient interface. You may upload a different XML file later on by pressing the button in the header called "Upload New XML Pathway".
 
 This allows you to test all the features from user system, XML parsing to the actual interface the patients will use.
 

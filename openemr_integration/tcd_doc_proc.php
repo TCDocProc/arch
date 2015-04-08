@@ -1,8 +1,23 @@
 <?php
+// ===========================================
+// Conors <==> Kawaii OpenEMR Integration
+// ==
+// PLEASE NOTE: THIS INTEGRATION REQUIRES A FULLY INSTALLED KAWAII OPENEMR
+// It WILL NOT work with any other installation.
+// ==
+// Place this file in the root OpenEMR web folder, 
+// usually /var/www/site, but may vary depending on your 
+// installation.
+// ===========================================
+
 header('Content-Type: application/json');
 
 // Path to pathways, with trailing slash
-$file_path = "interface/patient_file/carepathway/pathway/"
+$file_path = "interface/patient_file/carepathway/pathway/";
+
+// ===========================================
+// Do Not Edit Below this line
+// ===========================================
 
 $site_id = 'default';
 $ignoreAuth = true;
@@ -13,9 +28,9 @@ require_once('library/authentication/login_operations.php');
 
 class DocProcApi {
     public function __construct() {
-    	if (isset($_GET['call']) && $_GET['call'] == 'check_login') {
-    		$this->check_user($_POST['username'], $_POST['password']);
-    	}
+        if (isset($_GET['call']) && $_GET['call'] == 'check_login') {
+            $this->check_user($_POST['username'], $_POST['password']);
+        }
     }
 
     public function validate_user_password($username, $password) {
@@ -38,20 +53,29 @@ class DocProcApi {
         }
     }
 
+    // This function exists because the kawakii team files are not full PEOS files, but just processes.
+    public function fix_process_file($username, $file) {
+        return "<peos>
+    <models>
+        <model>clinical_assessment</model>
+    </models>
+    " . $file . "</peos>";
+    }
+
     public function check_user($username, $password) {
-    	$a = array();
+        $a = array();
         $id = $this->validate_user_password($username, $password);
-    	if ($id != -1) {
-    		$a['login_success'] = true;
-    		$myfile = fopen($file_path."$id.dat.xml", "r") or die("Unable to open file!");
-			$lol = fread($myfile,filesize("interface/patient_file/carepathway/pathway/$id.dat.xml"));
-			fclose($myfile);
-			$a['xml'] = $lol;
-    	} else {
-    		$a['login_success'] = false;
-    	}
-    	
-    	echo(json_encode($a));
+        if ($id != -1) {
+            $a['login_success'] = true;
+            $myfile = fopen($GLOBALS['file_path'].$id.".dat.xml", "r") or die("Unable to open file! ".$GLOBALS['file_path'].$id.".dat.xml");
+            $lol = fread($myfile,filesize($GLOBALS['file_path'].$id.".dat.xml"));
+            fclose($myfile);
+            $a['xml'] = $this->fix_process_file($username, $lol);
+        } else {
+            $a['login_success'] = false;
+        }
+        
+        echo(json_encode($a));
     }
 }
 

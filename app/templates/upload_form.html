@@ -2,13 +2,26 @@
 
 {% block title %}Upload Your Pathway{% endblock %}
 
+{% block static %}
+
+    {% load static %}
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/scss/app.css' %}" />
+{% endblock %}
+
+
 {% block content %}
-<div class="text-left">
-    <h1>Upload Pathway</h1>
+<div class="text-left halfpage" id="leftpane">
+    <h2 class="pane-header">Upload Pathway</h2>
+    <p>Upload a valid pathway xml and the system will display it.</p>
     <form action="#" method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{form}}
-        <input class="button success radius" type="submit" value="Upload" />
+        <div class="side-by-side">{% csrf_token %} {{form}}</div>
+        <div class="side-by-side"><input class="button success radius" type="submit" value="Upload" /></div>
     </form>
-    <a href="/add_pathway/?default=true"><button class="button radius">Use Sample File</button></a>
+</div>
+<div id="rightpane" class="text-left halfpage">
+    <h2 class="pane-header">Use Sample Pathway</h2>
+    <p>This uses a dementia pathway stored on this app and creates a new sample user. You can still upload a new file with this sample user later.</p>
+    <a id="floatright" href="/add_pathway/?default=true"><button class="button radius">Use Sample File</button></a>
 </div>
 {% endblock %}
