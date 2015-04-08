@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty;
 
   jQuery(function() {
-    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, ss, view;
+    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, getCookie, ss, view;
     Action = (function(_super) {
       __extends(Action, _super);
 
@@ -49,9 +49,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Branch;
@@ -89,9 +89,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Sequence;
@@ -140,9 +140,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return "/" + i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Processes;
@@ -582,12 +582,43 @@
     ss = _.last(document.styleSheets);
     ss.insertRule(".focused > .sequence { max-width: " + ($(window).width() - 80) + "px; max-height: " + ($(window).height() - 100) + "px; }", ss.cssRules.length);
     ss.insertRule(".sequence.fill { max-width: " + ($(window).width() - 20) + "px }", ss.cssRules.length);
-    return $(window).resize(function() {
+    $(window).resize(function() {
       ss = _.last(document.styleSheets);
       ss.deleteRule(ss.cssRules.length - 1);
       ss.deleteRule(ss.cssRules.length - 1);
       ss.insertRule(".focused > .sequence { max-width: " + ($(window).width() - 80) + "px; max-height: " + ($(window).height() - 100) + "px; }", ss.cssRules.length);
       return ss.insertRule(".sequence.fill { max-width: " + ($(window).width() - 20) + "px }", ss.cssRules.length);
+    });
+    getCookie = function(name) {
+      var cookie, cookieValue, cookies, i;
+      cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        cookies = document.cookie.split(';');
+        i = 0;
+        while (i < cookies.length) {
+          cookie = jQuery.trim(cookies[i]);
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+          i++;
+        }
+      }
+      return cookieValue;
+    };
+    $.ajaxSetup({
+      beforeSend: function(xhr) {
+        return xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      }
+    });
+    return $("#delete_pathway").on('click', function() {
+      return $.ajax({
+        type: 'DELETE',
+        url: '/processes',
+        success: function() {
+          return location.reload();
+        }
+      });
     });
   });
 

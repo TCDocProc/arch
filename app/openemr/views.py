@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.core.files import File
 from django.core.files.base import ContentFile
+from django.conf import settings
 from core.models import Pathway
 import requests, json
 
@@ -15,11 +16,13 @@ def sign_up(request):
         "login_url": ""
      })
 
+    context["failed"] = True
+
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
 
     if request.method == "POST" and 'username' in request.POST and 'password' in request.POST and 'email' in request.POST:
-        url = 'http://openemr.kev.sh/tcd_doc_proc.php?call=check_login'
+        url = settings.OPENEMR_ENDPOINT
 
         username = request.POST['username']
         password = request.POST['password']
@@ -48,7 +51,5 @@ def sign_up(request):
                 doc.pathway_xml.save(username+".xml", ContentFile(response['xml']), save=True)
                 doc.save()
                 return HttpResponseRedirect("/") 
-        else:
-            context["failed"] = True
 
     return HttpResponse(loader.get_template('signup.html').render(context))
