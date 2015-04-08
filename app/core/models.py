@@ -22,8 +22,10 @@ class UploadForm(ModelForm):
     def clean(self):
         cleaned_data = super(UploadForm, self).clean()
         _file = cleaned_data.get("pathway_xml")
-        contents = _file.read()
+        if _file is None:
+            raise ValidationError(u"File Upload Error")
 
+        contents = _file.read()
         try:
             xml = et.fromstring(contents)
         except:

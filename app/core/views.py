@@ -33,12 +33,10 @@ def add_pathway(request):
             xmlForm = UploadForm(request.POST, request.FILES)
 
             if xmlForm.is_valid():
+
                 xmlForm.instance.user_id = request.user
                 xmlForm.save()
                 return HttpResponseRedirect('/processes' )
-            
-            else :
-                xmlForm=UploadForm()
 
         else:
             xmlForm=UploadForm()
