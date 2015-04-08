@@ -6,6 +6,8 @@ A user-friendly interface for presenting care pathways for a single patient usin
 
 ##Deployment
 
+Requires table internet connection.
+
 ###OS X
 
 ```
@@ -184,8 +186,11 @@ Full tablet support
 Full phone support. The only important change here is you can log out using the side menu now to free up the navigation bar space.
 
 ###Shepherding - Completed
+
+**Note :** Sheperding will only appear the first time you visit the page in particular browser. If you want to trigger it again there is a button `Show Tutorial` in the top right of the page. Sheperding does not appear in mobile mode for usabilities sake.
+
 Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, are greyed out and non-interactable.
- 
+
 This further aids the user to see exactly what part of the interface we're teaching them about. Using cookies we ensure the Shepherding only happens once for each browser. The purpose of this is to familiarise the user with the key components of the interface.
 
 We use an open-source HubSpot library called [Shepherd](https://github.com/HubSpot/shepherd) to achieve this. However the part that handles greying out parts of the screen and stopping interaction is done by us and not HubSpot's library.
