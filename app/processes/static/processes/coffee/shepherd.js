@@ -15,6 +15,9 @@
 
     ARCHShepherd.prototype.setupShepherd = function() {
       Backbone.history.navigate("/processes/", true);
+      if ($(".pushy-open").length === 0) {
+        togglePushy();
+      }
       this.shepherd = new Shepherd.Tour({
         defaults: {
           classes: 'shepherd-element shepherd-open shepherd-theme-default',
@@ -45,7 +48,7 @@
         ],
         when: {
           show: function() {
-            return $(".content > .branch > .sequence").expose({
+            return $(".content > .branch > .sequence:nth-child(1)").expose({
               closeOnClick: false,
               closeOnEsc: false,
               color: 'black'
@@ -54,6 +57,7 @@
         }
       });
       this.shepherd.addStep('step2', {
+        title: 'Pathways',
         text: ['This box is what we call a “Pathway”. It’s a list showing all the steps in your treatment for a particular condition with the oldest at the top and the furthest in the future at the bottom.', 'Click on this one to see the details.'],
         attachTo: {
           element: '.content > .branch > .sequence',

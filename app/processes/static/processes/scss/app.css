@@ -105,9 +105,10 @@ h1 {
       margin: 0 15px; }
       @media screen and (min-width: 768px) {
         .focused > .sequence:not(.fill):hover {
-          margin: -5px 10px;
-          height: calc(100% + 10px);
-          width: calc(300px + 10px); } }
+          -webkit-transform: scale(1.03);
+          -moz-transform: scale(1.03);
+          -o-transform: scale(1.03);
+          transform: scale(1.03); } }
   .sequence.fill {
     margin: auto;
     width: 350px; }
@@ -116,75 +117,58 @@ h1 {
 
 .cell {
   display: block; }
-  .cell.siblings-1 {
+  :not(.fill) > .cell.siblings-1 {
     height: calc( 100% / 1 ); }
-    h1 ~ .cell.siblings-1 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-1 {
       height: calc( (100% - 36px) / 1 ); }
-  .cell.siblings-2 {
+  :not(.fill) > .cell.siblings-2 {
     height: calc( 100% / 2 ); }
-    h1 ~ .cell.siblings-2 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-2 {
       height: calc( (100% - 36px) / 2 ); }
-  .cell.siblings-3 {
+  :not(.fill) > .cell.siblings-3 {
     height: calc( 100% / 3 ); }
-    h1 ~ .cell.siblings-3 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-3 {
       height: calc( (100% - 36px) / 3 ); }
-  .cell.siblings-4 {
+  :not(.fill) > .cell.siblings-4 {
     height: calc( 100% / 4 ); }
-    h1 ~ .cell.siblings-4 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-4 {
       height: calc( (100% - 36px) / 4 ); }
-  .cell.siblings-5 {
+  :not(.fill) > .cell.siblings-5 {
     height: calc( 100% / 5 ); }
-    h1 ~ .cell.siblings-5 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-5 {
       height: calc( (100% - 36px) / 5 ); }
-  .cell.siblings-6 {
+  :not(.fill) > .cell.siblings-6 {
     height: calc( 100% / 6 ); }
-    h1 ~ .cell.siblings-6 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-6 {
       height: calc( (100% - 36px) / 6 ); }
-  .cell.siblings-7 {
+  :not(.fill) > .cell.siblings-7 {
     height: calc( 100% / 7 ); }
-    h1 ~ .cell.siblings-7 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-7 {
       height: calc( (100% - 36px) / 7 ); }
-  .cell.siblings-8 {
+  :not(.fill) > .cell.siblings-8 {
     height: calc( 100% / 8 ); }
-    h1 ~ .cell.siblings-8 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-8 {
       height: calc( (100% - 36px) / 8 ); }
-  .cell.siblings-9 {
+  :not(.fill) > .cell.siblings-9 {
     height: calc( 100% / 9 ); }
-    h1 ~ .cell.siblings-9 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-9 {
       height: calc( (100% - 36px) / 9 ); }
-  .cell.siblings-10 {
+  :not(.fill) > .cell.siblings-10 {
     height: calc( 100% / 10 ); }
-    h1 ~ .cell.siblings-10 {
+    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-10 {
       height: calc( (100% - 36px) / 10 ); }
   .cell.branch {
     overflow-x: visible;
     white-space: nowrap; }
     .fill > .cell.branch:not(.focused) {
+      height: 200px;
       margin: 15px 0; }
       @media screen and (min-width: 768px) {
         .fill > .cell.branch:not(.focused):hover {
-          background-color: #DDDDDD;
-          margin: 10px -5px; }
-          .fill > .cell.branch:not(.focused):hover.siblings-1 {
-            height: calc( 100% / 1 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-2 {
-            height: calc( 100% / 2 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-3 {
-            height: calc( 100% / 3 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-4 {
-            height: calc( 100% / 4 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-5 {
-            height: calc( 100% / 5 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-6 {
-            height: calc( 100% / 6 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-7 {
-            height: calc( 100% / 7 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-8 {
-            height: calc( 100% / 8 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-9 {
-            height: calc( 100% / 9 - 2px ); }
-          .fill > .cell.branch:not(.focused):hover.siblings-10 {
-            height: calc( 100% / 10 - 2px ); } }
+          -webkit-transform: scale(1.05);
+          -moz-transform: scale(1.05);
+          -o-transform: scale(1.05);
+          transform: scale(1.05); } }
     .cell.branch.focused {
       height: 100%;
       padding: 0; }
