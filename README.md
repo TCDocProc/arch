@@ -160,12 +160,12 @@ Early Feature agreed upoun. Now it is included in the graph view as agreed, whic
 ####Graph Layout
 The graph is read top down. The top cell beginning of a sequence of actions. A branch is represented by two or more sequences of cells appearing beside each other.
 
-####Graph View Refinement
+####Graph View Refinement:
 There are many graph view refinements which most are listed below
-    - Breadcrumbs For Navigation
-    - Minimap to show you where you are
-    - Better colour scheme and Legend showing you what each colour means
-    - Better animations and smoother navigation generally
+- Breadcrumbs For Navigation
+- Minimap to show you where you are
+- Better colour scheme and Legend showing you what each colour means
+- Better animations and smoother navigation generally
 
 **Minimap**
 
