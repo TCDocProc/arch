@@ -1,36 +1,8 @@
 <!--[![Build Status](http://jenkins.kev.sh/job/DjangoMasterUnitTests/badge/icon)](http://jenkins.kev.sh/job/DjangoMasterUnitTests/)--> 
 
-A user-friendly interface for presenting care pathways for a single patient using the PML language.
+##TCDocProc
 
-## Development Stack
-### Backend
-
-| https://www.docker.com | https://www.djangoproject.com | https://www.sqlite.org |
-|------|------------|------------------|
-|![docker-logo] | ![django-logo] | ![sqlite-logo] 
-
-[docker-logo]:http://core0.staticworld.net/images/idge/imported/article/nww/2013/12/docker-100275159-orig.jpg
-[django-logo]:http://www.fullstackpython.com/theme/img/django-logo-positive.png
-[sqlite-logo]:https://iworkautomation.com/numbers/gfx/sqlite-logo.png
-
-### Frontend
-
-| http://bower.io | http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
-|---|---|---|---|
-|![bower-logo]| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
-
-[bower-logo]:https://camo.githubusercontent.com/aad5f0385a2d8524cb366a1bad62bc74e797743a/687474703a2f2f692e696d6775722e636f6d2f516d47485067632e706e67
-[coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
-[backbone-logo]:http://backbonejs.org/docs/images/backbone.png
-[sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
-
-### Continuous Integration
-
-| http://jenkins-ci.org |
-|---|
-| ![jenkins-logo]
-
-[jenkins-logo]:https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000
+A user-friendly interface for presenting care pathways for a single patient using the PML language. It includes easy integration with working OpenEMR installations and a modern interactive interface for displaying the information.
 
 ##Deployment
 
@@ -209,3 +181,34 @@ This further aids the user to see exactly what part of the interface we're teach
 We use an open-source HubSpot library called [Shepherd](https://github.com/HubSpot/shepherd) to achieve this. However the part that handles greying out parts of the screen and stopping interaction is done by us and not HubSpot's library.
 
 If you want to show the tutorial again but it's not your first time visiting the page, you can simple trigger it again using the 'Show Tutorial' button in the top bar on screen.
+
+## Development Stack
+### Backend
+
+| https://www.docker.com | https://www.djangoproject.com | https://www.sqlite.org |
+|------|------------|------------------|
+|![docker-logo] | ![django-logo] | ![sqlite-logo] 
+
+[docker-logo]:http://core0.staticworld.net/images/idge/imported/article/nww/2013/12/docker-100275159-orig.jpg
+[django-logo]:http://www.fullstackpython.com/theme/img/django-logo-positive.png
+[sqlite-logo]:https://iworkautomation.com/numbers/gfx/sqlite-logo.png
+
+### Frontend
+
+| http://bower.io | http://coffeescript.org | http://backbonejs.org | http://sass-lang.com |
+|---|---|---|---|
+|![bower-logo]| ![coffeescript-logo] | ![backbone-logo] | ![sass-logo]
+
+[bower-logo]:https://camo.githubusercontent.com/aad5f0385a2d8524cb366a1bad62bc74e797743a/687474703a2f2f692e696d6775722e636f6d2f516d47485067632e706e67
+[coffeescript-logo]:https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/coffeescript-logo.png
+[backbone-logo]:http://backbonejs.org/docs/images/backbone.png
+[sass-logo]:http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg
+
+### Continuous Integration
+
+| http://jenkins-ci.org |
+|---|
+| ![jenkins-logo]
+
+[jenkins-logo]:https://wiki.jenkins-ci.org/download/attachments/2916393/logo-title.png?version=1&modificationDate=1302753947000
+
