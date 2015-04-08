@@ -48,6 +48,7 @@ class window.ARCHShepherd
             color: 'black'
 
     @shepherd.addStep 'step2',
+      title: 'Pathways'
       text: [
         'This box is what we call a “Pathway”. It’s a list showing all the steps in your treatment for a particular condition with the oldest at the top and the furthest in the future at the bottom.',
         'Click on this one to see the details.'
