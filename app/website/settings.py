@@ -52,6 +52,8 @@ LOGIN_REDIRECT_URL = '/add_pathway/'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/add_pathway/'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/add_pathway/'
 
+OPENEMR_ENDPOINT = 'http://openemr.kev.sh/tcd_doc_proc.php?call=check_login'
+
 # Application definition
 
 INSTALLED_APPS = (
