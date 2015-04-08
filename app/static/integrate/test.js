@@ -6,15 +6,17 @@
 
   test.visit("/");
 
-  test.type("#id_email", "test_email@example.org");
-
-  test.type("#id_password1", "1231231234");
-
-  test.type("#id_password2", "1231231234");
+  test.assert("#signup_form");
 
   test.click("body .signup button");
 
+  test.click(".content > .branch > .sequence:nth-child(1)");
+
   test.assert("body");
+
+  test.click("ul.right li:last a");
+
+  test.click("body button:first");
 
   test.run();
 

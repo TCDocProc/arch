@@ -46,26 +46,28 @@ def index(request,extension):
 
         return HttpResponse("Method not allowed", status=405)
 
+# Private function to parse process in index
 def _parse_process(process):
     return { "id"       : process.attrib["pid"],
              "type"     : "process",
              "name"     : re.search(r'\./(.*)\.pml',process.attrib["model"]).group(1).replace("_"," "),
              "sequence" : _parse_seq(process) }
 
+# Private recursive function to parse process table
 def _parse_action(elem):
     return { "type"  : "action",
              "name"  : elem.attrib["name"].replace("_"," "),
              "info"  : re.sub(r'(\t|(<br>)|(\(null\)\n)|(\")|(\A\n))', '',elem.find("script").text),
              "state" : elem.attrib["state"]}
 
+# Private recursive function to parse process table
 def _parse_branch(elem):
     return { "type"        : "branch",
              "sequences"   : [ _parse_seq(seq) for seq in elem.findall("*")]}
 
+# Private recursive function to parse process table
 def _parse_seq(seq):
-
     p = []
-
     for elem in seq.findall("*"):
 
         if elem.tag == "action":

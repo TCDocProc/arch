@@ -28,6 +28,8 @@
         <div class="farm"></div>
         <div class="clear"></div>
         <div id="leftpane" class="halfpage">
+            <div style="position:relative;">
+            <hr class="one"/>
             <h2>OpenEMR Login</h2>
             <p>This connects to the OpenEMR system running at <a href="http://openemr.kev.sh/">our own instance</a> and gets PEOS XML from a demo user called "Demo2" to use on our system.</p>
             <p>Just click login to proceed.</p>
@@ -45,8 +47,11 @@
                 <button type="submit">OpenEMR Login &raquo;</button>
                 </fieldset>
             </form>
+            </div>
         </div>
         <div id="rightpane" class="halfpage">
+            <div style="position:relative;">
+            <hr class="two"/>
             <h2>Local Sample User</h2>
             <form class="signin" id="signin_form" method="post" action="#">
                 <p>This button will log you in as a sample user on our local system.</p>
@@ -54,6 +59,7 @@
                 <p>It will bring you to the dementia pathway. You will still be able to upload your own file using the Upload button on the top right of your screen.</p>
                 <a href="/sample_login/"><button class="success" type="button">Sample Sign In</button></a>
             </form>
+            </div>
         </div>
     </div>
 {% endblock %}
