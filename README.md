@@ -168,11 +168,13 @@ There are many graph view refinements which most are listed below
     - Better animations and smoother navigation generally
 
 **Minimap**
+
 Once you have selected a specific Pathway you will see a Minimap in the left panel on the screen.   
 If you don't see one, press the hamburger button in the top left of the screen to toggle the left panel to show.   
 As you nest into the Pathways structure, you will see the Minimap on the left update to correspond to your current position in the structure. The section you are out is visible while everything else is slightly dimmed out. To return to the root of the structure simply press on the Minimap.
 
 **Legend**
+
 Show the left panel (if not already visible) by pressing the hamburger button in the top left.   
 The legend shows what state each colour corresponds to.   
 To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'.
@@ -194,7 +196,9 @@ Full tablet support
 Full phone support
 
 ###Shepherding - Completed
-Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, is greyed out and non-interactable. This further aids the user to see exactly what part of the interface we're trying to teach them.    
+Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it.   
+During this process everything on the screen, except for the part of interest for the current step of the instructions, is greyed out and non-interactable.   
+This further aids the user to see exactly what part of the interface we're trying to teach them.    
 Using cookies we ensure the Shepherding only happens once and not the next time the user returns.   
 The purpose of this is to familiarise the user with the key components of the interface.
 
