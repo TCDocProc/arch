@@ -94,6 +94,8 @@ If you are not logged in you will be presented with the login page and two optio
 Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
 The login credentials are prefilled and you can simply just login.
 
+####Proc Table
+
 ###Local
 Using the local approach allows you to specify your own pathway XML file or use our sample file.
 There's no need to Signup, and you can simply login without using any credentials. Later you may upload a different XML file 
@@ -152,8 +154,18 @@ See `arch/app/processes/views.py` for the XML to JSON conversion.
 
 ### Pathway View (Graph View) - Completed
 
+###Task List
+Early Feature agreed upoun. Now it is included in the graph view as agreed, which is itself a list of active and inactive tasks.
+
 ####Graph Layout
 The graph is read top down. The top cell beginning of a sequence of actions. A branch is represented by two or more sequences of cells appearing beside each other.
+
+####Graph View Refinement
+There are many graph view refinements which most are listed below
+    - Breadcrumbs For Navigation
+    - Minimap to show you where you are
+    - Better colour scheme and Legend showing you what each colour means
+    - Better animations and smoother navigation generally
 
 ####Pan / Zoom
 Pan around the view by scrolling vertically or horizontally. Zoom into a cell by clicking it and zoom out by going back a page.
