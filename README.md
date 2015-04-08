@@ -2,9 +2,11 @@
 
 ##TCDocProc
 
-A user-friendly interface for presenting care pathways for a single patient using the PML language. It includes easy integration with working OpenEMR installations and a modern interactive interface for displaying the information.
+A user-friendly interface for presenting care pathways for a single patient using the XML output from the PEOS kernel. It includes patient login integration with [Kawaii OpenEMR](https://github.com/g-jackson/cs4098) installations and a modern interface for displaying the information.
 
 ##Deployment
+
+Requires table internet connection.
 
 ###OS X
 
@@ -60,7 +62,9 @@ you can run the webapp using the returned URL.
 *All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
 
 ##Usage Instructions (After Installed & Running)
-If you are not logged in you will be presented with two login options, OpenEMR login or Local Sample User Login.       
+If you are not logged in you will be presented with two login options, OpenEMR login or Local Sample User Login.
+
+These are all instruction for local usage. To use our hosted live version use `http://arch-demo.kev.sh/`.   
 
 ###OpenEMR Login
 Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
@@ -95,6 +99,11 @@ This tests the login form. Tests that the file uploader handles incorrect file f
 
 Tests the XML to JSON conversion. Also tests the status codes of each response appropriately.
 
+### OpenEMR Integration
+`app/openemr/test.py`
+
+Tests the patient login integration with Kawaii OpenEMR.
+
 ## Feature Listing
 
 ### Authentication - Completed
@@ -114,13 +123,15 @@ Sign Up | Sign In | Sign Out | Password Recovery
 
 ###OpenEMR Integration - Completed
 
-The default home screen when not logged is a screen that allows you to login using OpenEMR patient credentials. Currently we use an instance running at `http://openemr.kev.sh/`, to login to that URL use the doctors username and password 'demo'. Note that those details are useless on our system as they are for a doctor and our system is for patients.
+The default home screen when not logged is a screen that allows you to login using OpenEMR patient credentials. Currently we use an instance running at `http://openemr.kev.sh/`, to login to that URL use the doctors username and password 'demo'. These doctors credentials are only for OpenEMR and won't work on our system, for that the valid patient credentials are `Demo2` with password `DemoPatient`.
 
-Note that to install our system with any running OpenEMR system all you need to do is drop in our PHP file (OpenEMR_integration/TCD_Doc_proc.php) into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
+To install our system with any running OpenEMR system all you need to do is drop in our PHP file (OpenEMR_integration/TCD_Doc_proc.php) into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
+
+Please Note : The pathway returned by the OpenEMR integration is limited by Kawaii's progress and hence only returns a very limited process with no active state. Our system would work correctly with a more fully featured pathway as can be seen with the local user sample XML.
 
 ### Pathway Listing - Completed
 
-On Login you will either see your pathway view or an upload screen. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/static/xml/pathways.xml`.
+On Login you will either see your pathway view or an upload screen. Originally this was an independent view but was superceded by the mroe useful graphical display of the Graph View and processes. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/filestorage/example.xml`.
 
 ####Process Structure / Process State / XML Parser - Completed
 
@@ -175,7 +186,11 @@ Full tablet support
 Full phone support. The only important change here is you can log out using the side menu now to free up the navigation bar space.
 
 ###Shepherding - Completed
-Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, are greyed out and non-interactable.   
+
+**Note :** Sheperding will only appear the first time you visit the page in particular browser. If you want to trigger it again there is a button `Show Tutorial` in the top right of the page. Sheperding does not appear in mobile mode for usabilities sake.
+
+Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, are greyed out and non-interactable.
+
 This further aids the user to see exactly what part of the interface we're teaching them about. Using cookies we ensure the Shepherding only happens once for each browser. The purpose of this is to familiarise the user with the key components of the interface.
 
 We use an open-source HubSpot library called [Shepherd](https://github.com/HubSpot/shepherd) to achieve this. However the part that handles greying out parts of the screen and stopping interaction is done by us and not HubSpot's library.
