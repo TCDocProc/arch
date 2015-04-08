@@ -21,12 +21,11 @@ def sign_up(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
 
-    if request.method == "POST" and 'username' in request.POST and 'password' in request.POST and 'email' in request.POST:
+    if request.method == "POST" and 'username' in request.POST and 'password' in request.POST:
         url = settings.OPENEMR_ENDPOINT
 
         username = request.POST['username']
         password = request.POST['password']
-        email = request.POST['email']
         payload = {'username': username, 'password': password}
 
         # POST with form-encoded data
@@ -39,7 +38,7 @@ def sign_up(request):
             try:
                 user_prof = User.objects.get(username=username)
             except User.DoesNotExist:
-                user_prof = User.objects.create_user(username, email, password)
+                user_prof = User.objects.create_user(username, '', password)
                 user_prof.save()
 
             user = authenticate(username=username, password=password)
