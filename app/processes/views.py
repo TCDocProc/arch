@@ -17,7 +17,9 @@ def index(request,extension):
 
     if pathways:
         if os.path.isfile(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml)):
-            xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
+            xml = open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read()
+            xml = xml.replace("<iteration>", "<branch><sequence>").replace("</iteration>", "</sequence></branch>")
+            xml = et.fromstring(xml)
 
             response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
 
