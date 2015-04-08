@@ -9,6 +9,9 @@ class window.ARCHShepherd
         classes: 'shepherd-element shepherd-open shepherd-theme-default'
         showCancelLink: true
 
+    @shepherd.on 'cancel', ->
+        $.mask.close()
+
     @shepherd.addStep 'step1',
       title: 'Hi There!'
       text: [
@@ -16,7 +19,7 @@ class window.ARCHShepherd
         'This system tells you more about what has, is and will happen in your healthcare journey.'
       ]
       attachTo:
-        element: '.content > .branch > .sequence:nth-child(1)'
+        element: '.content > .branch > .sequence'
         on: 'bottom'
       classes: 'shepherd shepherd-open shepherd-theme-default shepherd-transparent-text'
       buttons: [
@@ -28,6 +31,12 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $(".content > .branch > .sequence").expose
+            closeOnClick: false
+            closeOnEsc: false
+            color: 'black'
 
     @shepherd.addStep 'step2',
       text: [
@@ -35,19 +44,17 @@ class window.ARCHShepherd
         'Click on this one to see the details.'
       ]
       attachTo:
-        element: '.content > .branch > .sequence:nth-child(1)'
+        element: '.content > .branch > .sequence'
         on: 'bottom'
       classes: 'shepherd shepherd-open shepherd-theme-default shepherd-transparent-text'
       buttons: [
         text: 'Exit'
         classes: 'shepherd-button-secondary'
         action: @shepherd.cancel
-      ,
-        text: 'Next'
-        action: @shepherd.next
-        classes: 'shepherd-button-example-primary'
       ]
-      advanceOn: '.menu-btn click'
+      advanceOn:
+        selector: '.content > .branch > .sequence *'
+        event: 'click'
 
     @shepherd.addStep 'step3',
       title: 'The Steps in a Pathway'
@@ -82,6 +89,15 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $.mask.close()
+          setTimeout ->
+              $(".pushy").expose
+                closeOnClick: false
+                closeOnEsc: false
+                color: 'black'
+          , 500
 
     @shepherd.addStep 'step5',
       title: 'Minimap and Going Home'
@@ -97,7 +113,7 @@ class window.ARCHShepherd
         text: 'Exit'
         classes: 'shepherd-button-secondary'
         action: @shepherd.cancel
-      , 
+      ,
         text: 'Next'
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
@@ -117,5 +133,8 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $.mask.close()
 
     @shepherd.start()
