@@ -14,8 +14,8 @@
           showCancelLink: true
         }
       });
-      this.shepherd.on('start', function() {
-        return $("body").append("<div id='overlay'></div>");
+      this.shepherd.on('cancel', function() {
+        return $.mask.close();
       });
       this.shepherd.addStep('step1', {
         title: 'Hi There!',
@@ -35,7 +35,16 @@
             action: this.shepherd.next,
             classes: 'shepherd-button-example-primary'
           }
-        ]
+        ],
+        when: {
+          show: function() {
+            return $(".content > .branch > .sequence").expose({
+              closeOnClick: false,
+              closeOnEsc: false,
+              color: 'black'
+            });
+          }
+        }
       });
       this.shepherd.addStep('step2', {
         text: ['This box is what we call a “Pathway”. It’s a list showing all the steps in your treatment for a particular condition with the oldest at the top and the furthest in the future at the bottom.', 'Click on this one to see the details.'],
@@ -94,7 +103,19 @@
             action: this.shepherd.next,
             classes: 'shepherd-button-example-primary'
           }
-        ]
+        ],
+        when: {
+          show: function() {
+            $.mask.close();
+            return setTimeout(function() {
+              return $(".pushy").expose({
+                closeOnClick: false,
+                closeOnEsc: false,
+                color: 'black'
+              });
+            }, 500);
+          }
+        }
       });
       this.shepherd.addStep('step5', {
         title: 'Minimap and Going Home',
@@ -127,7 +148,12 @@
             action: this.shepherd.next,
             classes: 'shepherd-button-example-primary'
           }
-        ]
+        ],
+        when: {
+          show: function() {
+            return $.mask.close();
+          }
+        }
       });
       return this.shepherd.start();
     };

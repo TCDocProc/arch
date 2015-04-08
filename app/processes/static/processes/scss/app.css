@@ -262,7 +262,7 @@ h1 {
     background-color: #6c777f;
     border: 2px solid #657077; }
 
-.shepherd-target {
+.shepherd-enabled {
   z-index: 9000; }
 
 #overlay {

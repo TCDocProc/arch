@@ -414,7 +414,7 @@ jQuery ->
         beforeSend: (xhr) ->
             xhr.setRequestHeader "X-CSRFToken", getCookie('csrftoken')
 
-    $("#delete_pathway").on 'click', ->
+    $("#delete_pathway").click ->
         $.ajax
             type: 'DELETE',
             url: '/processes',

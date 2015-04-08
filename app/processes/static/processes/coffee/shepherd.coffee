@@ -9,8 +9,8 @@ class window.ARCHShepherd
         classes: 'shepherd-element shepherd-open shepherd-theme-default'
         showCancelLink: true
 
-    @shepherd.on 'start', ->
-      $("body").append "<div id='overlay'></div>"
+    @shepherd.on 'cancel', ->
+        $.mask.close()
 
     @shepherd.addStep 'step1',
       title: 'Hi There!'
@@ -31,6 +31,12 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $(".content > .branch > .sequence").expose
+            closeOnClick: false
+            closeOnEsc: false
+            color: 'black'
 
     @shepherd.addStep 'step2',
       text: [
@@ -83,6 +89,15 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $.mask.close()
+          setTimeout ->
+              $(".pushy").expose
+                closeOnClick: false
+                closeOnEsc: false
+                color: 'black'
+          , 500
 
     @shepherd.addStep 'step5',
       title: 'Minimap and Going Home'
@@ -118,5 +133,8 @@ class window.ARCHShepherd
         action: @shepherd.next
         classes: 'shepherd-button-example-primary'
       ]
+      when:
+        show: ->
+          $.mask.close()
 
     @shepherd.start()
