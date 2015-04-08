@@ -164,11 +164,9 @@ Pan around the view by scrolling vertically or horizontally. Zoom into a cell by
 ####Click to Display Metadata
 The metadata of an action (it’s description and status) will be shown once you click on the cell and it is in it’s most nested position.
 
-####Testing
-
-There are several tests set up on Jenkins and these infer several tests in the Django apps we use. They are not tailored to ours but show the mechanics of the brought in apps work fine.
-
 ###Mobile Friendly
+
+The easiest way to test these is to use Firefox > Tools > Web Developer > Responsive Design View and use that tool to check out the various sizes. A page refresh is often necessary after changing the page size to see the affects.
 
 ####Tablets
 Full tablet support
@@ -176,5 +174,5 @@ Full tablet support
 ####Phones
 Full phone support
 
-###Shepherding - Semi-Completed
+###Shepherding - Completed
 Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that will point at elements of interest in the interface and guide them through using the system. This will not show up the next time the user returns. The purpose of this is to familiarise the user with the key components of the interface.
