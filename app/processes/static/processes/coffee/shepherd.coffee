@@ -1,6 +1,9 @@
 class window.ARCHShepherd
   init: ->
-    setTimeout @setupShepherd, 300
+    unless $.cookie('seenTour')?
+        if $(window).width() < 800
+            $.cookie 'seenTour', true
+            setTimeout @setupShepherd, 800
 
   setupShepherd: ->
 
@@ -54,7 +57,7 @@ class window.ARCHShepherd
       ,
         text: 'Next'
         action: @shepherd.next
-        classes: 'shepherd-button-example-primary' 
+        classes: 'shepherd-button-example-primary'
       ]
       when:
         'before-hide': ->

@@ -396,23 +396,11 @@ jQuery ->
 
     # Delete button stuff
 
-    getCookie = (name) ->
-        cookieValue = null
-        if document.cookie and document.cookie != ''
-            cookies = document.cookie.split(';')
-            i = 0
-            while i < cookies.length
-                cookie = jQuery.trim(cookies[i])
-                # Does this cookie string begin with the name we want?
-                if cookie.substring(0, name.length + 1) == name + '='
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
-                    break
-                i++
-        cookieValue
+    csrfToken = $.cookie('csrftoken')
 
     $.ajaxSetup
         beforeSend: (xhr) ->
-            xhr.setRequestHeader "X-CSRFToken", getCookie('csrftoken')
+            xhr.setRequestHeader "X-CSRFToken", csrfToken
 
     $("#delete_pathway").click ->
         $.ajax

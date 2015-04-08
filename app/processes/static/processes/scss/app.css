@@ -2,6 +2,17 @@
 body {
   background-color: #ECF0F1; }
 
+.pushy > ul {
+  margin-left: 0; }
+
+.pushy .sign-out-button {
+  display: none;
+  width: 100%;
+  margin-top: 30px; }
+  @media screen and (max-width: 768px) {
+    .pushy .sign-out-button {
+      display: block; } }
+
 .row {
   height: 100%;
   max-height: 600px;

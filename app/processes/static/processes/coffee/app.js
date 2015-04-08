@@ -4,7 +4,7 @@
     __hasProp = {}.hasOwnProperty;
 
   jQuery(function() {
-    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, getCookie, ss, view;
+    var Action, ActionView, AppRouter, Branch, BranchView, MinimapView, PageView, Process, Processes, ProcessesView, Sequence, SequenceView, app_router, csrfToken, ss, view;
     Action = (function(_super) {
       __extends(Action, _super);
 
@@ -589,26 +589,10 @@
       ss.insertRule(".focused > .sequence { max-width: " + ($(window).width() - 80) + "px; max-height: " + ($(window).height() - 100) + "px; }", ss.cssRules.length);
       return ss.insertRule(".sequence.fill { max-width: " + ($(window).width() - 20) + "px }", ss.cssRules.length);
     });
-    getCookie = function(name) {
-      var cookie, cookieValue, cookies, i;
-      cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        cookies = document.cookie.split(';');
-        i = 0;
-        while (i < cookies.length) {
-          cookie = jQuery.trim(cookies[i]);
-          if (cookie.substring(0, name.length + 1) === name + '=') {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-          i++;
-        }
-      }
-      return cookieValue;
-    };
+    csrfToken = $.cookie('csrftoken');
     $.ajaxSetup({
       beforeSend: function(xhr) {
-        return xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        return xhr.setRequestHeader("X-CSRFToken", csrfToken);
       }
     });
     return $("#delete_pathway").click(function() {

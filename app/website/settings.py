@@ -148,6 +148,7 @@ BOWER_INSTALLED_APPS = (
     'backbone#1.1.2',
     'foundation#5.4.7',
     'jquery-ui#1.11.3',
+    'jquery.cookie#1.4.1',
     'git://github.com/HubSpot/shepherd.git',
 )
 

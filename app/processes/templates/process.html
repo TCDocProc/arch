@@ -10,10 +10,11 @@
     <script type="text/javascript" src="{% static 'underscore/underscore.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="{% static 'jquery.cookie/jquery.cookie.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/js/pushy.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'processes/coffee/shepherd.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
 
 
 {% endblock %}
@@ -31,7 +32,7 @@
             <li class="pushy-item"><div class="DONE SATISFIED"></div><span>Done</span></li>
             <li class="pushy-item"><div class="NONE AVAILABLE"></div><span>Not Available Yet</span></li>
             <li class="pushy-item"><div class="BLOCKED SUSPENDED"></div><span>Blocked</span></li>
-
+            <a href='/accounts/logout/'><button class="sign-out-button">Sign Out</button></a>
 
             <h1 style="color: white; text-align: center; padding-top: 10px; margin-top:0; display:none;" id="maptitle">Minimap</h1>
             <div id="minimap"></div>

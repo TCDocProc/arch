@@ -4,7 +4,12 @@
     function ARCHShepherd() {}
 
     ARCHShepherd.prototype.init = function() {
-      return setTimeout(this.setupShepherd, 300);
+      if ($.cookie('seenTour') == null) {
+        if ($(window).width() < 800) {
+          $.cookie('seenTour', true);
+          return setTimeout(this.setupShepherd, 800);
+        }
+      }
     };
 
     ARCHShepherd.prototype.setupShepherd = function() {
