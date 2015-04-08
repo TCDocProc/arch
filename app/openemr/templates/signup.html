@@ -24,6 +24,8 @@
         <div class="farm"></div>
         <div class="clear"></div>
         <div id="leftpane" class="halfpage">
+            <div style="position:relative;">
+            <hr class="one"/>
             <h2>OpenEMR Login</h2>
             <p>This connects to the OpenEMR system running at <a href="http://openemr.kev.sh/">our own instance</a> and gets PEOS XML from a demo user called "Demo2" to use on our system.</p>
             <p>Just click login to proceed.</p>
@@ -33,6 +35,7 @@
                 <legend>OpenEMR Login</legend>
                 {% csrf_token %}
                 {% if failed %}<span class="error">Username or Password incorrect, please try again, or use sample local user.</span>{% endif %}
+                {% if openemr_error %}<span class="error">An error occurred communicating with OpenEMR. Please check that a pathway exists for the given patient in OpenEMR.</span>{% endif %}
                 <label for="id_password2">OpenEMR Username: <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/></label>
                 <label for="id_password1">OpenEMR Password:<input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></label>
                 {% if redirect_field_value %}
@@ -41,8 +44,11 @@
                 <button type="submit">OpenEMR Login &raquo;</button>
                 </fieldset>
             </form>
+            </div>
         </div>
         <div id="rightpane" class="halfpage">
+            <div style="position:relative;">
+            <hr class="two"/>
             <h2>Local Sample User</h2>
             <form class="signin" id="signin_form" method="post" action="#">
                 <p>This button will log you in as a sample user on our local system.</p>
@@ -50,6 +56,7 @@
                 <p>It will bring you to the dementia pathway. You will still be able to upload your own file using the Upload button on the top right of your screen.</p>
                 <a href="/sample_login/"><button class="success" type="button">Sample Sign In</button></a>
             </form>
+            </div>
         </div>
     </div>
 {% endblock %}

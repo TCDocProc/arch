@@ -1,3 +1,20 @@
+<style>
+    nav:before, nav:after {
+    position: absolute;
+    content: '';
+    height: 3px;
+    top: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    }
+
+    nav:before {
+    background: linear-gradient(90deg, #1abc9c 15%, #2ecc71 15%, #2ecc71 12%, #3498db 12%, #3498db 32%, #9b59b6 32%, #9b59b6 55%, #34495e 55%, #34495e 35%, #f1c40f 35%, #f1c40f 63%, #e67e22 63%, #e67e22 63%, #e74c3c 59%, #e74c3c 72%, #1abc9c 72%, #1abc9c 92%, #95a5a6 92%);
+    }
+</style>
+
 <nav class="top-bar" data-topbar role="navigation">
     {% if show_menu %}
         <div class="menu-btn">
@@ -9,7 +26,7 @@
             {% if custom_title %}
                 <h1><a>{{ custom_title }}</a></h1>
             {% else %}
-                <h1><a href="/">TCDoc</a></h1>
+                <h1><a href="/" id="tcddoc">TCDoc</a></h1>
             {% endif %}
     </li>
   </ul>
@@ -26,6 +43,8 @@
         {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}
+        <li><a href="{% url 'account_signup' %}">Local Sign Up</a></li>
+        <li><a href="{% url 'account_login' %}">Local Sign In</a></li>
       {% endif %}
     </ul>
     <!-- Left Nav Section -->
