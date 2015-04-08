@@ -58,8 +58,19 @@
             text: 'Exit',
             classes: 'shepherd-button-secondary',
             action: this.shepherd.cancel
+          }, {
+            text: 'Next',
+            action: this.shepherd.next,
+            classes: 'shepherd-button-example-primary'
           }
         ],
+        when: {
+          complete: function() {
+            if (!$("#minimap :first-child").is(":visible")) {
+              return $(".content > .branch > .sequence :nth-child(2)").click();
+            }
+          }
+        },
         advanceOn: {
           selector: '.content > .branch > .sequence *',
           event: 'click'

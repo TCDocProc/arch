@@ -4,8 +4,8 @@ CHILD_PROCESSES=()
 
 clean_up()
 {
-	kill $(ps -ef | grep 'sass --watch' | awk '{print $2}') >/dev/null 2>&1
-	kill $(ps -ef | grep 'coffee -cw' | awk '{print $2}') >/dev/null 2>&1
+	kill $(ps -ef | grep 'sass' | awk '{print $2}') >/dev/null 2>&1
+	kill $(ps -ef | grep 'coffee' | awk '{print $2}') >/dev/null 2>&1
 	# for i in $CHILD_PROCESSES
 	# do
 	# 	echo killing $i

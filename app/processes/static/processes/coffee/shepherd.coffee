@@ -51,7 +51,15 @@ class window.ARCHShepherd
         text: 'Exit'
         classes: 'shepherd-button-secondary'
         action: @shepherd.cancel
+      ,
+        text: 'Next'
+        action: @shepherd.next
+        classes: 'shepherd-button-example-primary' 
       ]
+      when:
+        complete: ->
+          if not $("#minimap :first-child").is(":visible")
+            $(".content > .branch > .sequence :nth-child(2)").click()
       advanceOn:
         selector: '.content > .branch > .sequence *'
         event: 'click'
