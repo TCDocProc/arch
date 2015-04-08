@@ -5,7 +5,11 @@ class window.ARCHShepherd
             $.cookie 'seenTour', true
             setTimeout @setupShepherd, 800
 
+    $("#show_shepherd").click @setupShepherd
+
   setupShepherd: ->
+
+    Backbone.history.navigate "/processes/", true
 
     @shepherd = new Shepherd.Tour
       defaults:

@@ -17,9 +17,12 @@
     <!-- Right Nav Section -->
     <ul class="right">
       {% if request.user.is_authenticated %}
-        <li><a>{% if request.user.email %}{{request.user.email}}{% else %}Local Sample User{% endif %}</a></li>
+
         {% if data %}
+            <li id="show_shepherd"><a href="#">Show Tutorial</a></li>
             <li id="delete_pathway"><a href="#">Upload New XML Pathway</a></li>
+        {% else %}
+            <li><a>{% if request.user.email %}{{request.user.email}}{% else %}Local Sample User{% endif %}</a></li>
         {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}

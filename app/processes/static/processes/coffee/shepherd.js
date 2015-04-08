@@ -7,12 +7,14 @@
       if ($.cookie('seenTour') == null) {
         if ($(window).width() < 800) {
           $.cookie('seenTour', true);
-          return setTimeout(this.setupShepherd, 800);
+          setTimeout(this.setupShepherd, 800);
         }
       }
+      return $("#show_shepherd").click(this.setupShepherd);
     };
 
     ARCHShepherd.prototype.setupShepherd = function() {
+      Backbone.history.navigate("/processes/", true);
       this.shepherd = new Shepherd.Tour({
         defaults: {
           classes: 'shepherd-element shepherd-open shepherd-theme-default',
