@@ -177,9 +177,13 @@ As you nest into the Pathways structure, you will see the Minimap on the left up
 
 Show the left panel (if not already visible) by pressing the hamburger button in the top left.   
 The legend shows what state each colour corresponds to.   
+
+*Active Shortcut*
+
 To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'.
 
 *Breadcrumbs for Better Navigation*
+
 These help you know how deep into the tree you have travelled. And also hop back to any point in that tree.
 
 ####Pan / Zoom
