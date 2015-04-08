@@ -57,9 +57,9 @@ class window.ARCHShepherd
         classes: 'shepherd-button-example-primary' 
       ]
       when:
-        complete: ->
+        'before-hide': ->
           if not $("#minimap :first-child").is(":visible")
-            $(".content > .branch > .sequence :nth-child(2)").click()
+            $(".content > .branch > .sequence:nth-child(2)").click()
       advanceOn:
         selector: '.content > .branch > .sequence *'
         event: 'click'

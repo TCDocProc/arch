@@ -65,9 +65,9 @@
           }
         ],
         when: {
-          complete: function() {
+          'before-hide': function() {
             if (!$("#minimap :first-child").is(":visible")) {
-              return $(".content > .branch > .sequence :nth-child(2)").click();
+              return $(".content > .branch > .sequence:nth-child(2)").click();
             }
           }
         },
