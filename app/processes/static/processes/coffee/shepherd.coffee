@@ -1,7 +1,7 @@
 class window.ARCHShepherd
   init: ->
-    unless $.cookie('seenTour')? and $.cookie('seenTour') is true
-        if $(window).width() < 800
+    unless $.cookie('seenTour')?
+        if $(window).width() > 800
             $.cookie 'seenTour', true
             setTimeout @setupShepherd, 800
 

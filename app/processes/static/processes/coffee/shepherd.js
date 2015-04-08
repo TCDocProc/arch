@@ -4,8 +4,8 @@
     function ARCHShepherd() {}
 
     ARCHShepherd.prototype.init = function() {
-      if (!(($.cookie('seenTour') != null) && $.cookie('seenTour') === true)) {
-        if ($(window).width() < 800) {
+      if ($.cookie('seenTour') == null) {
+        if ($(window).width() > 800) {
           $.cookie('seenTour', true);
           setTimeout(this.setupShepherd, 800);
         }
