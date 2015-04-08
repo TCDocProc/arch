@@ -95,7 +95,6 @@ h1 {
     bottom: 0;
     left: 0;
     background-color: white;
-    z-index: 50;
     padding-top: 50px;
 
 }
@@ -332,17 +331,17 @@ $none-color: #bdc3c7;
 
 // Stuff for Shepherd and whatnot
 
-body {
+.shepherd-target {
+    z-index: 9000;
+}
 
-    > * {
-        @include shepherd-magic(0.3);
-
-        .shepherd-enabled {
-            opacity: 1;
-        }
-    }
-
-    .shepherd-enabled {
-        opacity: 1;
-    }
+#overlay {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 8000;
+    background-color: $active-color;
+    opacity: 0.6;
 }

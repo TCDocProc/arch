@@ -14,11 +14,14 @@
           showCancelLink: true
         }
       });
+      this.shepherd.on('start', function() {
+        return $("body").append("<div id='overlay'></div>");
+      });
       this.shepherd.addStep('step1', {
         title: 'Hi There!',
         text: ['This is a little guide to show you how this system works.', 'This system tells you more about what has, is and will happen in your healthcare journey.'],
         attachTo: {
-          element: '.content > .branch > .sequence:nth-child(1)',
+          element: '.content > .branch > .sequence',
           on: 'bottom'
         },
         classes: 'shepherd shepherd-open shepherd-theme-default shepherd-transparent-text',
@@ -37,7 +40,7 @@
       this.shepherd.addStep('step2', {
         text: ['This box is what we call a “Pathway”. It’s a list showing all the steps in your treatment for a particular condition with the oldest at the top and the furthest in the future at the bottom.', 'Click on this one to see the details.'],
         attachTo: {
-          element: '.content > .branch > .sequence:nth-child(1)',
+          element: '.content > .branch > .sequence',
           on: 'bottom'
         },
         classes: 'shepherd shepherd-open shepherd-theme-default shepherd-transparent-text',
@@ -46,13 +49,12 @@
             text: 'Exit',
             classes: 'shepherd-button-secondary',
             action: this.shepherd.cancel
-          }, {
-            text: 'Next',
-            action: this.shepherd.next,
-            classes: 'shepherd-button-example-primary'
           }
         ],
-        advanceOn: '.menu-btn click'
+        advanceOn: {
+          selector: '.content > .branch > .sequence *',
+          event: 'click'
+        }
       });
       this.shepherd.addStep('step3', {
         title: 'The Steps in a Pathway',
