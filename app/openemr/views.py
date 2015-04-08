@@ -7,10 +7,11 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.conf import settings
 from core.models import Pathway
+from django.views.decorators.csrf import csrf_exempt
 import requests, json
 
 # Create your views here.
-
+@csrf_exempt
 def sign_up(request):
     context = RequestContext(request, {
         "login_url": ""
