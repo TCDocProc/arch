@@ -39,6 +39,7 @@
                 <legend>OpenEMR Login</legend>
                 {% csrf_token %}
                 {% if failed %}<span class="error">Username or Password incorrect, please try again, or use sample local user.</span>{% endif %}
+                {% if openemr_error %}<span class="error">An error occurred communicating with OpenEMR. Please check that a pathway exists for the given patient in OpenEMR.</span>{% endif %}
                 <label for="id_password2">OpenEMR Username: <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/></label>
                 <label for="id_password1">OpenEMR Password:<input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></label>
                 {% if redirect_field_value %}
