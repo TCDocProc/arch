@@ -15,6 +15,9 @@
 
     ARCHShepherd.prototype.setupShepherd = function() {
       Backbone.history.navigate("/processes/", true);
+      if ($(".pushy-open").length === 0) {
+        togglePushy();
+      }
       this.shepherd = new Shepherd.Tour({
         defaults: {
           classes: 'shepherd-element shepherd-open shepherd-theme-default',
@@ -45,7 +48,7 @@
         ],
         when: {
           show: function() {
-            return $(".content > .branch > .sequence").expose({
+            return $(".content > .branch > .sequence:nth-child(1)").expose({
               closeOnClick: false,
               closeOnEsc: false,
               color: 'black'

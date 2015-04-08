@@ -11,6 +11,8 @@ class window.ARCHShepherd
 
     Backbone.history.navigate "/processes/", true
 
+    togglePushy() if $(".pushy-open").length is 0
+
     @shepherd = new Shepherd.Tour
       defaults:
         classes: 'shepherd-element shepherd-open shepherd-theme-default'
@@ -40,7 +42,7 @@ class window.ARCHShepherd
       ]
       when:
         show: ->
-          $(".content > .branch > .sequence").expose
+          $(".content > .branch > .sequence:nth-child(1)").expose
             closeOnClick: false
             closeOnEsc: false
             color: 'black'
