@@ -56,7 +56,7 @@ OPTIONS:
 
 The last command returns `Running on: http://<boot2docker-ip>:<port>` you can open the webapp at the returned URL.
 
-###Ubuntu (Without Docker)
+###Ubuntu (Without Using Docker)
 
 ```
 ## Update apt-get
@@ -88,7 +88,7 @@ you can run the webapp using the returned URL.
 *All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
 
 ##Usage Instructions (After Installed & Running)
-If you are not logged in you will be presented with the login page and two options, OpenEMR login or Local login.       
+If you are not logged in you will be presented with two login options, OpenEMR login or Local login.       
 
 ###OpenEMR
 Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
@@ -106,7 +106,7 @@ This allows you to test all the features from user system, XML parsing to the ac
 
 ##Testing
 
-Using Django TestCase module built on top of Python’s  unittest module.
+Our tests are written using the Django TestCase module built on top of Python’s unittest module.
 
 To run the tests run `./arch_ubuntu test`
 
@@ -167,6 +167,16 @@ There are many graph view refinements which most are listed below
     - Better colour scheme and Legend showing you what each colour means
     - Better animations and smoother navigation generally
 
+**Minimap**
+Once you have selected a specific Pathway you will see a Minimap in the left panel on the screen.   
+If you don't see one, press the hamburger button in the top left of the screen to toggle the left panel to show.   
+As you nest into the Pathways structure, you will see the Minimap on the left update to correspond to your current position in the structure. The section you are out is visible while everything else is slightly dimmed out. To return to the root of the structure simply press on the Minimap.
+
+**Legend**
+Show the left panel (if not already visible) by pressing the hamburger button in the top left.   
+The legend shows what state each colour corresponds to.   
+To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'.
+
 ####Pan / Zoom
 Pan around the view by scrolling vertically or horizontally. Zoom into a cell by clicking it and zoom out by going back a page.
 
@@ -175,7 +185,7 @@ The metadata of an action (it’s description and status) will be shown once you
 
 ###Mobile Friendly
 
-The easiest way to test these is to use Firefox > Tools > Web Developer > Responsive Design View and use that tool to check out the various sizes. A page refresh is often necessary after changing the page size to see the affects.
+The easiest way to test these is to use Firefox as the browsers and go into Tools > Web Developer > Responsive Design View and use that tool to check out the various sizes. A page refresh is often necessary after changing the page size to see the affects.
 
 ####Tablets
 Full tablet support
@@ -184,4 +194,10 @@ Full tablet support
 Full phone support
 
 ###Shepherding - Completed
-Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that will point at elements of interest in the interface and guide them through using the system. This will not show up the next time the user returns. The purpose of this is to familiarise the user with the key components of the interface.
+Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, is greyed out and non-interactable. This further aids the user to see exactly what part of the interface we're trying to teach them.    
+Using cookies we ensure the Shepherding only happens once and not the next time the user returns.   
+The purpose of this is to familiarise the user with the key components of the interface.
+
+We use an open-source HubSpot library called [Shepherd](https://github.com/HubSpot/shepherd) to achieve this. However the part that handles greying out parts of the screen and stopping interaction is done by us and not HubSpot's library.
+
+If you want to show the tutorial again but it's not your first time visiting the page, you can simple trigger it again using the 'Show Tutorial' button in the top bar on screen.
