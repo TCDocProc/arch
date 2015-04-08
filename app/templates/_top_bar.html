@@ -18,6 +18,9 @@
     <ul class="right">
       {% if request.user.is_authenticated %}
         <li><a>{{request.user.email}}</a></li>
+        {% if data %}
+            <li id="delete_pathway"><a href="#">Delete Pathway</a></li>
+        {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}
         <li><a href="{% url 'account_login' %}">Local Sign In</a></li>
