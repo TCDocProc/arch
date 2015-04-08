@@ -8,12 +8,19 @@ $break-large: 600px;
         width: 48%;
         display: inline-block;
         padding: 50px;
+        padding-top: 20px;
         vertical-align:top;
         text-align: justify;
     }
 }
 
+hr {
+    margin-bottom: 35px;
+}
 
+#leftpane{
+    float: left;
+}
 
 #rightpane{
     @media screen and (min-width: $break-large) {
