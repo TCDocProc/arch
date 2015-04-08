@@ -81,20 +81,23 @@ cd arch/
 
 ```
 
-Upon completion `./arch_ubuntu run` returns:  
+Upoun completion `./arch_ubuntu run` returns:  
 `Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
 *All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
 
 ##Usage Instructions (After Installed & Running)
-If you are not logged in you will be presented with two login options, OpenEMR login or Local login.       
+If you are not logged in you will be presented with two login options, OpenEMR login or Local Sample User Login.       
 
 ###OpenEMR
 Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
 The login credentials are prefilled and you can simply just login.
 
-####Proc Table
+####Proc Table Placement
+$file_path is the variable to change in the tcd_doc_proc.php file to make the xml file your targeting configurable.
+
+Place the tcd_doc_proc.php file in the root OpenEMR web folder, usually /var/www/site, but may vary depending on your installation.
 
 ###Local
 Using the local approach allows you to specify your own pathway XML file or use our sample file.
@@ -126,15 +129,16 @@ Tests the XML to JSON conversion. Also tests the status codes of each response a
 
 Uses Django AllAuth library.  
 Includes password recovery, signing up, logging in and logging out.  
-There’s no need to confirm an email. Password must be 6 characters or longer but no symbol restrictions apply.
 
-To try it out:
+Note: These features are only for local users, not OpenEMR users. They are here to demonstrate the backend works and also so you can play around with the user system we built directly.
+
+The reccomended usage is the OpenEMR user login or Sample Local User that is provided on the homepage.
+
+However if you want to change local users, these are the urls to use.
 
 Sign Up | Sign In | Sign Out | Password Recovery
 ------- | -------|-----|-----------------
 `/accounts/signup/` | `/accounts/login/` | `/accounts/logout/` | `/accounts/password/reset/`
-
-On the homepage when not logged in click on the "Use Local Login" button to check these features.
 
 ###OpenEMR Integration - Completed
 
@@ -193,14 +197,11 @@ The easiest way to test these is to use Firefox as the browsers and go into Tool
 Full tablet support
 
 ####Phones
-Full phone support
+Full phone support. The only important change here is you can log out using the side menu now to free up the navigation bar space.
 
 ###Shepherding - Completed
-Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it.   
-During this process everything on the screen, except for the part of interest for the current step of the instructions, is greyed out and non-interactable.   
-This further aids the user to see exactly what part of the interface we're trying to teach them.    
-Using cookies we ensure the Shepherding only happens once and not the next time the user returns.   
-The purpose of this is to familiarise the user with the key components of the interface.
+Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that points at a certain part of the interface and guide the user through using it. During this process everything on the screen, except for the part of interest for the current step of the instructions, are greyed out and non-interactable.   
+This further aids the user to see exactly what part of the interface we're teaching them about. Using cookies we ensure the Shepherding only happens once for each browser. The purpose of this is to familiarise the user with the key components of the interface.
 
 We use an open-source HubSpot library called [Shepherd](https://github.com/HubSpot/shepherd) to achieve this. However the part that handles greying out parts of the screen and stopping interaction is done by us and not HubSpot's library.
 
