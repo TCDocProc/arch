@@ -99,12 +99,12 @@ This allows you to test all the features from user system, xml parsing to the ac
 
 Using Django TestCase module built on top of Python’s  unittest module.
 
-To run the tests run `./ubuntu test`
+To run the tests run `./arch_ubuntu test`
 
 ### Core
 `app/core/tests.py`  
 
-Tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also test the status code of each response appropriately.
+This tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also tests the status code of each response appropriately.
 
 ### Processes
 `app/processes/tests.py`
@@ -129,8 +129,11 @@ On the homepage when not logged in click on the "Use Local Login" button to chec
 
 ###OpenEMR Integration - Completed
 
-The default screen will be an OpenEMR login screen, that makes a integrated login possible if an OpenEMR instance is available. At time of writing we used a instance running at `http://openemr.kev.sh/`, this makes available a user with name `demo` and password also `demo`. The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
+The default home screen when not logged is a screen that allows you to login using OpenEMR patient credentails. Currently we use a instance running at `http://openemr.kev.sh/`, to login to that url use the doctors username and password 'demo'. Note that those detials are useless on our system as they are for a doctor and our system is for patients.
 
+To use the OpenEMR login for our system, use a random test email and the example OpenEMR details that are shown on our systems homepage (again, these are patient details). The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
+
+Note that to install our system with any running OpenEMR system all you need to do is drop in our php file (OpenEMR_integration/TCD_Doc_proc.php)into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
 
 ### Pathway Listing - Completed
 
