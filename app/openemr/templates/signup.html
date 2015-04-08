@@ -3,20 +3,52 @@
 {% load url from future %}
 {% load i18n %}
 
+{% block static %}
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'openemr/scss/login.css' %}" />
+
+    <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'underscore/underscore.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/js/pushy.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'processes/coffee/shepherd.js' %}" charset="utf-8"></script>
+
+
+{% endblock %}
+
 {% block head_title %}OpenEMR Login{% endblock %}
 
 {% block content %}
-    <h1>OpenEMR Login</h1>
 
-    <form class="signup" id="signup_form" method="post" action="#">
-        {% csrf_token %}
-        {% if failed %}<span class="error">Username or Password incorrect, please try again, or visit the <a href="/accounts/login/">old sign-in</a> page.</span>{% endif %}
-        <p><label for="id_email">E-mail:</label> <input id="id_email" name="email" placeholder="E-mail address" type="email" required/></p>
-        <p><label for="id_password2">Open EMR Username:</label> <input id="id_password2" name="username" placeholder="OpenEMR Username" type="text" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/>
-        <p><label for="id_password1">Open EMR Password:</label> <input id="id_password1" name="password" placeholder="OpenEMR Password" type="password" required/></p>
-        {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button type="submit">OpenEMR Login &raquo;</button> <a href="/accounts/login/"><button type="button">Local Sign In</button></a>
-    </form>
+    <div>
+        <div id="leftpane" class="halfpage">
+            <h2>OpenEMR Login</h2>
+            <p>This connects to the OpenEMR system running at <a href="http://openemr.kev.sh/">our own instance</a> and gets peos xml from a demo user called "Demo2" to use on our system.</p>
+            <p>Just click login to proceed.</p>
+
+            <form class="signup" id="signup_form" method="post" action="#">
+                {% csrf_token %}
+                {% if failed %}<span class="error">Username or Password incorrect, please try again, or use sample local user as show on the rest of this page.</span>{% endif %}
+                <p><label for="id_password2">Open EMR Username:</label> <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/>
+                <p><label for="id_password1">Open EMR Password:</label> <input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></p>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button type="submit">OpenEMR Login &raquo;</button>
+            </form>
+        </div>
+        <div id="rightpane" class="halfpage">
+            <h2>Local Sample User</h2>
+            <form class="signin" id="signin_form" method="post" action="#">
+                <p>This button will log you in as a sample user on our local system.</p>
+
+                <p>It will bring you to the dementia pathway. You will still be able to upload your own file using the Upload button on the top right of your screen.</p>
+                <a href="/accounts/login/"><button class="success" type="button">Local Sign In</button></a>
+            </form>
+        </div>
+    </div>
 {% endblock %}

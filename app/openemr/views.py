@@ -16,6 +16,8 @@ def sign_up(request):
         "login_url": ""
      })
 
+    context["failed"] = True
+
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
 
@@ -49,7 +51,5 @@ def sign_up(request):
                 doc.pathway_xml.save(username+".xml", ContentFile(response['xml']), save=True)
                 doc.save()
                 return HttpResponseRedirect("/") 
-        else:
-            context["failed"] = True
 
     return HttpResponse(loader.get_template('signup.html').render(context))
