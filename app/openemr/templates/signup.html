@@ -32,7 +32,7 @@
 
             <form class="signup" id="signup_form" method="post" action="#">
                 {% csrf_token %}
-                {% if failed %}<span class="error">Username or Password incorrect, please try again, or visit the <a href="/accounts/login/">old sign-in</a> page.</span>{% endif %}
+                {% if failed %}<span class="error">Username or Password incorrect, please try again, or use sample local user as show on the rest of this page.</span>{% endif %}
                 <p><label for="id_password2">Open EMR Username:</label> <input id="id_password2" name="username" placeholder="Refresh to get demo user details" type="text" value="Demo2" /><input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden" required/>
                 <p><label for="id_password1">Open EMR Password:</label> <input id="id_password1" name="password" placeholder="Refresh to get demo user details" type="password" value="DemoPatient" required/></p>
                 {% if redirect_field_value %}
