@@ -21,7 +21,7 @@ jQuery ->
 
         getRelativeActivePaths: ->
             @get('seqs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
-                .reduce (x,y) -> x.concat y
+                .reduce ((x,y) -> x.concat y), []
 
     class Sequence extends Backbone.Model
 
@@ -44,7 +44,7 @@ jQuery ->
 
         getRelativeActivePaths: ->
             @get('objs').map (x,i) -> x.getRelativeActivePaths().map (y) -> "#{i}/#{y}"
-                .reduce (x,y) -> x.concat y
+                .reduce ((x,y) -> x.concat y), []
 
     class Process extends Backbone.Model
 
@@ -71,7 +71,7 @@ jQuery ->
 
         getRelativeActivePaths: ->
             @models.map (x,i) -> x.getRelativeActivePaths().map (y) -> "/#{i}/#{y}"
-                .reduce (x,y) -> x.concat y
+                .reduce ((x,y) -> x.concat y), []
 
 ###############################################################################
 

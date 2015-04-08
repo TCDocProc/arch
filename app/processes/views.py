@@ -22,7 +22,6 @@ def index(request,extension):
 
             if os.path.isfile(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml)):
                 xml = open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read()
-                xml = xml.replace("<iteration>", "<branch><sequence>").replace("</iteration>", "</sequence></branch>")
                 xml = et.fromstring(xml)
 
                 response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
@@ -62,7 +61,7 @@ def _parse_action(elem):
 
 def _parse_branch(elem):
     return { "type"        : "branch",
-             "sequences"   : [ _parse_seq(seq) for seq in elem.findall("./sequence")]}
+             "sequences"   : [ _parse_seq(seq) for seq in elem.findall("*")]}
 
 def _parse_seq(seq):
 
@@ -74,5 +73,6 @@ def _parse_seq(seq):
             p.append(_parse_action(elem))
         elif elem.tag == "branch":
             p.append(_parse_branch(elem))
-
+        elif elem.tag == "iteration":
+            p += _parse_seq(elem)
     return p

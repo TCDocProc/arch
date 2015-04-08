@@ -49,9 +49,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Branch;
@@ -89,9 +89,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Sequence;
@@ -140,9 +140,9 @@
           return x.getRelativeActivePaths().map(function(y) {
             return "/" + i + "/" + y;
           });
-        }).reduce(function(x, y) {
+        }).reduce((function(x, y) {
           return x.concat(y);
-        });
+        }), []);
       };
 
       return Processes;
