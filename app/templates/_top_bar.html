@@ -9,7 +9,7 @@
             {% if custom_title %}
                 <h1><a>{{ custom_title }}</a></h1>
             {% else %}
-                <h1><a href="/" style="text-decoration:none;">TCDoc</a></h1>
+                <h1><a href="/">TCDoc</a></h1>
             {% endif %}
     </li>
   </ul>
@@ -17,9 +17,9 @@
     <!-- Right Nav Section -->
     <ul class="right">
       {% if request.user.is_authenticated %}
-        <li><a>{{request.user.email}}</a></li>
+        <li><a>{% if request.user.email %}{{request.user.email}}{% else %}Local Sample User{% endif %}</a></li>
         {% if data %}
-            <li id="delete_pathway"><a href="#">Delete Pathway</a></li>
+            <li id="delete_pathway"><a href="#">Upload New XML Pathway</a></li>
         {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}

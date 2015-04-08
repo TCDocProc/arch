@@ -43,7 +43,6 @@ h1 {
   bottom: 0;
   left: 0;
   background-color: white;
-  z-index: 50;
   padding-top: 50px; }
 
 #minimap {
@@ -262,5 +261,18 @@ h1 {
   .NONE.darken, .darken .NONE, .AVAILABLE.darken, .darken .AVAILABLE {
     background-color: #6c777f;
     border: 2px solid #657077; }
+
+.shepherd-enabled {
+  z-index: 9000; }
+
+#overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 8000;
+  background-color: #00b2ed;
+  opacity: 0.6; }
 
 /*# sourceMappingURL=app.css.map */

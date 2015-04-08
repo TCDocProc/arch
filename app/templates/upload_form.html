@@ -3,10 +3,12 @@
 {% block title %}Upload Your Pathway{% endblock %}
 
 {% block content %}
+<div class="text-left">
     <h1>Upload Pathway</h1>
     <form action="#" method="post" enctype="multipart/form-data">
         {% csrf_token %} {{form}}
         <input class="button success radius" type="submit" value="Upload" />
     </form>
     <a href="/add_pathway/?default=true"><button class="button radius">Use Sample File</button></a>
+</div>
 {% endblock %}

@@ -611,7 +611,7 @@
         return xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
       }
     });
-    return $("#delete_pathway").on('click', function() {
+    return $("#delete_pathway").click(function() {
       return $.ajax({
         type: 'DELETE',
         url: '/processes',
