@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^integrate/$', 'core.views.integrate', name='integrate'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^processes(?:(\.(?P<extension>(json)))|(?:(/\d+)+/?|/?$))', 'processes.views.index', name='process_view'),
-    url(r'^openemr/signup', 'openemr.views.sign_up' )
+    url(r'^openemr/signup', 'openemr.views.sign_up', name='openemr_signup' )
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

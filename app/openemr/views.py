@@ -33,8 +33,14 @@ def sign_up(request):
         # POST with form-encoded data
         r = requests.post(url, data=payload)
 
-        # Response, status etc
-        response = json.loads(r.text)
+        response = None
+        try:
+            # Response, status etc
+            response = json.loads(r.text)
+        except:
+            context["openemr_error"] = True
+            context["failed"] = False
+            return HttpResponse(loader.get_template('signup.html').render(context))
 
         if response['login_success']:
             try:
