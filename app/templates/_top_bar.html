@@ -43,6 +43,8 @@
         {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}
+        <li><a href="{% url 'account_signup' %}">Local Sign Up</a></li>
+        <li><a href="{% url 'account_login' %}">Local Sign In</a></li>
       {% endif %}
     </ul>
     <!-- Left Nav Section -->
