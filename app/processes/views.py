@@ -19,7 +19,6 @@ def index(request,extension):
 
     if request.method=="GET":
         if pathways:
-
             if os.path.isfile(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml)):
                 xml = open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read()
                 xml = et.fromstring(xml)
