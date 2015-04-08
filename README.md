@@ -82,27 +82,36 @@ Upon completion `./arch_ubuntu run` returns:
 `Starting development sever at http://<ip>:<port>/`  
 you can run the webapp using the returned URL.
 
-To test all the features you will need to sign up with a false account and log in. Then you will be directed to a page where you need to upload an xml file that is the output of the kernel, any valid pathway file will do (there's an example xml file in app/static/ ). When you upload a file that will be parsed to json and display the information in a reactive graphical interface. This journey will have shown you every major feature.
-
 *All packages installed by `./arch_ubuntu install` are inside of a virtual env, so it will not conflict with your existing development setup.*
 
-###After Install
-You need to upload a pathway xml file to test the interface. That means you need to do 3 steps
+##Usage Instructions (After Installed & Running)
+If it's your first time or you are not logged in, you will be presented with a login page.   
+You have the option of using OpenEMR login or Local login.   
+Using OpenEMR your pathways will be automatically retrieved for you and presented using our patient interface.   
+Using the local approach allows you to specify your own pathway XML file or use our sample file. 
 
-   - Register a user (using a dummy email and a password over 6 char)
-   - Upload a pathway (An example file is provided in app/static/xml in the project)
-   - Then you will see the interface
+###OpenEMR
+To login using OpenEMR use an arbitrary email address and the username and password that is provided on the webpage. After first login you MUST use the same arbitrary email for future logins as it is associated with this account locally.
 
-This allows you to test all the features from user system, xml parsing to the actual interface the patients will use.
+###Local
+This approach allows you to create a local account by signing up or logging in with your existing local account.
+
+**Creating a new local account**
+- Enter an arbitrary email address
+- Enter a password (6 characters or more)
+- Enter the above password again to verify
+
+After account creation you're presented with two buttons to either upload your own Pathway XML file, or use a Sample file provided by us if you don't have access to one. Similarly this will happen if you login and no pathways are associated with your account, otherwise you will just see your pathways presented using our patient interface.
+
+This allows you to test all the features from user system, XML parsing to the actual interface the patients will use.
 
 ##Testing
 
 Using Django TestCase module built on top of Python’s  unittest module.
 
-To run the tests run `./ubuntu test`
+To run the tests run `./arch_ubuntu test`
 
-### Tests run
-The tests we wrote are run from
+### Core
 `app/core/tests.py`  
 
 This tests the login form. Tests that the file uploader handles incorrect file formats (non XML) and invalid XML files (with incorrect syntax) correctly. Also tests the status code of each response appropriately.
@@ -130,11 +139,9 @@ On the homepage when not logged in click on the "Use Local Login" button to chec
 
 ###OpenEMR Integration - Completed
 
-The default home screen when not logged is a screen that allows you to login using OpenEMR patient credentails. Currently we use a instance running at `http://openemr.kev.sh/`, to login to that url use the doctors username and password 'demo'. Note that those detials are useless on our system as they are for a doctor and our system is for patients.
+The default home screen when not logged is a screen that allows you to login using OpenEMR patient credentials. Currently we use an instance running at `http://openemr.kev.sh/`, to login to that URL use the doctors username and password 'demo'. Note that those details are useless on our system as they are for a doctor and our system is for patients.
 
-To use the OpenEMR login for our system, use a random test email and the example OpenEMR details that are shown on our systems homepage (again, these are patient details). The choice of email is arbitrary for the first login but will be associated with this account locally for future logins.
-
-Note that to install our system with any running OpenEMR system all you need to do is drop in our php file (OpenEMR_integration/TCD_Doc_proc.php)into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
+Note that to install our system with any running OpenEMR system all you need to do is drop in our PHP file (OpenEMR_integration/TCD_Doc_proc.php) into the OpenEMR system to create an endpoint. And then in our settings.py file change the OpenEMR endpoint to the one you just created.
 
 ### Pathway Listing - Completed
 
@@ -168,3 +175,6 @@ Full tablet support
 
 ####Phones
 Full phone support
+
+###Shepherding - Semi-Completed
+Upon seeing our patient interface for the very first time the user will be presented with a series of instructional popups that will point at elements of interest in the interface and guide them through using the system. This will not show up the next time the user returns. The purpose of this is to familiarise the user with the key components of the interface.
