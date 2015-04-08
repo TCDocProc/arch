@@ -90,7 +90,7 @@ you can run the webapp using the returned URL.
 ##Usage Instructions (After Installed & Running)
 If you are not logged in you will be presented with two login options, OpenEMR login or Local Sample User Login.       
 
-###OpenEMR
+###OpenEMR Login
 Using the OpenEMR approach your pathways will be automatically retrieved for you and presented using our patient interface.
 The login credentials are prefilled and you can simply just login.
 
@@ -99,19 +99,19 @@ $file_path is the variable to change in the tcd_doc_proc.php file to make the xm
 
 Place the tcd_doc_proc.php file in the root OpenEMR web folder, usually /var/www/site, but may vary depending on your installation.
 
-###Local
-Using the local approach allows you to specify your own pathway XML file or use our sample file.
-There's no need to Signup, and you can simply login without using any credentials. Later you may upload a different XML file 
+###Local Users Login
+Local users are accounts created on your system. You can use the sample one or create your own (to create your own look at the Authentication Feature).
+To use the Sample one click on "Sample Sign-in" which will log you in with a sample user.
 
-After login you're presented with two buttons to either upload your own Pathway XML file, or use a Sample file provided by us if you don't have access to one. After this process your pathways presented using our patient interface. You may upload a different XML file later on by pressing the button in the header called "Upload New XML Pathway".
+After login with a local user you're presented with two buttons to either upload your own Pathway XML file, or use a Sample file provided by us if you don't have access to one. After this process your pathways presented using our patient interface. You may upload a different XML file later on by pressing the button in the header called "Upload New XML Pathway".
 
-This allows you to test all the features from user system, XML parsing to the actual interface the patients will use.
+This allows you to test all the features from the user system, XML parsing to the actual interface the patients will use.
 
 ##Testing
 
 Our tests are written using the Django TestCase module built on top of Python’s unittest module.
 
-To run the tests run `./arch_ubuntu test`
+To run the tests run `./arch_ubuntu test`. This runs all other python tests listed below.
 
 ### Core
 `app/core/tests.py`  
@@ -150,7 +150,7 @@ Note that to install our system with any running OpenEMR system all you need to 
 
 On Login you will either see your pathway view or an upload screen. If you are on the upload screen you can upload an example XML, the project provides one in `arch/app/static/xml/pathways.xml`.
 
-####Process Structure / Process State / XML Parser
+####Process Structure / Process State / XML Parser - Completed
 
 The list of pathways is extracted from the XML process table. Then the pathway structure is extracted from each and finally the action states are extracted. This information is then converted to JSON using Python and it’s built-in capabilities.
 
@@ -158,30 +158,29 @@ See `arch/app/processes/views.py` for the XML to JSON conversion.
 
 ### Pathway View (Graph View) - Completed
 
-###Task List
+###Task List - Completed
 Early Feature agreed upoun. Now it is included in the graph view as agreed, which is itself a list of active and inactive tasks.
 
-####Graph Layout
+####Graph Layout - Completed
 The graph is read top down. The top cell beginning of a sequence of actions. A branch is represented by two or more sequences of cells appearing beside each other.
 
-####Graph View Refinement:
+####Graph View Refinement - Completed
 There are many graph view refinements which most are listed below
-- Breadcrumbs For Navigation
-- Minimap to show you where you are
-- Better colour scheme and Legend showing you what each colour means
-- Better animations and smoother navigation generally
 
-**Minimap**
+*Minimap*
 
 Once you have selected a specific Pathway you will see a Minimap in the left panel on the screen.   
 If you don't see one, press the hamburger button in the top left of the screen to toggle the left panel to show.   
 As you nest into the Pathways structure, you will see the Minimap on the left update to correspond to your current position in the structure. The section you are out is visible while everything else is slightly dimmed out. To return to the root of the structure simply press on the Minimap.
 
-**Legend**
+*Legend*
 
 Show the left panel (if not already visible) by pressing the hamburger button in the top left.   
 The legend shows what state each colour corresponds to.   
 To go directly to the active step in the Pathway, press the button in the left panel called 'Go to Active Step'.
+
+*Breadcrumbs for Better Navigation*
+These help you know how deep into the tree you have travelled. And also hop back to any point in that tree.
 
 ####Pan / Zoom
 Pan around the view by scrolling vertically or horizontally. Zoom into a cell by clicking it and zoom out by going back a page.
