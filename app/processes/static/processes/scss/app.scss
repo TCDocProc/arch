@@ -157,9 +157,10 @@ h1 {
             margin: 0 15px;
             @media screen and (min-width: 768px) {
                 &:hover {
-                    margin: -5px 10px;
-                    height: calc(100% + 10px);
-                    width: calc(#{$unfilled-seq-width} + 10px);
+                    -webkit-transform: scale(1.03);
+                       -moz-transform: scale(1.03);
+                         -o-transform: scale(1.03);
+                            transform: scale(1.03);
                 }
             }
         }
@@ -180,13 +181,14 @@ h1 {
 .cell {
 
     @for $i from 1 through 10 {
-        &.siblings-#{$i} {
+        :not(.fill) > &.siblings-#{$i} {
             height: calc( 100% / #{$i} );
-            h1 ~ & {
+            :not(.fill) > h1 ~ & {
                 height: calc( (100% - 36px) / #{$i} );
             }
         }
     }
+
 
     display: block;
 
@@ -194,15 +196,13 @@ h1 {
     &.branch {
 
         .fill > &:not(.focused) {
+            height: 200px;
             @media screen and (min-width: 768px) {
                 &:hover {
-                    background-color: #DDDDDD;
-                    margin: 10px -5px;
-                    @for $i from 1 through 10 {
-                        &.siblings-#{$i} {
-                            height: calc( 100% / #{$i} - 2px );
-                        }
-                    }
+                    -webkit-transform: scale(1.05);
+                       -moz-transform: scale(1.05);
+                         -o-transform: scale(1.05);
+                            transform: scale(1.05);
                 }
             }
             margin: 15px 0;
