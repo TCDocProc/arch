@@ -1,4 +1,12 @@
 $(function() {
+
+    window.togglePushy = function(){
+        content.toggleClass(pushyActiveClass, menuSpeed); //toggle site overlay
+        pushy.toggleClass(pushyClass);
+        container.toggleClass(containerClass);
+        push.toggleClass(pushClass); //css class to add pushy capability
+    }
+
     var pushy = $('.pushy'), //menu css class
         content = $('.content'),
         container = $('#container'), //container css class
@@ -13,13 +21,6 @@ $(function() {
         menuWidth = pushy.width() + "px"; //jQuery fallback menu width
     if ( $( window ).width() > 800 ){
         togglePushy();
-    }
-
-    function togglePushy(){
-        content.toggleClass(pushyActiveClass, menuSpeed); //toggle site overlay
-        pushy.toggleClass(pushyClass);
-        container.toggleClass(containerClass);
-        push.toggleClass(pushClass); //css class to add pushy capability
     }
 
     function openPushyFallback(){
