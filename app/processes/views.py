@@ -18,11 +18,12 @@ def index(request,extension):
     pathways = Pathway.objects.filter(user_id=request.user.id).order_by('-id')
 
     if request.method=="GET":
-
         if pathways:
 
             if os.path.isfile(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml)):
-                xml = et.fromstring(open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read())
+                xml = open(settings.MEDIA_ROOT+'/'+str(pathways[0].pathway_xml), "r").read()
+                xml = xml.replace("<iteration>", "<branch><sequence>").replace("</iteration>", "</sequence></branch>")
+                xml = et.fromstring(xml)
 
                 response = [ _parse_process(process) for process in xml.findall("./process_table/process") ]
 
