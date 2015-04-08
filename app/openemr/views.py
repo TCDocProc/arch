@@ -16,7 +16,8 @@ def sign_up(request):
         "login_url": ""
      })
 
-    context["failed"] = True
+    if request.method == "POST":
+         context["failed"] = True
 
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")

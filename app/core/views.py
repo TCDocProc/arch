@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
+import time
 
 from forms import UploadPathwayForm
 from core.models import UploadForm, Pathway
@@ -39,6 +43,20 @@ def add_pathway(request):
 
     else:
         return HttpResponseRedirect('/processes' )
+
+def sample_login(request):
+    t = int(time.time())
+    try:
+        user_prof = User.objects.get(username='sample%s' % (str(t)))
+    except User.DoesNotExist:
+        user_prof = User.objects.create_user('sample%s' % (str(t)), '', 'sample')
+        user_prof.save()
+
+    user = authenticate(username='sample%s' % (str(t)), password='sample')
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect("/") 
+
 
 def integrate(request):
     context = RequestContext(request)
