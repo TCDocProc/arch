@@ -67,7 +67,9 @@
         when: {
           'before-hide': function() {
             if (!$("#minimap :first-child").is(":visible")) {
-              return $(".content > .branch > .sequence:nth-child(2)").click();
+              if ($(".content > .branch > .sequence:nth-child(1)").length) {
+                return $(".content > .branch > .sequence:nth-child(1)").click();
+              }
             }
           }
         },
