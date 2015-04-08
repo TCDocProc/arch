@@ -29,6 +29,15 @@
 
 }
 
+@mixin shepherd-magic($opacity) {
+    -webkit-transition: opacity .4s;
+    -moz-transition: opacity .4s;
+    -ms-transition: opacity .4s;
+    -o-transition: opacity .4s;
+    transition: opacity .4s;
+    opacity: $opacity;
+}
+
 $background-color: #ECF0F1;
 $unfilled-seq-width: 300px;
 $filled-seq-width: 350px;
@@ -86,7 +95,6 @@ h1 {
     bottom: 0;
     left: 0;
     background-color: white;
-    z-index: 50;
     padding-top: 50px;
 
 }
@@ -319,4 +327,21 @@ $none-color: #bdc3c7;
         background-color: darken($none-color, $darken-darkness);
         border: $border-width solid darken(darken($none-color, $border-darkness), $darken-darkness);
     }
+}
+
+// Stuff for Shepherd and whatnot
+
+.shepherd-enabled {
+    z-index: 9000;
+}
+
+#overlay {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 8000;
+    background-color: $active-color;
+    opacity: 0.6;
 }
