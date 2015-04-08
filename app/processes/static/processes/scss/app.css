@@ -115,48 +115,89 @@ h1 {
     .sequence.fill > h1 {
       display: none; }
 
+.branch.focused > .sequence:not(.fill).children-1 {
+  height: 150px; }
+.branch.focused > .sequence:not(.fill).children-2 {
+  height: 300px; }
+.branch.focused > .sequence:not(.fill).children-3 {
+  height: 450px; }
+.branch.focused > .sequence:not(.fill).children-4 {
+  height: 600px; }
+.branch.focused > .sequence:not(.fill).children-5 {
+  height: 750px; }
+.branch.focused > .sequence:not(.fill).children-6 {
+  height: 900px; }
+.branch.focused > .sequence:not(.fill).children-7 {
+  height: 1050px; }
+.branch.focused > .sequence:not(.fill).children-8 {
+  height: 1200px; }
+.branch.focused > .sequence:not(.fill).children-9 {
+  height: 1350px; }
+.branch.focused > .sequence:not(.fill).children-10 {
+  height: 1500px; }
+.branch.focused > .sequence:not(.fill).children-11 {
+  height: 1650px; }
+.branch.focused > .sequence:not(.fill).children-12 {
+  height: 1800px; }
+.branch.focused > .sequence:not(.fill).children-13 {
+  height: 1950px; }
+.branch.focused > .sequence:not(.fill).children-14 {
+  height: 2100px; }
+.branch.focused > .sequence:not(.fill).children-15 {
+  height: 2250px; }
+.branch.focused > .sequence:not(.fill).children-16 {
+  height: 2400px; }
+.branch.focused > .sequence:not(.fill).children-17 {
+  height: 2550px; }
+.branch.focused > .sequence:not(.fill).children-18 {
+  height: 2700px; }
+.branch.focused > .sequence:not(.fill).children-19 {
+  height: 2850px; }
+.branch.focused > .sequence:not(.fill).children-20 {
+  height: 3000px; }
+
 .cell {
   display: block; }
   :not(.fill) > .cell.siblings-1 {
     height: calc( 100% / 1 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-1 {
-      height: calc( (100% - 36px) / 1 ); }
+  .focused > :not(.fill) > .cell.siblings-1 {
+    height: calc( (100% - 36px) / 1 ); }
   :not(.fill) > .cell.siblings-2 {
     height: calc( 100% / 2 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-2 {
-      height: calc( (100% - 36px) / 2 ); }
+  .focused > :not(.fill) > .cell.siblings-2 {
+    height: calc( (100% - 36px) / 2 ); }
   :not(.fill) > .cell.siblings-3 {
     height: calc( 100% / 3 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-3 {
-      height: calc( (100% - 36px) / 3 ); }
+  .focused > :not(.fill) > .cell.siblings-3 {
+    height: calc( (100% - 36px) / 3 ); }
   :not(.fill) > .cell.siblings-4 {
     height: calc( 100% / 4 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-4 {
-      height: calc( (100% - 36px) / 4 ); }
+  .focused > :not(.fill) > .cell.siblings-4 {
+    height: calc( (100% - 36px) / 4 ); }
   :not(.fill) > .cell.siblings-5 {
     height: calc( 100% / 5 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-5 {
-      height: calc( (100% - 36px) / 5 ); }
+  .focused > :not(.fill) > .cell.siblings-5 {
+    height: calc( (100% - 36px) / 5 ); }
   :not(.fill) > .cell.siblings-6 {
     height: calc( 100% / 6 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-6 {
-      height: calc( (100% - 36px) / 6 ); }
+  .focused > :not(.fill) > .cell.siblings-6 {
+    height: calc( (100% - 36px) / 6 ); }
   :not(.fill) > .cell.siblings-7 {
     height: calc( 100% / 7 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-7 {
-      height: calc( (100% - 36px) / 7 ); }
+  .focused > :not(.fill) > .cell.siblings-7 {
+    height: calc( (100% - 36px) / 7 ); }
   :not(.fill) > .cell.siblings-8 {
     height: calc( 100% / 8 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-8 {
-      height: calc( (100% - 36px) / 8 ); }
+  .focused > :not(.fill) > .cell.siblings-8 {
+    height: calc( (100% - 36px) / 8 ); }
   :not(.fill) > .cell.siblings-9 {
     height: calc( 100% / 9 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-9 {
-      height: calc( (100% - 36px) / 9 ); }
+  .focused > :not(.fill) > .cell.siblings-9 {
+    height: calc( (100% - 36px) / 9 ); }
   :not(.fill) > .cell.siblings-10 {
     height: calc( 100% / 10 ); }
-    :not(.fill) > h1 ~ :not(.fill) > .cell.siblings-10 {
-      height: calc( (100% - 36px) / 10 ); }
+  .focused > :not(.fill) > .cell.siblings-10 {
+    height: calc( (100% - 36px) / 10 ); }
   .cell.branch {
     overflow-x: visible;
     white-space: nowrap; }

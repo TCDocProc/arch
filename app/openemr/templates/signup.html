@@ -6,23 +6,19 @@
 {% block static %}
 
     {% load static %}
+
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'openemr/scss/login.css' %}" />
-
-    <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'underscore/underscore.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'backbone/backbone.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'processes/coffee/app.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'processes/js/pushy.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'processes/coffee/shepherd.js' %}" charset="utf-8"></script>
-
+    <script type="text/javascript">
+        $.cookie('seenTour','true');
+    </script>
 
 {% endblock %}
 
 {% block head_title %}OpenEMR Login{% endblock %}
 
 {% block content %}
+
 
     <div class="text-center">
         <div class="farm"></div>

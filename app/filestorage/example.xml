@@ -1,9 +1,9 @@
 <peos>
 	<models>
-		<model>patient_assessment</model>
-		<model>diabetes_assessment</model>
+		<model>Dementia_management</model>
 	</models>
 	<process_table>
+
 		<process pid="0" model="./diabetes_assessment.pml" status="2">
 			<action name="Assess_patient_symptoms" state="DONE">
 				<script>
@@ -31,87 +31,6 @@
 						<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
 						<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
 					</action>
-					<branch>
-						<sequence>
-							<action name="Glucose_test" state="SATISFIED">
-								<script>
-									&quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
-									(normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
-								</script>
-								<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-								<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-							</action>
-							<branch>
-								<sequence>
-									<action name="Glucose_test" state="SATISFIED">
-										<script>
-											&quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
-											(normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
-										</script>
-										<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-										<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-									</action>
-								</sequence>
-								<sequence>
-									<action name="Cholesterol_test" state="READY">
-										<script>
-											&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
-											Normal values&lt;br&gt;
-											Total: below 200 mg/dL&lt;br&gt;
-											LDL: below 70 mg/dL&lt;br&gt;
-											HDL: 40 mg/dL and above (men)&lt;br&gt;
-											50 mg/dL and above (women) &lt;br&gt;
-											Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
-										</script>
-										<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-										<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-									</action>
-								</sequence>
-								<branch>
-									<sequence>
-										<action name="Glucose_test" state="SATISFIED">
-											<script>
-												&quot;Fasting blood sugar (FBS) measures blood glucose after you have not eaten for at least 8 hours
-												(normal: 70 and100 milligrams per deciliter (mg/dL)).&quot;
-											</script>
-											<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-											<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-										</action>
-									</sequence>
-									<sequence>
-										<action name="Cholesterol_test" state="READY">
-											<script>
-												&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
-												Normal values&lt;br&gt;
-												Total: below 200 mg/dL&lt;br&gt;
-												LDL: below 70 mg/dL&lt;br&gt;
-												HDL: 40 mg/dL and above (men)&lt;br&gt;
-												50 mg/dL and above (women) &lt;br&gt;
-												Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
-											</script>
-											<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-											<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-										</action>
-									</sequence>
-								</branch>
-							</branch>
-						</sequence>
-						<sequence>
-							<action name="Cholesterol_test" state="ACTIVE">
-								<script>
-									&quot;Diabetes tends to lower HDL cholesterol levels and raise triglyceride and LDL cholesterol levels, which increases the risk for heart disease and stroke.&lt;br&gt;
-									Normal values&lt;br&gt;
-									Total: below 200 mg/dL&lt;br&gt;
-									LDL: below 70 mg/dL&lt;br&gt;
-									HDL: 40 mg/dL and above (men)&lt;br&gt;
-									50 mg/dL and above (women) &lt;br&gt;
-									Triglycerides: below 150 mg/dL&lt;br&gt;&quot;
-								</script>
-								<req_resource name="assessment" value="001677980.hl7" qualifier=""></req_resource>
-								<prov_resource name="blood_test" value="001677980.hl7" qualifier=""></prov_resource>
-							</action>
-						</sequence>
-					</branch>
 				</sequence>
 				<sequence>
 					<action name="Cholesterol_test" state="READY">
@@ -139,7 +58,109 @@
 				<prov_resource name="diagnosis" value="001677980.hl7" qualifier=""></prov_resource>
 			</action>
 		</process>
-		<process pid="1" model="./selection_example.pml" status="2">
+		<process pid="1" model="./Dementia_management.pml" status="2">
+			<action name="identify_causal_or_exacerbating_factors" state="DONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="provide_patient_carer_with_information" state="DONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="create_treatment_or_care_plan" state="DONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="formal_review_of_care_plan" state="DONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="assess_carer_needs" state="DONE">
+				<script>
+					(null)
+				</script>
+			</action>
+
+			<branch>
+				<sequence>
+					<action name="non_medication_interventions" state="READY">
+						<script>
+							(null)
+						</script>
+					</action>
+					<action name="medication_interventions" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+				</sequence>
+				<sequence>
+					<action name="non_medication_interventions" state="ACTIVE">
+						<script>
+							(null)
+						</script>
+					</action>
+					<action name="medication_interventions" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+				</sequence>
+			</branch>
+			<action name="obtain_carers_view" state="NONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="document_symptoms" state="NONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<action name="assess_behavioural_disturbances" state="NONE">
+				<script>
+					(null)
+				</script>
+			</action>
+			<branch>
+				<iteration>
+					<action name="record_changes" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+				</iteration>
+				<iteration>
+					<action name="monitor_patients_on_medication" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+					<action name="consider_alt_assessments" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+				</iteration>
+				<iteration>
+					<action name="manage_comorbidity" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+					<action name="psychosocial_interventions" state="NONE">
+						<script>
+							(null)
+						</script>
+					</action>
+				</iteration>
+			</branch>
+		</process>
+		<process pid="2" model="./selection_example.pml" status="2">
 			<action name="Assess_patient_symptoms" state="DONE">
 				<script>
 					&quot;Diabetes symptoms:&lt;br&gt;
@@ -193,6 +214,5 @@
 				<prov_resource name="diagnosis" value="001677980.hl7" qualifier=""></prov_resource>
 			</action>
 		</process>
-		
 	</process_table>
 </peos>

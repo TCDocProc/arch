@@ -178,14 +178,22 @@ h1 {
     }
 }
 
+.branch.focused > .sequence:not(.fill) {
+    @for $i from 1 through 20 {
+        &.children-#{$i} {
+            height: #{$i*150}px;
+        }
+    }
+}
+
 .cell {
 
     @for $i from 1 through 10 {
         :not(.fill) > &.siblings-#{$i} {
             height: calc( 100% / #{$i} );
-            :not(.fill) > h1 ~ & {
-                height: calc( (100% - 36px) / #{$i} );
-            }
+        }
+        .focused > :not(.fill) > &.siblings-#{$i} {
+            height: calc( (100% - 36px) / #{$i} );
         }
     }
 
